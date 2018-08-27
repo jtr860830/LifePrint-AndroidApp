@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_notes"
+        android:title="Notes"
+        android:icon="@drawable/notes"
+        />
+    <item
+        android:id="@+id/nav_count"
+        android:title="Count"
+        android:icon="@drawable/count"
+        />
+    <item
+        android:id="@+id/nav_month"
+        android:title="Month"
+        android:icon="@drawable/month"
+        />
+    <item
+        android:id="@+id/nav_feed"
+        android:title="Feed"
+        android:icon="@drawable/feed"
+        />
+    <item
+        android:id="@+id/nav_member"
+        android:title="Members"
+        android:icon="@drawable/member"
+        />
+
+</menu>
