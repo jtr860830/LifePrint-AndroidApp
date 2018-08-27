@@ -70,7 +70,7 @@
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/Navbar"
             android:layout_width="match_parent"
-            android:layout_height="66dp"
+            android:layout_height="0dp"
             android:layout_gravity="bottom"
             app:itemBackground="@color/darkRed"
             app:itemIconTint="@color/white"
