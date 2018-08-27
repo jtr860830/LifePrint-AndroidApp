@@ -135,8 +135,6 @@ public class MainActivity extends AppCompatActivity {
                             FragmentTransaction transaction5 = getSupportFragmentManager().beginTransaction();
                             transaction5.replace(R.id.fragment_space, fragment_setting, "Fragment_members");
                             transaction5.commit();
-                            initMembers();
-
                             break;
                         //return true;
                     }
@@ -145,17 +143,7 @@ public class MainActivity extends AppCompatActivity {
             };
 
 
-    private void initMembers(){
-        //抓資料
 
-        initRecyclerView();
-    }
-    public void initRecyclerView(){
-        RecyclerView recyclerView=(RecyclerView)findViewById(R.id.member_recycler);
-        member_Adapter adapter=new member_Adapter(username,userimage,this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    }
 }
 
 
