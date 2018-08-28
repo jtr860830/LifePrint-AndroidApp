@@ -13,7 +13,6 @@
                 <item android:id="@+id/myschedule_2"
                     android:icon="@drawable/menu_schedule"
                     android:title="Schedule 2"/>
-
             </menu>
         </item>
     </group>
@@ -21,18 +20,18 @@
     <group android:checkableBehavior="single">
         <item android:title="Settings">
             <menu>
-                <item android:id="@+id/settings"
-                    android:icon="@drawable/menu_setting"
-                    android:title="Personal"/>
+                <item android:id="@+id/personal_settings"
+                    android:icon="@drawable/user"
+                    android:title="Personal Settings"/>
                 <item android:id="@+id/group_settings"
-                    android:icon="@drawable/menu_setting"
-                    android:title="Group"/>
+                    android:icon="@drawable/member"
+                    android:title="Group Settings"/>
             </menu>
         </item>
     </group>
 
-    <item android:title="LogOut"
-        android:id="@+id/logout"
+    <item android:title="Exit"
+        android:id="@+id/exit"
         android:icon="@drawable/exit">
     </item>
 

@@ -34,9 +34,6 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<String> username;
     public  ArrayList<Bitmap> userimage;
 
-    int userid1=1;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +82,17 @@ public class MainActivity extends AppCompatActivity {
             new NavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                    switch (menuItem.getItemId()){
+                        case R.id.personal_settings:
+                            Intent itSche1=new Intent(MainActivity.this,PersonalSettings.class);
+                            startActivity(itSche1);
+                            break;
 
+
+                        case R.id.exit:
+                            Toast.makeText(MainActivity.this,"exit",Toast.LENGTH_SHORT).show();
+                            break;
+                    }
                     return true;
                 }
             };

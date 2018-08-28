@@ -23,6 +23,7 @@
         <activity android:name=".AddNotes" />
         <activity android:name=".NewEvent" />
         <activity android:name=".CountDown" />
+        <activity android:name=".PersonalSettings"></activity>
     </application>
 
 </manifest>
