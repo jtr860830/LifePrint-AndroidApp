@@ -67,7 +67,7 @@ public class AddNotes extends AppCompatActivity implements View.OnClickListener,
                     case 5:
                         String ss = (String) msg.obj;
                         Toast.makeText(AddNotes.this, ss, Toast.LENGTH_LONG).show();
-                        Intent it = new Intent(AddNotes.this, notes.class);
+                        Intent it = new Intent(AddNotes.this, MainActivity.class);
                         startActivity(it);
                         break;
                     case 6:
