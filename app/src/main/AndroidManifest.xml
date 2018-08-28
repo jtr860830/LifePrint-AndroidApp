@@ -22,7 +22,7 @@
         <activity android:name=".CreateAccount" />
         <activity android:name=".AddNotes" />
         <activity android:name=".NewEvent" />
-        <activity android:name=".PersonalSettings"></activity>
+        <activity android:name=".PersonalSettings" />
     </application>
 
 </manifest>

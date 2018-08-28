@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import android.preference.PreferenceManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -77,8 +78,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             token=jsonObject.getString("token");
             Toast.makeText(Login.this, token, Toast.LENGTH_LONG).show();
             //寫入token
-            SharedPreferences pref = getSharedPreferences("token", MODE_PRIVATE);
-            pref.edit().putString("TOKEN", token).commit();
+
+            SharedPreferences sharedPreferences = PreferenceManager
+                    .getDefaultSharedPreferences(this);
+            sharedPreferences.edit().putString("TOKEN", token).apply();
+
         }catch (JSONException e){
             e.printStackTrace();
         }

@@ -2,6 +2,7 @@ package com.example.user.navigation_calendar;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.annotation.Nullable;
@@ -27,14 +28,15 @@ public class Http_NotePost extends Service {
     String Snotecontent;
     String postUrl=null;
     String strResult=null;
-    String token= null;
+    String token;
 
 
-    public void Post(String title, String star,String content, String Url) {
+    public void Post(String title, String star,String content, String Url, String T) {
         Snotetitle=title;
         Snotecontent=content;
         important=star;
         postUrl=Url;
+        token = T;
 
         new Thread(new Runnable() {
 
@@ -45,8 +47,6 @@ public class Http_NotePost extends Service {
                 //建立一個Post物件，並給予要連線的Url
                 HttpPost httpPost = new HttpPost(postUrl);
 
-                //getToken
-                token=getSharedPreferences("token", MODE_PRIVATE).getString("TOKEN", "");
                 //send token to backend
                 httpPost.setHeader("Authorization","Bearer "+token);
 

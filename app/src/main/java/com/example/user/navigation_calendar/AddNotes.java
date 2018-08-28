@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.Toast;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 public class AddNotes extends AppCompatActivity implements View.OnClickListener, RatingBar.OnRatingBarChangeListener {
 
@@ -25,6 +27,8 @@ public class AddNotes extends AppCompatActivity implements View.OnClickListener,
     private String Snotetitle = null;
     private String star;
     private String Snotecontent = null;
+    SharedPreferences sharedPreferences;
+    private String token;
 
     Http_NotePost HNP;
     static Handler handler; //宣告成static讓service可以直接使用
@@ -34,8 +38,9 @@ public class AddNotes extends AppCompatActivity implements View.OnClickListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_notes);
 
-        HNP=new Http_NotePost();
-
+        HNP = new Http_NotePost();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        token = sharedPreferences.getString("TOKEN", "");
         note_title=findViewById(R.id.ne_title);
         note_star=findViewById(R.id.ratingBar);
         note_content=findViewById(R.id.edt_content);
@@ -62,7 +67,7 @@ public class AddNotes extends AppCompatActivity implements View.OnClickListener,
                     case 5:
                         String ss = (String) msg.obj;
                         Toast.makeText(AddNotes.this, ss, Toast.LENGTH_LONG).show();
-                        Intent it = new Intent(AddNotes.this,notes.class);
+                        Intent it = new Intent(AddNotes.this, notes.class);
                         startActivity(it);
                         break;
                     case 6:
@@ -87,7 +92,7 @@ public class AddNotes extends AppCompatActivity implements View.OnClickListener,
                 Snotetitle=note_title.getEditableText().toString();
                 star=note_star.toString();
                 Snotecontent=note_content.getEditableText().toString();
-                HNP.Post(Snotetitle,star,Snotecontent,postUrl);
+                HNP.Post(Snotetitle,star,Snotecontent,postUrl, token);
             }
             break;
         }
