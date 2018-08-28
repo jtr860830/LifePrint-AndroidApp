@@ -7,10 +7,19 @@
     android:layout_height="match_parent">
 
 
+    <ImageView
+        android:id="@+id/calendar_background"
+        android:layout_width="match_parent"
+        android:layout_height="176dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/nav_background" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="176dp"
-        android:background="@color/colorAccent"
+        android:background="@android:color/transparent"
         android:gravity="bottom"
         android:orientation="vertical"
         android:padding="16dp"
@@ -20,20 +29,28 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher_round"   />
+            android:id="@+id/per_pic"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/userpic" />
 
         <TextView
+            android:id="@+id/per_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
             android:text="UserName"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@android:color/background_dark" />
 
         <TextView
+            android:id="@+id/per_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="info@codinginflow.com" />
+            android:text="info@codinginflow.com"
+            android:textColor="@android:color/background_dark" />
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

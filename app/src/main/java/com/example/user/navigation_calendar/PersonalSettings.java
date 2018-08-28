@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -16,10 +17,11 @@ import android.widget.ToggleButton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonalSettings extends AppCompatActivity {
+public class PersonalSettings extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView recyclerView;
     private PersonalSettingsAdapter adapter;
+    ImageButton ps_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,17 @@ public class PersonalSettings extends AppCompatActivity {
         adapter = new PersonalSettingsAdapter(psc);
         recyclerView.setAdapter(adapter);
 
+        ps_back=findViewById(R.id.ps_back);
+        ps_back.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.ps_back:
+                finish();
+        }
     }
 }
 
