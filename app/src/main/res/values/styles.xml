@@ -8,10 +8,13 @@
         <item name="colorAccent">@color/underBar</item>
 
     </style>
+    <style name="RatingBar">
+        <item name="colorControlNormal">@color/gray</item>
+        <item name="colorControlActivated">@color/star</item>
+    </style>
 
-    <style name="Theme"></style>
-    <style name="RatingBar" parent="Theme.AppCompat">
-        <item name="colorAccent">@color/star</item>
+    <style name="Theme">
+
     </style>
 
 </resources>

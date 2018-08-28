@@ -10,4 +10,5 @@
     <color name="underBar">#E6D9CA</color>
     <color name="tag">#5F5E5E</color>
     <color name="star"> #EFCE4A</color>
+    <color name="gray">#DDDDDD</color>
 </resources>
