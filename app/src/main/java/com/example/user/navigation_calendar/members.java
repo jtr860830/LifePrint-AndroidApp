@@ -4,6 +4,7 @@ package com.example.user.navigation_calendar;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.AnimatedImageDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -48,28 +49,28 @@ public class members extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
-        List<eventCard> Member = new ArrayList<>();
-        //Member.add(new memberCard(,"isabel"));
-        //Member.add(new memberCard(,"leah"));
+        List<memberCard> Member = new ArrayList<>();
+        Member.add(new memberCard(R.mipmap.ic_launcher ,"isabel"));
+        Member.add(new memberCard(R.mipmap.ic_launcher ,"leah"));
 
-        //adapter = new memberAdapter(Member);
+        adapter = new memberAdapter(Member);
         recyclerView.setAdapter(adapter);
         return view;
     }
 
 }
 class memberCard {
-    private ImageView photo;
+    private int photo;
     private String username;
 
-    public memberCard(ImageView photo, String username) {
+    public memberCard(int photo, String username) {
         this.photo = photo;
         this.username = username;
     }
-    public ImageView getPhoto() {
+    public int getPhoto() {
         return photo;
     }
-    public void setPhoto(ImageView photo) {
+    public void setPhoto(int photo) {
         this.photo = photo;
     }
     public String getUsername() {
@@ -80,6 +81,8 @@ class memberCard {
     }
 
 }
+
+
 class memberAdapter extends RecyclerView.Adapter<memberAdapter.ViewHolder> {
     private List<memberCard> data;
 
@@ -109,7 +112,7 @@ class memberAdapter extends RecyclerView.Adapter<memberAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-       // holder.photo.setImageDrawable(data.get(position).getPhoto());
+        holder.photo.setImageResource(data.get(position).getPhoto());
         holder.username.setText(data.get(position).getUsername());
     }
 
