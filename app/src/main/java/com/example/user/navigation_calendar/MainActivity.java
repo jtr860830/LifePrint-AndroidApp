@@ -60,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigationView = findViewById(R.id.Navbar);
         navigationView.setOnNavigationItemSelectedListener(navListener);
 
+        if (savedInstanceState == null) {
+            navigationView.setSelectedItemId(R.id.nav_month); // change to whichever id should be default
+        }
         //setTitle("Fragment title month");
         month fragment_month = new month();
         FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
