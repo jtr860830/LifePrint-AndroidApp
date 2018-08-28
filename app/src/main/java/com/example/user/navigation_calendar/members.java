@@ -49,10 +49,10 @@ public class members extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         List<eventCard> Member = new ArrayList<>();
-        Member.add(new memberCard(,"isabel"));
-        Member.add(new memberCard(,"leah"));
+        //Member.add(new memberCard(,"isabel"));
+        //Member.add(new memberCard(,"leah"));
 
-        adapter = new memberAdapter(Member);
+        //adapter = new memberAdapter(Member);
         recyclerView.setAdapter(adapter);
         return view;
     }
@@ -109,7 +109,7 @@ class memberAdapter extends RecyclerView.Adapter<memberAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.photo.setImageDrawable(data.get(position).getPhoto());
+       // holder.photo.setImageDrawable(data.get(position).getPhoto());
         holder.username.setText(data.get(position).getUsername());
     }
 

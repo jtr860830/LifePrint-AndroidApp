@@ -50,6 +50,7 @@ public class AddNotes extends AppCompatActivity implements View.OnClickListener,
         note_star.setOnRatingBarChangeListener(this);//設定監聽器
 
 
+
         //讓多個Button共用一個Listener，在Listener中再去設定各按鈕要做的事
         save.setOnClickListener(this);
         back.setOnClickListener(this);

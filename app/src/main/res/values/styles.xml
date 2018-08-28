@@ -6,8 +6,12 @@
         <item name="colorPrimary">@color/darkRed</item>
         <item name="colorPrimaryDark">@color/background</item>
         <item name="colorAccent">@color/underBar</item>
+
     </style>
 
-
+    <style name="Theme"></style>
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorAccent">@color/star</item>
+    </style>
 
 </resources>
