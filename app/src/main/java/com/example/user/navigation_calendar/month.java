@@ -60,6 +60,7 @@ public class month extends Fragment implements View.OnClickListener {
 
     }
 }
+
 class eventCard {
     private String title;
     private String event;
