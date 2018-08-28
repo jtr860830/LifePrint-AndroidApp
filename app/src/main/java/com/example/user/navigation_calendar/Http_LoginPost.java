@@ -27,6 +27,8 @@ public class Http_LoginPost extends Service{
     String postUrl=null;
     String strResult=null;
 
+
+
     public void Post(String strname,String strpas, final String Url) {
         username=strname;
         password=strpas;
@@ -40,6 +42,7 @@ public class Http_LoginPost extends Service{
                 HttpClient httpClient = new DefaultHttpClient();
                 //建立一個Post物件，並給予要連線的Url
                 HttpPost httpPost = new HttpPost(postUrl);
+
                 //建立一個ArrayList且需是NameValuePair，此ArrayList是用來傳送給Http server端的訊息
                 List params = new ArrayList();
                 params.add(new BasicNameValuePair("username",username.toString()));
@@ -75,6 +78,7 @@ public class Http_LoginPost extends Service{
                     msg.obj=strResult;
                     //使用MainActivity的static handler來丟Message
                     Login.handler.sendMessage(msg);
+
                 }
                 if(httpResponse.getStatusLine().getStatusCode() == 401){
                     //將Post回傳的值轉為String，將轉回來的值轉為UTF8，否則若是中文會亂碼

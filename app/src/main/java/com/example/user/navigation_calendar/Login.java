@@ -1,6 +1,7 @@
 package com.example.user.navigation_calendar;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -11,12 +12,18 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
     EditText username;
     EditText password;
     ImageButton btn_login;
     Button btn_createAccount;
+    //
+    String token;
+
 
     //存放要Post的訊息
     private String Susername = null;
@@ -46,7 +53,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 switch (msg.what) {
                     case 2:
                         String ss = (String) msg.obj;
-                        Toast.makeText(Login.this, ss, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(Login.this, ss, Toast.LENGTH_LONG).show();
+                        getToken(ss);
                         Intent itCalendar = new Intent(Login.this,MainActivity.class);
                         startActivity(itCalendar);
                         break;
@@ -60,6 +68,22 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             }
 
         };
+
+    }
+
+    public void getToken(String s){
+        try {
+            JSONObject jsonObject= new JSONObject(s);
+            token=jsonObject.getString("token");
+            Toast.makeText(Login.this, token, Toast.LENGTH_LONG).show();
+            //寫入token
+            SharedPreferences pref = getSharedPreferences("token", MODE_PRIVATE);
+            pref.edit().putString("TOKEN", token).commit();
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+
 
     }
 

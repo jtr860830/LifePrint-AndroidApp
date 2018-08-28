@@ -27,6 +27,8 @@ public class Http_NotePost extends Service {
     String Snotecontent;
     String postUrl=null;
     String strResult=null;
+    String token= null;
+
 
     public void Post(String title, String star,String content, String Url) {
         Snotetitle=title;
@@ -42,6 +44,12 @@ public class Http_NotePost extends Service {
                 HttpClient httpClient = new DefaultHttpClient();
                 //建立一個Post物件，並給予要連線的Url
                 HttpPost httpPost = new HttpPost(postUrl);
+
+                //getToken
+                token=getSharedPreferences("token", MODE_PRIVATE).getString("TOKEN", "");
+                //send token to backend
+                httpPost.setHeader("Authorization","Bearer "+token);
+
                 //建立一個ArrayList且需是NameValuePair，此ArrayList是用來傳送給Http server端的訊息
                 List params = new ArrayList();
                 params.add(new BasicNameValuePair("title",Snotetitle.toString()));
