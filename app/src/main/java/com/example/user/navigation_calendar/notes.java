@@ -2,7 +2,9 @@ package com.example.user.navigation_calendar;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,8 +17,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 
 /**
@@ -26,6 +35,15 @@ public class notes extends Fragment implements View.OnClickListener {
 
     private RecyclerView recyclerView;
     private noteAdapter adapter;
+
+    private TextView title;
+    private TextView content;
+
+    //存放要Get的訊息
+    private String getUrl = "https://sd.jezrien.one/user/backups";
+    Http_NoteGet HNG;
+    SharedPreferences NsharedPreferences;
+    private String token;
 
     public notes() {
         // Required empty public constructor
@@ -40,14 +58,22 @@ public class notes extends Fragment implements View.OnClickListener {
         ImageButton add_notes=(ImageButton)view.findViewById(R.id.btn_addNotes);
         add_notes.setOnClickListener(this);
 
+        //get
+        HNG = new Http_NoteGet();
+
+        //會不會是因為note的頁面是fragment?
+        NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(notes.class);
+        token = NsharedPreferences.getString("TOKEN", "");
+        HNG.Get(getUrl,token);
+
         recyclerView = view.findViewById(R.id.recyclerview);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
-        List<note> notes = new ArrayList<>();
-        notes.add(new note("title1", "content1"));
-        notes.add(new note("title2", "content2"));
+        List<noteCard> notes = new ArrayList<>();
+        notes.add(new noteCard("title1", "content1"));
+        notes.add(new noteCard("title2", "content2"));
 
         adapter = new noteAdapter(notes);
         recyclerView.setAdapter(adapter);
@@ -67,11 +93,11 @@ public class notes extends Fragment implements View.OnClickListener {
     }
 }
 
-class note {
+class noteCard {
     private String title;
     private String content;
 
-    public note(String title, String content) {
+    public noteCard(String title, String content) {
         this.title = title;
         this.content = content;
     }
@@ -94,9 +120,9 @@ class note {
 }
 
 class noteAdapter extends RecyclerView.Adapter<noteAdapter.ViewHolder> {
-    private List<note> data;
+    private List<noteCard> data;
 
-    public noteAdapter(List<note> data) {
+    public noteAdapter(List<noteCard> data) {
         this.data = data;
     }
 
@@ -130,3 +156,4 @@ class noteAdapter extends RecyclerView.Adapter<noteAdapter.ViewHolder> {
         return data.size();
     }
 }
+

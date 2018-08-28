@@ -77,8 +77,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             JSONObject jsonObject= new JSONObject(s);
             token=jsonObject.getString("token");
             Toast.makeText(Login.this, token, Toast.LENGTH_LONG).show();
-            //寫入token
 
+            //寫入token
             SharedPreferences sharedPreferences = PreferenceManager
                     .getDefaultSharedPreferences(this);
             sharedPreferences.edit().putString("TOKEN", token).apply();

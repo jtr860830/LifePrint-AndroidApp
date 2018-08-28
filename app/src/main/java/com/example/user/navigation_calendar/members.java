@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.AnimatedImageDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,14 +25,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class members extends Fragment {
+public class members extends Fragment implements View.OnClickListener {
 
+    //private static final int RESULT_OK = 1;
     private RecyclerView recyclerView;
     private memberAdapter adapter;
+    private ImageButton g_pic;
 
     public members() {
         // Required empty public constructor
@@ -43,7 +49,7 @@ public class members extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_members, container, false);
-
+        //recyclerView
         recyclerView = view.findViewById(R.id.member_recycler);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -55,8 +61,27 @@ public class members extends Fragment {
 
         adapter = new memberAdapter(Member);
         recyclerView.setAdapter(adapter);
+
+        //Change Group Background
+        g_pic=view.findViewById(R.id.btn_gb);
+        g_pic.setOnClickListener(this);
+
         return view;
+
+
     }
+    //變更群組照片
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_gb:
+                break;
+        }
+    }
+
+
+
+
 
 }
 class memberCard {
