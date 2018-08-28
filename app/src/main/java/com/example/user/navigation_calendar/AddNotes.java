@@ -3,6 +3,7 @@ package com.example.user.navigation_calendar;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -78,8 +79,7 @@ public class AddNotes extends AppCompatActivity implements View.OnClickListener,
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_back:
-                Intent itbacknotes=new Intent(AddNotes.this,notes.class);
-                startActivity(itbacknotes);
+                finish();
             break;
 
             case R.id.btn_save:
@@ -95,6 +95,6 @@ public class AddNotes extends AppCompatActivity implements View.OnClickListener,
 
     @Override
     public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromuser) {
-        Toast.makeText(getApplicationContext(), "important: " + rating, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "important: " + rating, Toast.LENGTH_SHORT).show();
     }
 }
