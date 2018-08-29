@@ -66,11 +66,16 @@ public class notes extends Fragment implements View.OnClickListener {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
+        List<noteCard> trans = new ArrayList<>();
         //get
         HNG = new Http_NoteGet();
         HNG.Get(getUrl,token);
         resultJSON = HNG.getTt();
-        parseJSON(resultJSON);
+        parseJSON(resultJSON, trans);
+
+
+        adapter = new noteAdapter(trans);
+        recyclerView.setAdapter(adapter);
         /*
         List<noteCard> notes = new ArrayList<>();
         notes.add(new noteCard("title1", "content1"));
@@ -96,21 +101,17 @@ public class notes extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void parseJSON(String result) {
-
-        List<noteCard> trans = new ArrayList<>();
+    public void parseJSON(String result, List<noteCard> trans) {
         try {
             JSONArray array = new JSONArray(result);
             for (int i=0; i<array.length(); i++){
                 JSONObject obj = array.getJSONObject(i);
-                String title = obj.getString("title");
-                String content = obj.getString("content");
+                String title = obj.getString("Title");
+                String content = obj.getString("Info");
 
                 Log.d("JSON:",title+"/"+content+"/");
                 trans.add(new noteCard(title, content));
             }
-            adapter = new noteAdapter(trans);
-            recyclerView.setAdapter(adapter);
         } catch (JSONException e) {
             e.printStackTrace();
         }
