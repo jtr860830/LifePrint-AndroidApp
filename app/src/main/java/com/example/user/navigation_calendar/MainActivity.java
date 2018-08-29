@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         //return true;
                         case R.id.nav_feed:
-                            title.setText("Feed");
+                            title.setText("Analysis");
                             feed fragment_feed = new feed();
                             FragmentTransaction transaction4 = getSupportFragmentManager().beginTransaction();
                             transaction4.replace(R.id.fragment_space, fragment_feed, "Fragment_feed");
