@@ -38,7 +38,7 @@ public class notes extends Fragment implements View.OnClickListener {
     Http_NoteGet HNG;
     SharedPreferences NsharedPreferences;
     private String token;
-    private String tt;
+    private String resultJSON;
 
     public notes() {
         // Required empty public constructor
@@ -60,7 +60,7 @@ public class notes extends Fragment implements View.OnClickListener {
         //get
         HNG = new Http_NoteGet();
         HNG.Get(getUrl,token);
-        tt = HNG.getTt();
+        resultJSON = HNG.getTt();
 
         recyclerView = view.findViewById(R.id.recyclerview);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -70,9 +70,9 @@ public class notes extends Fragment implements View.OnClickListener {
         List<noteCard> notes = new ArrayList<>();
         notes.add(new noteCard("title1", "content1"));
         notes.add(new noteCard("title2", "content2"));
-        notes.add(new noteCard("title3", tt));
+        notes.add(new noteCard("title3", resultJSON));
 
-        Log.d("test", tt);
+        Log.d("test", resultJSON);
 
         adapter = new noteAdapter(notes);
         recyclerView.setAdapter(adapter);
