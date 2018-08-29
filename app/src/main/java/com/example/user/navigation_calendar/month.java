@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -119,7 +118,7 @@ class eventAdapter extends RecyclerView.Adapter<eventAdapter.ViewHolder> {
         public ViewHolder(View v) {
             super(v);
             title = v.findViewById(R.id.title);
-            event = v.findViewById(R.id.event);
+            event = v.findViewById(R.id.event_time);
             location = v.findViewById(R.id.location);
         }
     }
