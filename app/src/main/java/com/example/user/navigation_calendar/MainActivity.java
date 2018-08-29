@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         //return true;
                         case R.id.nav_count:
-                            title.setText("Count");
+                            title.setText("Countdown");
                             count fragment_count = new count();
                             FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
                             transaction2.replace(R.id.fragment_space, fragment_count, "Fragment_count");
