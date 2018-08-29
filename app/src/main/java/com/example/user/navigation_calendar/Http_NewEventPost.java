@@ -59,11 +59,11 @@ public class Http_NewEventPost extends Service{
 
                 //建立一個ArrayList且需是NameValuePair，此ArrayList是用來傳送給Http server端的訊息
                 List params = new ArrayList();
-                params.add(new BasicNameValuePair("event",title.toString()));
-                params.add(new BasicNameValuePair("start",start.toString()));
-                params.add(new BasicNameValuePair("end",end.toString()));
-                params.add(new BasicNameValuePair("location",location.toString()));
-                params.add(new BasicNameValuePair("note",note.toString()));
+                params.add(new BasicNameValuePair("event", title.toString()));
+                params.add(new BasicNameValuePair("start", start.toString()));
+                params.add(new BasicNameValuePair("end", end.toString()));
+                params.add(new BasicNameValuePair("location", location.toString()));
+                params.add(new BasicNameValuePair("note", note.toString()));
 
                 //發送Http Request，內容為params，且為UTF8格式
                 UrlEncodedFormEntity ent = null;

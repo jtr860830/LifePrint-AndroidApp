@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.text.DecimalFormat;
 
 public class NewEvent extends AppCompatActivity implements View.OnClickListener {
 
@@ -30,6 +31,7 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
     private TextView textTimeFrom;
     private DatePickerDialog datePickerDialogFrom;
     private TimePickerDialog timePickerDialogFrom;
+    final DecimalFormat df = new DecimalFormat("00");
 
     private ImageButton doSetDateTo;
     private ImageButton doSetTimeTo;
@@ -123,14 +125,14 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
             @Override
             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
                 monthOfYear=monthOfYear+1;
-                textDateFrom.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
+                textDateFrom.setText(year + "-" + df.format(monthOfYear) + "-" + df.format(dayOfMonth));
             }
         },calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
         //實作TimePickerDialog的onTimeSet方法，設定日期後將所有設定的日期show在textTime上
         timePickerDialogFrom= new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-                textTimeFrom.setText(hourOfDay+":"+minute);
+                textTimeFrom.setText(df.format(hourOfDay)+":"+df.format(minute));
                 //textTimeFrom.setText((hourOfDay>12 ? hourOfDay-12:hourOfDay)+":"+minute+" "+(hourOfDay>12?"PM" : "AM"));
             }
         },calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),false);
@@ -142,14 +144,14 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
             @Override
             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
                 monthOfYear=monthOfYear+1;
-                textDateTo.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
+                textDateTo.setText(year + "-" + df.format(monthOfYear) + "-" + df.format(dayOfMonth));
             }
         },calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
         //實作TimePickerDialog的onTimeSet方法，設定日期後將所有設定的日期show在textTime上
         timePickerDialogTo= new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-                textTimeTo.setText(hourOfDay+":"+minute);
+                textTimeTo.setText(df.format(hourOfDay)+":"+df.format(minute));
                 //textTimeTo.setText((hourOfDay>12 ? hourOfDay-12:hourOfDay)+":"+minute+" "+(hourOfDay>12?"PM" : "AM"));
             }
         },calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),false);
@@ -200,7 +202,7 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
                 break;
 
             case R.id.new_back:
-                Intent itcreateaccount = new Intent(NewEvent.this,MainActivity.class);
+                Intent itcreateaccount = new Intent(NewEvent.this, MainActivity.class);
                 startActivity(itcreateaccount);
 
                 break;
