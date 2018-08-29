@@ -15,14 +15,14 @@
         android:gravity="center"
         android:text="Group Settings"
         android:textColor="@color/darkRed"
-        android:textSize="24sp"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/gs_back"
-        android:layout_width="25dp"
+        android:layout_width="20dp"
         android:layout_height="25dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
@@ -39,7 +39,7 @@
         android:layout_height="25dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="16dp"
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"

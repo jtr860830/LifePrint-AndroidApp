@@ -44,7 +44,7 @@
 
             <ToggleButton
                 android:id="@+id/toggleButton"
-                android:layout_width="128dp"
+                android:layout_width="112dp"
                 android:layout_height="24dp"
                 android:layout_weight="1"
                 android:background="@drawable/group15"

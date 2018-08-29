@@ -14,72 +14,36 @@
         android:layout_height="match_parent">
 
 
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="17"
-                android:gravity="center"
-                android:text="Notes"
-                android:textColor="@color/textColor"
-                android:textSize="30sp" />
-
-            <ImageButton
-                android:id="@+id/btn_addNotes"
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-
-                android:scaleType="centerInside"
-                android:src="@drawable/addicon"
-                tools:layout_editor_absoluteX="274dp"
-                tools:layout_editor_absoluteY="56dp" />
-
-            <ImageButton
-                android:id="@+id/btn_search"
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:scaleType="centerInside"
-                android:src="@drawable/searchicon" />
-
-            <ImageButton
-                android:id="@+id/btn_setting"
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:scaleType="centerInside"
-                android:src="@drawable/moreicon" />
-
-        </LinearLayout>
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="32dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-            tools:listitem="@layout/notes_item" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/notes_item">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <ImageButton
+            android:id="@+id/btn_addNotes"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/neweventadd"
+            app:layout_constraintBottom_toBottomOf="@+id/recyclerview"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 
