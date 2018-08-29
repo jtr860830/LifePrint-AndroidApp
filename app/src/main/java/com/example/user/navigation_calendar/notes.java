@@ -18,6 +18,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,25 +61,26 @@ public class notes extends Fragment implements View.OnClickListener {
         NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         token = NsharedPreferences.getString("TOKEN", "");
 
-        //get
-        HNG = new Http_NoteGet();
-        HNG.Get(getUrl,token);
-        resultJSON = HNG.getTt();
-
         recyclerView = view.findViewById(R.id.recyclerview);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
+        //get
+        HNG = new Http_NoteGet();
+        HNG.Get(getUrl,token);
+        resultJSON = HNG.getTt();
+        parseJSON(resultJSON);
+        /*
         List<noteCard> notes = new ArrayList<>();
         notes.add(new noteCard("title1", "content1"));
         notes.add(new noteCard("title2", "content2"));
         notes.add(new noteCard("title3", resultJSON));
 
-        Log.d("test", resultJSON);
+        */
 
-        adapter = new noteAdapter(notes);
-        recyclerView.setAdapter(adapter);
+        //Log.d("test", resultJSON);
+
 
         return view;
 
@@ -90,7 +95,30 @@ public class notes extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
+    public void parseJSON(String result) {
+
+        List<noteCard> trans = new ArrayList<>();
+        try {
+            JSONArray array = new JSONArray(result);
+            for (int i=0; i<array.length(); i++){
+                JSONObject obj = array.getJSONObject(i);
+                String title = obj.getString("title");
+                String content = obj.getString("content");
+
+                Log.d("JSON:",title+"/"+content+"/");
+                trans.add(new noteCard(title, content));
+            }
+            adapter = new noteAdapter(trans);
+            recyclerView.setAdapter(adapter);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }
+
+
+//JSON-->data
 
 class noteCard {
     private String title;
@@ -154,5 +182,9 @@ class noteAdapter extends RecyclerView.Adapter<noteAdapter.ViewHolder> {
     public int getItemCount() {
         return data.size();
     }
+
+
+
 }
+
 
