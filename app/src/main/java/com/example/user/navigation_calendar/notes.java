@@ -37,6 +37,7 @@ public class notes extends Fragment implements View.OnClickListener {
     Http_NoteGet HNG;
     SharedPreferences NsharedPreferences;
     private String token;
+    private String tt;
 
     public notes() {
         // Required empty public constructor
@@ -51,12 +52,14 @@ public class notes extends Fragment implements View.OnClickListener {
         ImageButton add_notes=(ImageButton)view.findViewById(R.id.btn_addNotes);
         add_notes.setOnClickListener(this);
 
-        //get
-        HNG = new Http_NoteGet();
-        //會不會是因為note的頁面是fragment
+
+
         NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         token = NsharedPreferences.getString("TOKEN", "");
-        HNG.Get(getUrl,token);
+
+        //get
+        HNG = new Http_NoteGet();
+        tt=HNG.Get(getUrl,token);
 
         recyclerView = view.findViewById(R.id.recyclerview);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -66,6 +69,7 @@ public class notes extends Fragment implements View.OnClickListener {
         List<noteCard> notes = new ArrayList<>();
         notes.add(new noteCard("title1", "content1"));
         notes.add(new noteCard("title2", "content2"));
+        notes.add(new noteCard(tt, "content3"));
 
         adapter = new noteAdapter(notes);
         recyclerView.setAdapter(adapter);

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -22,14 +23,13 @@ public class Http_NoteGet extends Service {
 
     private String getUrl;
     private String token;
+    private String tt;
 
-
-    public void Get(String Url,String T) {
+    public String Get(String Url,String T) {
         getUrl=Url;
         token = T;
 
         new Thread(new Runnable() {
-
             @Override
             public void run() {
                 //建立HttpClient物件
@@ -45,6 +45,10 @@ public class Http_NoteGet extends Service {
                     HttpResponse response = httpClient.execute(get);
                     HttpEntity resEntity = response.getEntity();
                     Log.d("Response of GET request", EntityUtils.toString(resEntity));
+
+                    //怪怪的
+                    tt=EntityUtils.toString(resEntity);//會閃退
+                    //tt=resEntity.toString();//不會閃退
                 } catch (ClientProtocolException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -54,6 +58,7 @@ public class Http_NoteGet extends Service {
                 }
             }
         }).start();
+        return tt;
     }
 
     @Nullable
