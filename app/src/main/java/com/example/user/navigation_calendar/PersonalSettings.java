@@ -1,5 +1,6 @@
 package com.example.user.navigation_calendar;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ public class PersonalSettings extends AppCompatActivity implements View.OnClickL
     private RecyclerView recyclerView;
     private PersonalSettingsAdapter adapter;
     ImageButton ps_back;
+    ImageButton ps_save;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,8 @@ public class PersonalSettings extends AppCompatActivity implements View.OnClickL
 
         ps_back=findViewById(R.id.ps_back);
         ps_back.setOnClickListener(this);
+        ps_save=findViewById(R.id.ps_save);
+        ps_save.setOnClickListener(this);
 
     }
 
@@ -49,6 +53,12 @@ public class PersonalSettings extends AppCompatActivity implements View.OnClickL
         switch (view.getId()){
             case R.id.ps_back:
                 finish();
+                break;
+            case R.id.ps_save:
+                //post
+
+                finish();
+                break;
         }
     }
 }

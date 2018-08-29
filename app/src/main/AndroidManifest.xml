@@ -23,7 +23,8 @@
         <activity android:name=".AddNotes" />
         <activity android:name=".NewEvent" />
         <activity android:name=".PersonalSettings" />
-        <activity android:name=".ForgotPassword"></activity>
+        <activity android:name=".ForgotPassword" />
+        <activity android:name=".GroupSetting"></activity>
     </application>
 
 </manifest>

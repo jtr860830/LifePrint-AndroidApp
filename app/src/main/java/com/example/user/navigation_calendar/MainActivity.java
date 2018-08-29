@@ -85,17 +85,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
+//滑開頁面選單
     private NavigationView.OnNavigationItemSelectedListener drawer_navigationViewListener =
             new NavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                     switch (menuItem.getItemId()){
                         case R.id.personal_settings:
-                            Intent itSche1=new Intent(MainActivity.this,PersonalSettings.class);
-                            startActivity(itSche1);
+                            Intent itPS=new Intent(MainActivity.this,PersonalSettings.class);
+                            startActivity(itPS);
                             break;
-
+                        case R.id.group_settings:
+                            Intent itGS=new Intent(MainActivity.this,GroupSetting.class);
+                            startActivity(itGS);
+                            break;
 
                         case R.id.exit:
                             Toast.makeText(MainActivity.this,"exit",Toast.LENGTH_SHORT).show();
@@ -104,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
             };
-
+//下方選單
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
 
