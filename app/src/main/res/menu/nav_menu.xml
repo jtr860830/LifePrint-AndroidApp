@@ -17,7 +17,7 @@
         />
     <item
         android:id="@+id/nav_feed"
-        android:title="Feed"
+        android:title="Analysis"
         android:icon="@drawable/feed"
         />
     <item

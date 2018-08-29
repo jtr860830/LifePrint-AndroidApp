@@ -30,6 +30,10 @@
         </item>
     </group>
 
+    <item android:title="Your Track"
+        android:id="@+id/map"
+        android:icon="@drawable/place">
+    </item>
     <item android:title="Exit"
         android:id="@+id/exit"
         android:icon="@drawable/exit">
