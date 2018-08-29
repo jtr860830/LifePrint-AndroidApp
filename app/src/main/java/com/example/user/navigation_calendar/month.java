@@ -95,7 +95,7 @@ public class month extends Fragment implements View.OnClickListener {
                 JSONObject obj = array.getJSONObject(i);
 
                 String event = obj.getString("Event");
-                String startTime = obj.getString("Start");
+                String startTime = obj.getString("StartTime");
                 String location = obj.getString("Location");
 
                 Log.d("JSON:",event+"/"+startTime+"/"+location);

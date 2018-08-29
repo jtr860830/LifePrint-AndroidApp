@@ -51,7 +51,7 @@ public class notes extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_notes, container, false);
-        ImageButton add_notes=(ImageButton)view.findViewById(R.id.btn_addNotes);
+        ImageButton add_notes = view.findViewById(R.id.btn_addNotes);
         add_notes.setOnClickListener(this);
 
         //set token
