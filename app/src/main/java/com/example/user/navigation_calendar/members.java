@@ -36,7 +36,7 @@ public class members extends Fragment implements View.OnClickListener {
     //private static final int RESULT_OK = 1;
     private RecyclerView recyclerView;
     private memberAdapter adapter;
-    private ImageButton g_pic;
+
 
     public members() {
         // Required empty public constructor
@@ -63,8 +63,7 @@ public class members extends Fragment implements View.OnClickListener {
         recyclerView.setAdapter(adapter);
 
         //Change Group Background
-        g_pic=view.findViewById(R.id.btn_gb);
-        g_pic.setOnClickListener(this);
+
 
         return view;
 
@@ -74,8 +73,7 @@ public class members extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.btn_gb:
-                break;
+
         }
     }
 

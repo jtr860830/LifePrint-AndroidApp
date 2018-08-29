@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -54,7 +56,8 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
     private String Salert=null;
     private String Snotes=null;
     private String Slocation=null;
-
+    private String token;
+    SharedPreferences sharedPreferences;
 
     private String postUrl = "https://sd.jezrien.one/user/schedules";
     static Handler handler; //宣告成static讓service可以直接使用
@@ -67,6 +70,8 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
         setContentView(R.layout.activity_new_event);
 
         HNEP=new Http_NewEventPost();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        token = sharedPreferences.getString("TOKEN", "");
 
         getelement();
         doFindView();
@@ -94,7 +99,7 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
                     case 6:
                         String ss = (String) msg.obj;
                         Toast.makeText(NewEvent.this, ss, Toast.LENGTH_LONG).show();
-                        Intent itCalendar = new Intent(NewEvent.this,month.class);
+                        Intent itCalendar = new Intent(NewEvent.this,MainActivity.class);
                         startActivity(itCalendar);
                         break;
                     case 7:
@@ -184,7 +189,7 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
                     Slocation=new_location.getEditableText().toString();
                     Snotes=new_notes.getEditableText().toString();
 
-                    HNEP.Post(Stitle,Sstart,Send,Salert,Slocation,Snotes,postUrl);
+                    HNEP.Post(Stitle,Sstart,Send,Salert,Slocation,Snotes,postUrl,token);
 
                 }
                 break;

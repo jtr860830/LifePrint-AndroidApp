@@ -53,7 +53,6 @@ public class notes extends Fragment implements View.OnClickListener {
         add_notes.setOnClickListener(this);
 
 
-
         NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         token = NsharedPreferences.getString("TOKEN", "");
 

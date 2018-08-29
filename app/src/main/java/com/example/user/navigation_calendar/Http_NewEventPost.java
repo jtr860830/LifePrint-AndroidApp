@@ -32,10 +32,10 @@ public class Http_NewEventPost extends Service{
     String note;
     String postUrl=null;
     String strResult=null;
-
+    String token;
 
     public void Post(String Stitle,String Sstart,String Send,
-                     String Salert,String Slocation,String Snotes ,String Url) {
+                     String Salert,String Slocation,String Snotes ,String Url,String T) {
         title=Stitle;
         start=Sstart;
         end=Send;
@@ -43,6 +43,7 @@ public class Http_NewEventPost extends Service{
         location=Slocation;
         note=Snotes;
         postUrl=Url;
+        token = T;
 
         new Thread(new Runnable() {
 
@@ -52,6 +53,10 @@ public class Http_NewEventPost extends Service{
                 HttpClient httpClient = new DefaultHttpClient();
                 //建立一個Post物件，並給予要連線的Url
                 HttpPost httpPost = new HttpPost(postUrl);
+
+                //send token to backend
+                httpPost.setHeader("Authorization","Bearer "+token);
+
                 //建立一個ArrayList且需是NameValuePair，此ArrayList是用來傳送給Http server端的訊息
                 List params = new ArrayList();
                 params.add(new BasicNameValuePair("event",title.toString()));

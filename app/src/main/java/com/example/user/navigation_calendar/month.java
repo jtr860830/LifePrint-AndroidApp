@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class month extends Fragment implements View.OnClickListener {
 
     private RecyclerView recyclerView;
     private eventAdapter adapter;
-
+    private ImageButton addevent;
     public month() {
         // Required empty public constructor
     }
@@ -35,8 +36,9 @@ public class month extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_month, container, false);
-        //Button new_event=view.findViewById(R.id.btn_newevent);
-        //new_event.setOnClickListener(this);
+
+        addevent=view.findViewById(R.id.btn_addevent);
+        addevent.setOnClickListener(this);
 
         recyclerView = view.findViewById(R.id.recyclerview);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -54,11 +56,16 @@ public class month extends Fragment implements View.OnClickListener {
 
         return view;
     }
-
     @Override
     public void onClick(View view) {
-
+        switch (view.getId()){
+            case R.id.btn_addevent:
+                Intent itaddevent = new Intent(getActivity(),NewEvent.class);
+                startActivity(itaddevent);
+                break;
+        }
     }
+
 }
 
 class eventCard {
