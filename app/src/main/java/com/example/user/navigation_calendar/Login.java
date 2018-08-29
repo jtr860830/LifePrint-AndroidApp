@@ -21,6 +21,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     EditText username;
     EditText password;
     ImageButton btn_login;
+    Button btn_forgotpassword;
     Button btn_createAccount;
     //
     String token;
@@ -45,7 +46,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         password = findViewById(R.id.login_password);
         btn_createAccount=findViewById(R.id.btn_createAccount);
         btn_login=findViewById(R.id.btn_login);
+        btn_forgotpassword=findViewById(R.id.btn_forgetpassword);
 
+        btn_forgotpassword.setOnClickListener(this);
         btn_createAccount.setOnClickListener(this);
         btn_login.setOnClickListener(this);
 
@@ -105,6 +108,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     Spassword= password.getEditableText().toString();
                     HLP.Post(Susername,Spassword,postUrl);
                 }
+                break;
+            case R.id.btn_forgetpassword:
+                Intent itfp = new Intent(Login.this,ForgotPassword.class);
+                startActivity(itfp);
                 break;
         }
 

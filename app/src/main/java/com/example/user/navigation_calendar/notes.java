@@ -21,13 +21,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -60,7 +53,7 @@ public class notes extends Fragment implements View.OnClickListener {
 
         //get
         HNG = new Http_NoteGet();
-        
+        //會不會是因為note的頁面是fragment
         NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         token = NsharedPreferences.getString("TOKEN", "");
         HNG.Get(getUrl,token);
