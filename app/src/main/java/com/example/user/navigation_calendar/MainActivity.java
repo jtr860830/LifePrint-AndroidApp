@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.os.StrictMode;
 
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "fri_sug";
     public ArrayList<String> username;
     public  ArrayList<Bitmap> userimage;
+    private TextView title;
 
 
     @Override
@@ -47,11 +49,12 @@ public class MainActivity extends AppCompatActivity {
         //Member 的array資料
         username=new ArrayList<>();
         userimage=new ArrayList<>();
-
+        title = findViewById(R.id.toolbar_title);
 
         //滑開頁面
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
         drawer = findViewById(R.id.drawer_layout);
         NavigationView drawer_navigationView = findViewById(R.id.nav_view);
         drawer_navigationView.setNavigationItemSelectedListener(drawer_navigationViewListener);
@@ -116,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
                     switch (menuItem.getItemId()) {
                         case R.id.nav_notes:
-                            //setTitle("fragment notes");
+                            title.setText("Notes");
                             notes fragment_notes = new notes();
                             FragmentTransaction transaction1 = getSupportFragmentManager().beginTransaction();
                             transaction1.replace(R.id.fragment_space, fragment_notes, "FragmentNotes");
@@ -124,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         //return true;
                         case R.id.nav_count:
-                            //setTitle("fragment count");
+                            title.setText("Count");
                             count fragment_count = new count();
                             FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
                             transaction2.replace(R.id.fragment_space, fragment_count, "Fragment_count");
@@ -132,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         //return true;
                         case R.id.nav_month:
-                            //setTitle("fragment month");
+                            title.setText("Month");
                             month fragment_month = new month();
                             FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
                             transaction3.replace(R.id.fragment_space, fragment_month, "Fragment_month");
@@ -140,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         //return true;
                         case R.id.nav_feed:
-                            // setTitle("fragment feed");
+                            title.setText("Feed");
                             feed fragment_feed = new feed();
                             FragmentTransaction transaction4 = getSupportFragmentManager().beginTransaction();
                             transaction4.replace(R.id.fragment_space, fragment_feed, "Fragment_feed");
@@ -148,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         //return true;
                         case R.id.nav_member:
-                            //setTitle("fragment setting");
+                            title.setText("Member");
                             members fragment_setting = new members();
                             FragmentTransaction transaction5 = getSupportFragmentManager().beginTransaction();
                             transaction5.replace(R.id.fragment_space, fragment_setting, "Fragment_members");
