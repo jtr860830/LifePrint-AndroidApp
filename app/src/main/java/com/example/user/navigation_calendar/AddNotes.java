@@ -91,7 +91,7 @@ public class AddNotes extends AppCompatActivity implements View.OnClickListener,
             case R.id.btn_save:
             if (note_title!=null && note_content!=null){
                 Snotetitle=note_title.getEditableText().toString();
-                star=Float.toString(starnum);
+                star=Integer.toString(Math.round(note_star.getRating()));
                 Snotecontent=note_content.getEditableText().toString();
                 HNP.Post(Snotetitle,star,Snotecontent,postUrl, token);
             }
