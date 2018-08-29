@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,7 +59,8 @@ public class notes extends Fragment implements View.OnClickListener {
 
         //get
         HNG = new Http_NoteGet();
-        tt=HNG.Get(getUrl,token);
+        HNG.Get(getUrl,token);
+        tt = HNG.getTt();
 
         recyclerView = view.findViewById(R.id.recyclerview);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -68,7 +70,9 @@ public class notes extends Fragment implements View.OnClickListener {
         List<noteCard> notes = new ArrayList<>();
         notes.add(new noteCard("title1", "content1"));
         notes.add(new noteCard("title2", "content2"));
-        notes.add(new noteCard(tt, "content3"));
+        notes.add(new noteCard("title3", tt));
+
+        Log.d("test", tt);
 
         adapter = new noteAdapter(notes);
         recyclerView.setAdapter(adapter);

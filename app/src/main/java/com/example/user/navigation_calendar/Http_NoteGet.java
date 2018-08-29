@@ -14,6 +14,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
@@ -25,45 +26,40 @@ public class Http_NoteGet extends Service {
     private String token;
     private String tt;
 
-    public String Get(String Url,String T) {
-        getUrl=Url;
+    public void Get(String Url,String T) {
+        getUrl = Url;
         token = T;
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                //建立HttpClient物件
-                HttpClient httpClient = new DefaultHttpClient();
-                //建立Http Get，並給予要連線的Url
-                HttpGet get = new HttpGet(getUrl);
 
-                //send token to backend
-                get.setHeader("Authorization","Bearer "+token);
+        //建立HttpClient物件
+        HttpClient httpClient = new DefaultHttpClient();
+        //建立Http Get，並給予要連線的Url
+        HttpGet get = new HttpGet(getUrl);
+        //send token to backend
+        get.setHeader("Authorization","Bearer "+token);
 
-                //透過Get跟Http Server連線並取回傳值，並將傳值透過Log顯示出來
-                try {
-                    HttpResponse response = httpClient.execute(get);
-                    HttpEntity resEntity = response.getEntity();
-                    Log.d("Response of GET request", EntityUtils.toString(resEntity));
-
-                    //怪怪的
-                    tt=EntityUtils.toString(resEntity);//會閃退
-                    //tt=resEntity.toString();//不會閃退
-                } catch (ClientProtocolException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-        return tt;
+        //透過Get跟Http Server連線並取回傳值，並將傳值透過Log顯示出來
+        try {
+            HttpResponse response = httpClient.execute(get);
+            HttpEntity resEntity = response.getEntity();
+            tt = EntityUtils.toString(resEntity, HTTP.UTF_8);
+            Log.d("Response of GET request", tt);
+        } catch (ClientProtocolException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public String getTt() {
+        return tt;
     }
 }
