@@ -26,6 +26,7 @@ public class AddNotes extends AppCompatActivity implements View.OnClickListener,
     //存放要Post的訊息
     private String Snotetitle = null;
     private String star;
+    private float starnum;
     private String Snotecontent = null;
     SharedPreferences sharedPreferences;
     private String token;
@@ -90,7 +91,7 @@ public class AddNotes extends AppCompatActivity implements View.OnClickListener,
             case R.id.btn_save:
             if (note_title!=null && note_content!=null){
                 Snotetitle=note_title.getEditableText().toString();
-                star=note_star.toString();
+                star=Float.toString(starnum);
                 Snotecontent=note_content.getEditableText().toString();
                 HNP.Post(Snotetitle,star,Snotecontent,postUrl, token);
             }
@@ -100,6 +101,8 @@ public class AddNotes extends AppCompatActivity implements View.OnClickListener,
 
     @Override
     public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromuser) {
-        Toast.makeText(getApplicationContext(), "important: " + rating, Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(getApplicationContext(), "important:" + rating, Toast.LENGTH_SHORT).show();
+        starnum=rating;
     }
 }

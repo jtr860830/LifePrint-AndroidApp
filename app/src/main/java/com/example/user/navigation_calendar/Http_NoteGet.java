@@ -29,8 +29,6 @@ public class Http_NoteGet extends Service {
     public void Get(String Url,String T) {
         getUrl = Url;
         token = T;
-
-
         //建立HttpClient物件
         HttpClient httpClient = new DefaultHttpClient();
         //建立Http Get，並給予要連線的Url

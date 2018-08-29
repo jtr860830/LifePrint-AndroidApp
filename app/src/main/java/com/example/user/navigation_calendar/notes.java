@@ -76,16 +76,6 @@ public class notes extends Fragment implements View.OnClickListener {
 
         adapter = new noteAdapter(trans);
         recyclerView.setAdapter(adapter);
-        /*
-        List<noteCard> notes = new ArrayList<>();
-        notes.add(new noteCard("title1", "content1"));
-        notes.add(new noteCard("title2", "content2"));
-        notes.add(new noteCard("title3", resultJSON));
-
-        */
-
-        //Log.d("test", resultJSON);
-
 
         return view;
 
@@ -108,9 +98,10 @@ public class notes extends Fragment implements View.OnClickListener {
                 JSONObject obj = array.getJSONObject(i);
                 String title = obj.getString("Title");
                 String content = obj.getString("Info");
+                String importance = obj.getString("Importance");
 
-                Log.d("JSON:",title+"/"+content+"/");
-                trans.add(new noteCard(title, content));
+                Log.d("JSON:",title+"/"+content+"/"+importance);
+                trans.add(new noteCard(title, content,importance));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -124,10 +115,13 @@ public class notes extends Fragment implements View.OnClickListener {
 class noteCard {
     private String title;
     private String content;
+    private String importance;
 
-    public noteCard(String title, String content) {
+
+    public noteCard(String title, String content,String importance) {
         this.title = title;
         this.content = content;
+        this.importance=importance;
     }
 
     public String getTitle() {
@@ -145,6 +139,12 @@ class noteCard {
     public void setContent(String content) {
         this.content = content;
     }
+
+    public String getImportance() {
+        return importance;
+    }
+
+    public void setImportance(String star){this.importance=importance;    }
 }
 
 class noteAdapter extends RecyclerView.Adapter<noteAdapter.ViewHolder> {
@@ -157,11 +157,13 @@ class noteAdapter extends RecyclerView.Adapter<noteAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
         public TextView content;
+        public TextView star;
 
         public ViewHolder(View v) {
             super(v);
             title = v.findViewById(R.id.note_title);
             content = v.findViewById(R.id.note_content);
+            star=v.findViewById(R.id.note_star);
         }
     }
 
@@ -177,6 +179,7 @@ class noteAdapter extends RecyclerView.Adapter<noteAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.title.setText(data.get(position).getTitle());
         holder.content.setText(data.get(position).getContent());
+        holder.star.setText(data.get(position).getImportance());
     }
 
     @Override

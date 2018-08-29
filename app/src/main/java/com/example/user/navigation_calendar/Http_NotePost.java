@@ -24,7 +24,7 @@ import java.util.List;
 public class Http_NotePost extends Service {
 
     String Snotetitle;
-    String important;
+    String Simportant;
     String Snotecontent;
     String postUrl=null;
     String strResult=null;
@@ -34,7 +34,7 @@ public class Http_NotePost extends Service {
     public void Post(String title, String star,String content, String Url, String T) {
         Snotetitle=title;
         Snotecontent=content;
-        important=star;
+        Simportant=star;
         postUrl=Url;
         token = T;
 
@@ -53,7 +53,7 @@ public class Http_NotePost extends Service {
                 //建立一個ArrayList且需是NameValuePair，此ArrayList是用來傳送給Http server端的訊息
                 List params = new ArrayList();
                 params.add(new BasicNameValuePair("title",Snotetitle.toString()));
-                params.add(new BasicNameValuePair("importance",important.toString()));
+                params.add(new BasicNameValuePair("importance",Simportant.toString()));
                 params.add(new BasicNameValuePair("info",Snotecontent.toString()));
 
                 //發送Http Request，內容為params，且為UTF8格式
