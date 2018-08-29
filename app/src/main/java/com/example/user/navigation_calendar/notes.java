@@ -34,9 +34,6 @@ public class notes extends Fragment implements View.OnClickListener {
     private RecyclerView recyclerView;
     private noteAdapter adapter;
 
-    private TextView title;
-    private TextView content;
-
     //存放要Get的訊息
     private String getUrl = "https://sd.jezrien.one/user/backups";
     Http_NoteGet HNG;
@@ -57,7 +54,7 @@ public class notes extends Fragment implements View.OnClickListener {
         ImageButton add_notes=(ImageButton)view.findViewById(R.id.btn_addNotes);
         add_notes.setOnClickListener(this);
 
-
+        //set token
         NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         token = NsharedPreferences.getString("TOKEN", "");
 

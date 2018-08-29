@@ -52,7 +52,7 @@ public class AddNotes extends AppCompatActivity implements View.OnClickListener,
         note_star.setMax(5);//設定最大值
         note_star.setNumStars(5);//設定最大星型數量
         note_star.setStepSize(1);//一次增加一顆星
-        note_star.setRating(3);//設定目前顯示的星星數量
+        note_star.setRating(0);//設定目前顯示的星星數量
         note_star.setIsIndicator(false);//設定是否可被使用者修改評分
         note_star.setOnRatingBarChangeListener(this);//設定監聽器
 
