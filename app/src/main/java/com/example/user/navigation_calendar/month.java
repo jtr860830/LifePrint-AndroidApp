@@ -4,16 +4,23 @@ package com.example.user.navigation_calendar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -27,7 +34,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class month extends Fragment implements View.OnClickListener {
+public class month extends Fragment implements View.OnClickListener, EventItemTouchHelperListener {
 
     private RecyclerView recyclerView;
     private eventAdapter adapter;
@@ -39,6 +46,7 @@ public class month extends Fragment implements View.OnClickListener {
     SharedPreferences NsharedPreferences;
     private String token;
     private String resultJSON;
+    List<eventCard> trans;
 
     public month() {
         // Required empty public constructor
@@ -63,7 +71,7 @@ public class month extends Fragment implements View.OnClickListener {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
-        List<eventCard> trans = new ArrayList<>();
+        trans = new ArrayList<>();
 
         //get
         HNEG = new Http_NewEventGet();
@@ -72,10 +80,24 @@ public class month extends Fragment implements View.OnClickListener {
         parseJSON(resultJSON, trans);
 
         adapter = new eventAdapter(trans);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(adapter);
+
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new EventItemTouchHelper(0, ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
         return view;
     }
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+        if (viewHolder instanceof eventAdapter.ViewHolder) {
+            int delIndex = viewHolder.getAdapterPosition();
+            adapter.removeItem(delIndex);
+        }
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -155,6 +177,8 @@ class eventAdapter extends RecyclerView.Adapter<eventAdapter.ViewHolder> {
         public TextView starttime;
         public TextView event;
         public TextView location;
+        public RelativeLayout viewBackground;
+        public ConstraintLayout viewForeground;
 
         public ViewHolder(View v) {
             super(v);
@@ -162,6 +186,8 @@ class eventAdapter extends RecyclerView.Adapter<eventAdapter.ViewHolder> {
             event = v.findViewById(R.id.event_title);
             starttime = v.findViewById(R.id.event_time);
             location = v.findViewById(R.id.location);
+            viewBackground = v.findViewById(R.id.view_background);
+            viewForeground = v.findViewById(R.id.view_foreground);
         }
     }
 
@@ -184,5 +210,10 @@ class eventAdapter extends RecyclerView.Adapter<eventAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return data.size();
+    }
+
+    public void removeItem(int position) {
+        data.remove(position);
+        notifyItemRemoved(position);
     }
 }

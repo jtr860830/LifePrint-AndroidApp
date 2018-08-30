@@ -11,4 +11,5 @@
     <color name="tag">#5F5E5E</color>
     <color name="star"> #EFCE4A</color>
     <color name="gray">#DDDDDD</color>
+    <color name="bgRowBackground">#FA315B</color>
 </resources>
