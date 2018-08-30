@@ -109,7 +109,6 @@ public class notes extends Fragment implements View.OnClickListener {
 
 
 //JSON-->data
-
 class noteCard {
     private String title;
     private String content;

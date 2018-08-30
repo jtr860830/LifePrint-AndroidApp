@@ -2,7 +2,9 @@ package com.example.user.navigation_calendar;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -17,6 +19,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -26,7 +29,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.os.StrictMode;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -36,6 +44,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public ArrayList<String> username;
     public  ArrayList<Bitmap> userimage;
     private TextView title;
+
+    String person_name;
+    String person_email;
+
+    //存放要Get的訊息
+    private String getUrl = "https://sd.jezrien.one/register";
+    Http_Get HUG;
+    SharedPreferences NsharedPreferences;
+    private String token;
+    private String resultJSON;
 
 
     @Override
@@ -63,6 +81,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         View header=drawer_navigationView.inflateHeaderView(R.layout.drawer_header);
         getUserInfo(header);
 
+        //set token
+        NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        token = NsharedPreferences.getString("TOKEN", "");
+
+        //get username & email
+        List<PerInfoCard> trans = new ArrayList<>();
+        HUG = new Http_Get();
+        HUG.Get(getUrl,token);
+        resultJSON = HUG.getTt();
+        parseJSON(resultJSON, trans);
+
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -83,12 +112,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         transaction3.commit();
 
     }
+    public void parseJSON(String result, List<PerInfoCard> trans) {
+        try {
+            JSONArray array = new JSONArray(result);
+            for (int i=0; i<array.length(); i++){
+                JSONObject obj = array.getJSONObject(i);
 
+                person_name=obj.getString("Username");
+                person_email= obj.getString("Email");
+
+                Log.d("JSON:",person_name+"/"+person_email);
+                trans.add(new PerInfoCard(person_name, person_email));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
     public void getUserInfo(View header){
         TextView username=header.findViewById(R.id.per_name);
         TextView useremail=header.findViewById(R.id.per_email);
+        //username.setText(person_name);
+        //useremail.setText(person_email);
+
         username.setText("Isabel");
-        useremail.setText("haha@haha");
+        useremail.setText("hahaha@haha");
 
         ImageButton addgroup=header.findViewById(R.id.btn_addgroup);
         addgroup.setOnClickListener(this);
@@ -193,6 +240,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return true;
                 }
             };
+}
+
+//JSON-->data
+class PerInfoCard {
+    private String username;
+    private String email;
+
+    public PerInfoCard(String username, String email) {
+        this.username = username;
+        this.email = email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String title) {
+        this.username = username;
+    }
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 }
 
 
