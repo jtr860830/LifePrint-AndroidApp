@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -63,6 +64,9 @@ public class notes extends Fragment implements View.OnClickListener {
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
+        // 第二個參數VERTICAL或HORIZONTAL控制垂直或水平
+        recyclerView.addItemDecoration(
+                new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
 
         List<noteCard> trans = new ArrayList<>();
         //get
