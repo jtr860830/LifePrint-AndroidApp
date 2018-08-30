@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -161,6 +162,24 @@ class noteAdapter extends RecyclerView.Adapter<noteAdapter.ViewHolder> {
             title = v.findViewById(R.id.note_title);
             content = v.findViewById(R.id.note_content);
             star=v.findViewById(R.id.note_star);
+            //點擊項目時
+            v.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(view.getContext(),
+                            "click " +getAdapterPosition(),Toast.LENGTH_SHORT).show();
+                }
+            });
+            v.setOnLongClickListener(new View.OnLongClickListener(){
+                @Override
+                public boolean onLongClick(View view) {
+                    //長按-->刪除
+
+
+
+                    return false;
+                }
+            });
         }
     }
 
@@ -177,6 +196,10 @@ class noteAdapter extends RecyclerView.Adapter<noteAdapter.ViewHolder> {
         holder.title.setText(data.get(position).getTitle());
         holder.content.setText(data.get(position).getContent());
         holder.star.setText(data.get(position).getImportance());
+
+
+
+
     }
 
     @Override
