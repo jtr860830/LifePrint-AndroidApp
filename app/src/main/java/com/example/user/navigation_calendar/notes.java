@@ -37,7 +37,7 @@ public class notes extends Fragment implements View.OnClickListener {
 
     //存放要Get的訊息
     private String getUrl = "https://sd.jezrien.one/user/backups";
-    Http_NoteGet HNG;
+    Http_Get HNG;
     SharedPreferences NsharedPreferences;
     private String token;
     private String resultJSON;
@@ -66,7 +66,7 @@ public class notes extends Fragment implements View.OnClickListener {
 
         List<noteCard> trans = new ArrayList<>();
         //get
-        HNG = new Http_NoteGet();
+        HNG = new Http_Get();
         HNG.Get(getUrl,token);
         resultJSON = HNG.getTt();
         parseJSON(resultJSON, trans);

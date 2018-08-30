@@ -42,7 +42,7 @@ public class month extends Fragment implements View.OnClickListener, EventItemTo
 
     //存放要Get的訊息
     private String getUrl = "https://sd.jezrien.one/user/schedules";
-    Http_NewEventGet HNEG;
+    Http_Get HNEG;
     SharedPreferences NsharedPreferences;
     private String token;
     private String resultJSON;
@@ -74,7 +74,7 @@ public class month extends Fragment implements View.OnClickListener, EventItemTo
         trans = new ArrayList<>();
 
         //get
-        HNEG = new Http_NewEventGet();
+        HNEG = new Http_Get();
         HNEG.Get(getUrl,token);
         resultJSON = HNEG.getTt();
         parseJSON(resultJSON, trans);
