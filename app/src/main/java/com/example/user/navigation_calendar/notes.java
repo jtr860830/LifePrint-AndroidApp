@@ -176,7 +176,6 @@ class noteAdapter extends RecyclerView.Adapter<noteAdapter.ViewHolder> {
                     //長按-->刪除
 
 
-
                     return false;
                 }
             });

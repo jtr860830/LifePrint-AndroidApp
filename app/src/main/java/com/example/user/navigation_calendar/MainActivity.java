@@ -102,7 +102,12 @@ public class MainActivity extends AppCompatActivity {
                             Intent itGS=new Intent(MainActivity.this,GroupSetting.class);
                             startActivity(itGS);
                             break;
+                        case R.id.map:
+                            Intent itmap=new Intent(MainActivity.this,maps.class);
+                            startActivity(itmap);
 
+
+                            break;
                         case R.id.exit:
                             Toast.makeText(MainActivity.this,"exit",Toast.LENGTH_SHORT).show();
                             break;
