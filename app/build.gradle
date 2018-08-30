@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.user.navigation_calendar"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -38,6 +38,8 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
     implementation 'com.google.android.gms:play-services-location:15.0.1'
+
+    implementation 'com.github.AnyChart:AnyChart-Android:0.3.0'
 }
 android {
     useLibrary 'org.apache.http.legacy'
