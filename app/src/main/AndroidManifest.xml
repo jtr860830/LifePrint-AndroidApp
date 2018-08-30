@@ -35,7 +35,8 @@
         <activity android:name=".ForgotPassword" />
         <activity android:name=".GroupSetting" />
         <activity android:name=".maps" />
-        <activity android:name=".GroupList"></activity>
+        <activity android:name=".GroupList" />
+        <activity android:name=".AddGroup"></activity>
     </application>
 
 </manifest>

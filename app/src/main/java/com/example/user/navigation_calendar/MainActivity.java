@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         drawer = findViewById(R.id.drawer_layout);
+
         NavigationView drawer_navigationView = findViewById(R.id.nav_view);
         drawer_navigationView.setNavigationItemSelectedListener(drawer_navigationViewListener);
 
@@ -105,8 +106,10 @@ public class MainActivity extends AppCompatActivity {
                         case R.id.map:
                             Intent itmap=new Intent(MainActivity.this,maps.class);
                             startActivity(itmap);
-
-
+                            break;
+                        case R.id.btn_addgroup:
+                            Intent itaddgroup=new Intent(MainActivity.this,AddGroup.class);
+                            startActivity(itaddgroup);
                             break;
                         case R.id.exit:
                             Toast.makeText(MainActivity.this,"exit",Toast.LENGTH_SHORT).show();
