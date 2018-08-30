@@ -29,7 +29,7 @@ import android.os.StrictMode;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private DrawerLayout drawer;
     private static final String TAG = "fri_sug";
@@ -59,8 +59,9 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationView drawer_navigationView = findViewById(R.id.nav_view);
         drawer_navigationView.setNavigationItemSelectedListener(drawer_navigationViewListener);
-        //ImageButton addgroup=findViewById(R.id.btn_addgroup);
-        //addgroup.setOnClickListener(this);
+        //import drawer header
+        View header=drawer_navigationView.inflateHeaderView(R.layout.drawer_header);
+        getUserInfo(header);
 
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
@@ -83,6 +84,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void getUserInfo(View header){
+        TextView username=header.findViewById(R.id.per_name);
+        TextView useremail=header.findViewById(R.id.per_email);
+        username.setText("Isabel");
+        useremail.setText("haha@haha");
+
+        ImageButton addgroup=header.findViewById(R.id.btn_addgroup);
+        addgroup.setOnClickListener(this);
+
+    }
+
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -92,7 +104,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-//滑開頁面選單
+    //華開頁面上方選單-->AddGroup
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_addgroup:
+                Intent itAddgroup=new Intent(MainActivity.this,AddGroup.class);
+                startActivity(itAddgroup);
+                break;
+        }
+    }
+
+    //滑開頁面選單
     private NavigationView.OnNavigationItemSelectedListener drawer_navigationViewListener =
             new NavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -170,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
             };
+
 
 
 }
