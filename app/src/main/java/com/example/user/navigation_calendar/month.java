@@ -64,8 +64,6 @@ public class month extends Fragment implements View.OnClickListener {
         recyclerView.setLayoutManager(layoutManager);
 
         List<eventCard> trans = new ArrayList<>();
-        //Event.add(new eventCard("title1", "event1", "location1"));
-        //Event.add(new eventCard("title2", "event2", "location2"));
 
         //get
         HNEG = new Http_NewEventGet();
