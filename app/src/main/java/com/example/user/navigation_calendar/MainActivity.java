@@ -59,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationView drawer_navigationView = findViewById(R.id.nav_view);
         drawer_navigationView.setNavigationItemSelectedListener(drawer_navigationViewListener);
+        //ImageButton addgroup=findViewById(R.id.btn_addgroup);
+        //addgroup.setOnClickListener(this);
+
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -107,10 +110,7 @@ public class MainActivity extends AppCompatActivity {
                             Intent itmap=new Intent(MainActivity.this,maps.class);
                             startActivity(itmap);
                             break;
-                        case R.id.btn_addgroup:
-                            Intent itaddgroup=new Intent(MainActivity.this,AddGroup.class);
-                            startActivity(itaddgroup);
-                            break;
+
                         case R.id.exit:
                             Toast.makeText(MainActivity.this,"exit",Toast.LENGTH_SHORT).show();
                             break;
@@ -170,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
             };
-
 
 
 }

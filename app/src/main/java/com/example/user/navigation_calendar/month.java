@@ -120,7 +120,9 @@ class eventCard {
     }
 
     public String getStartTime() {
-        return starttime;
+        String substring;
+        substring=starttime.substring(11,16);
+        return substring;
     }
 
     public void setStartTime(String starttime) {
@@ -175,8 +177,9 @@ class eventAdapter extends RecyclerView.Adapter<eventAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.starttime.setText(data.get(position).getStartTime());
+
         holder.event.setText(data.get(position).getEvent());
+        holder.starttime.setText(data.get(position).getStartTime());
         holder.location.setText(data.get(position).getLocation());
     }
 
