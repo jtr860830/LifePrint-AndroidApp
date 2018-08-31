@@ -19,6 +19,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.RelativeLayout;
+import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.helper.ItemTouchHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,10 +35,11 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class notes extends Fragment implements View.OnClickListener {
+public class notes extends Fragment implements View.OnClickListener, NoteItemTouchHelperListener {
 
     private RecyclerView recyclerView;
     private noteAdapter adapter;
+    private List<noteCard> trans;
 
     //存放要Get的訊息
     private String getUrl = "https://sd.jezrien.one/user/backups";
@@ -64,11 +69,8 @@ public class notes extends Fragment implements View.OnClickListener {
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        // 第二個參數VERTICAL或HORIZONTAL控制垂直或水平
-        recyclerView.addItemDecoration(
-                new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
 
-        List<noteCard> trans = new ArrayList<>();
+        trans = new ArrayList<>();
         //get
         HNG = new Http_Get();
         HNG.Get(getUrl,token);
@@ -77,10 +79,23 @@ public class notes extends Fragment implements View.OnClickListener {
 
 
         adapter = new noteAdapter(trans);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(adapter);
+
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new NoteItemTouchHelper(0, ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
         return view;
 
+    }
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+        if (viewHolder instanceof noteAdapter.ViewHolder) {
+            int delIndex = viewHolder.getAdapterPosition();
+            adapter.removeItem(delIndex);
+        }
     }
 
     @Override
@@ -159,29 +174,16 @@ class noteAdapter extends RecyclerView.Adapter<noteAdapter.ViewHolder> {
         public TextView title;
         public TextView content;
         public TextView star;
+        public RelativeLayout viewBackground;
+        public ConstraintLayout viewForeground;
 
         public ViewHolder(View v) {
             super(v);
             title = v.findViewById(R.id.note_title);
             content = v.findViewById(R.id.note_content);
             star=v.findViewById(R.id.note_star);
-            //點擊項目時
-            v.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(view.getContext(),
-                            "click " +getAdapterPosition(),Toast.LENGTH_SHORT).show();
-                }
-            });
-            v.setOnLongClickListener(new View.OnLongClickListener(){
-                @Override
-                public boolean onLongClick(View view) {
-                    //長按-->刪除
-
-
-                    return false;
-                }
-            });
+            viewBackground = v.findViewById(R.id.view_background);
+            viewForeground = v.findViewById(R.id.view_foreground);
         }
     }
 
@@ -198,10 +200,6 @@ class noteAdapter extends RecyclerView.Adapter<noteAdapter.ViewHolder> {
         holder.title.setText(data.get(position).getTitle());
         holder.content.setText(data.get(position).getContent());
         holder.star.setText(data.get(position).getImportance());
-
-
-
-
     }
 
     @Override
@@ -209,8 +207,10 @@ class noteAdapter extends RecyclerView.Adapter<noteAdapter.ViewHolder> {
         return data.size();
     }
 
-
-
+    public void removeItem(int position) {
+        data.remove(position);
+        notifyItemRemoved(position);
+    }
 }
 
 
