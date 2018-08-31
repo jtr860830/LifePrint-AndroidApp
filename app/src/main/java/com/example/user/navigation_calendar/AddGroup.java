@@ -1,15 +1,21 @@
 package com.example.user.navigation_calendar;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ToggleButton;
 
-public class AddGroup extends AppCompatActivity implements View.OnClickListener {
+public class AddGroup extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     ImageButton group_save;
     ImageButton back;
+
+    ImageButton ag_clean;
+    EditText ad_groupname;
+    ToggleButton ag_notification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +26,15 @@ public class AddGroup extends AppCompatActivity implements View.OnClickListener 
         back=findViewById(R.id.ag_back);
         group_save.setOnClickListener(this);
         back.setOnClickListener(this);
+
+        ag_clean=findViewById(R.id.ag_buttonclean);
+        ag_clean.setOnClickListener(this);
+
+        ag_notification=findViewById(R.id.ag_toggleButton);
+        ag_notification.setTextOn("");
+        ag_notification.setTextOff("");
+        ag_notification.setChecked(false);
+        ag_notification.setOnCheckedChangeListener(this);
 
 
     }
@@ -36,7 +51,19 @@ public class AddGroup extends AppCompatActivity implements View.OnClickListener 
                 //go back
                 finish();
                 break;
+            case R.id.ag_buttonclean:
+                ad_groupname=findViewById(R.id.ag_name);
+                ad_groupname.setText("");
+                break;
+        }
+    }
 
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        if(b){
+            compoundButton.setBackgroundResource(R.drawable.group14);
+        }else{
+            compoundButton.setBackgroundResource(R.drawable.group15);
         }
     }
 }

@@ -10,17 +10,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ToggleButton;
 
 import java.io.FileNotFoundException;
 
-public class GroupSetting extends AppCompatActivity implements View.OnClickListener  {
+public class GroupSetting extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+
 
     ImageButton gs_back;
     ImageButton gs_save;
     ImageButton change_pic;
+    ImageButton gs_clean;
     ImageView group_pic;
+    EditText groupname;
+    ToggleButton gs_notification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +38,16 @@ public class GroupSetting extends AppCompatActivity implements View.OnClickListe
         gs_back.setOnClickListener(this);
         gs_save=findViewById(R.id.gs_save);
         gs_save.setOnClickListener(this);
+
+        gs_clean=findViewById(R.id.gs_btnclean);
+        gs_clean.setOnClickListener(this);
+
+        gs_notification=findViewById(R.id.gs_toggleButton);
+        gs_notification.setTextOn("");
+        gs_notification.setTextOff("");
+        gs_notification.setChecked(false);
+        //gs_notification.setBackgroundDrawable(R.drawable.group15);
+        gs_notification.setOnCheckedChangeListener(this);
 
         //找Change Picture Button按鈕
         change_pic=findViewById(R.id.btn_changeGP1);
@@ -49,9 +66,13 @@ public class GroupSetting extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.gs_save:
                 //post
+
                 finish();
                 break;
-
+            case R.id.gs_btnclean:
+                groupname=findViewById(R.id.gs_name);
+                groupname.setText("");
+                break;
             case R.id.btn_changeGP1  :
                 Intent intent = new Intent();
                 //開啟Pictures畫面Type設定為image
@@ -109,4 +130,13 @@ public class GroupSetting extends AppCompatActivity implements View.OnClickListe
         return intent;
     }
 
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        if(b){
+            compoundButton.setBackgroundResource(R.drawable.group14);
+        }else{
+            compoundButton.setBackgroundResource(R.drawable.group15);
+        }
+    }
 }
+
