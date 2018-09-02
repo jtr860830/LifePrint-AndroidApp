@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.Color;
 
 public class Addmember extends DialogFragment {
 
@@ -16,6 +18,7 @@ public class Addmember extends DialogFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.invite_dialog, container);
         add = view.findViewById(R.id.imageButton);
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         return view;
     }
 
