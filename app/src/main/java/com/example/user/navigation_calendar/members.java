@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,11 +20,13 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.app.DialogFragment;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import android.util.Log;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -36,6 +39,7 @@ public class members extends Fragment implements View.OnClickListener {
     //private static final int RESULT_OK = 1;
     private RecyclerView recyclerView;
     private memberAdapter adapter;
+    private ImageButton add;
 
 
     public members() {
@@ -49,6 +53,16 @@ public class members extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_members, container, false);
+        add = view.findViewById(R.id.Add);
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Addmember dialog = new Addmember();
+                dialog.show(getFragmentManager(), "");
+            }
+        });
+
         //recyclerView
         recyclerView = view.findViewById(R.id.member_recycler);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
