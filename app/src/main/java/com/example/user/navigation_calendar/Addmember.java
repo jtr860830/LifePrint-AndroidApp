@@ -103,7 +103,7 @@ public class Addmember extends DialogFragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.add_member:
-                if (userID!=null){
+                if (userID!=null && groupname!=null){
                     AdduserID = userID.getEditableText().toString();
                     //抓到groupname
                     groupname=getGroupname;

@@ -13,6 +13,7 @@
                 <item android:id="@+id/myschedule_2"
                     android:icon="@drawable/menu_schedule"
                     android:title="Schedule 2"/>
+
             </menu>
         </item>
     </group>

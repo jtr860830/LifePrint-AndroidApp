@@ -89,9 +89,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }catch (JSONException e){
             e.printStackTrace();
         }
-
-
-
     }
 
 
