@@ -74,13 +74,14 @@ public class AddGroup extends AppCompatActivity implements View.OnClickListener,
                         String ss = (String) msg.obj;
                         //Toast.makeText(Login.this, ss, Toast.LENGTH_LONG).show();
                         getToken(ss);
-                        Intent itCalendar = new Intent(AddGroup.this,MainActivity.class);
-                        startActivity(itCalendar);
+                        finish();
+                        //Intent itCalendar = new Intent(AddGroup.this,MainActivity.class);
+                        //startActivity(itCalendar);
                         break;
                     case 13:
                         String ss2 = (String) msg.obj;
                         Toast.makeText(AddGroup.this, ss2, Toast.LENGTH_LONG).show();
-                        ad_groupname.setText("");
+                        //ad_groupname.setText("");
 
                         break;
                 }

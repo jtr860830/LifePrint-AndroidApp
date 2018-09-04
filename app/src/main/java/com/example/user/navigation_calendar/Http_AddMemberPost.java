@@ -90,6 +90,6 @@ public class Http_AddMemberPost extends Service {
     @Override
     public IBinder onBind(Intent intent) {
 
-        return null;
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }
