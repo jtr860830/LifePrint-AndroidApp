@@ -20,17 +20,17 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Http_LoginPost extends Service{
+public class Http_AddMemberPost extends Service {
 
-    String username=null;
-    String password=null;
+    String Addusername=null;
+    String groupname=null;
     String postUrl=null;
     String strResult=null;
 
-    public void Post(String strname,String strpas, final String Url) {
-        username=strname;
-        password=strpas;
-        postUrl = Url ;
+    public void Post(String username,String GN, final String Url) {
+        Addusername=username;
+        groupname=GN;
+        postUrl = Url;
 
         new Thread(new Runnable() {
 
@@ -42,9 +42,10 @@ public class Http_LoginPost extends Service{
                 HttpPost httpPost = new HttpPost(postUrl);
 
                 //建立一個ArrayList且需是NameValuePair，此ArrayList是用來傳送給Http server端的訊息
+                //name:資料表欄位
                 List params = new ArrayList();
-                params.add(new BasicNameValuePair("username",username.toString()));
-                params.add(new BasicNameValuePair("password",password.toString()));
+                params.add(new BasicNameValuePair("name",groupname.toString()));
+                params.add(new BasicNameValuePair("username",Addusername.toString()));
 
                 //發送Http Request，內容為params，且為UTF8格式
                 UrlEncodedFormEntity ent = null;
@@ -72,26 +73,13 @@ public class Http_LoginPost extends Service{
                     }
                     Message msg = Message.obtain();
                     //設定Message的內容
-                    msg.what = 2;
+                    msg.what = 11;
                     msg.obj=strResult;
                     //使用MainActivity的static handler來丟Message
-                    Login.handler.sendMessage(msg);
+                    Addmember.handler.sendMessage(msg);
 
                 }
-                if(httpResponse.getStatusLine().getStatusCode() == 401){
-                    //將Post回傳的值轉為String，將轉回來的值轉為UTF8，否則若是中文會亂碼
-                    try {
-                        strResult = EntityUtils.toString(httpResponse.getEntity(),HTTP.UTF_8);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    Message msg = Message.obtain();
-                    //設定Message的內容
-                    msg.what = 3;
-                    msg.obj=strResult;
-                    //使用MainActivity的static handler來丟Message
-                    Login.handler.sendMessage(msg);
-                }
+
 
             }}).start();
 
@@ -101,8 +89,7 @@ public class Http_LoginPost extends Service{
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        throw new UnsupportedOperationException("Not yet implemented");
+
+        return null;
     }
-
-
 }

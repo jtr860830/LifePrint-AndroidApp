@@ -18,8 +18,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCg2QiaDfiy3cGzlp3DIJeZbEaK82N9OhM"
-            />
+            android:value="AIzaSyCg2QiaDfiy3cGzlp3DIJeZbEaK82N9OhM" />
 
         <activity android:name=".MainActivity" />
         <activity android:name=".Login">
@@ -37,7 +36,8 @@
         <activity android:name=".GroupSetting" />
         <activity android:name=".maps" />
         <activity android:name=".GroupList" />
-        <activity android:name=".AddGroup"></activity>
+        <activity android:name=".AddGroup" />
+        <activity android:name=".Addmember"></activity>
     </application>
 
 </manifest>

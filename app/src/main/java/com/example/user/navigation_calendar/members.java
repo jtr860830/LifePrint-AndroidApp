@@ -58,7 +58,7 @@ public class members extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View view) {
                 Addmember dialog = new Addmember();
-                dialog.show(getFragmentManager(), "");
+                dialog.show(getFragmentManager(), "fragment_dialog");
             }
         });
 
