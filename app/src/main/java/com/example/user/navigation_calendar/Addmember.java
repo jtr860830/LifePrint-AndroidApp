@@ -78,11 +78,16 @@ public class Addmember extends DialogFragment implements View.OnClickListener {
         try {
             JSONObject jsonObject= new JSONObject(s);
             token=jsonObject.getString("token");
-            Toast.makeText(MainActivity.this, token, Toast.LENGTH_LONG).show();
+
+            //catch dialogfragment path
+            Fragment prev = getFragmentManager().findFragmentByTag("fragment_dialog");
+            DialogFragment df = (DialogFragment) prev;
+
+            Toast.makeText(df.getActivity(), token, Toast.LENGTH_LONG).show();
 
             //寫入token
             SharedPreferences sharedPreferences = PreferenceManager
-                    .getDefaultSharedPreferences(this);
+                    .getDefaultSharedPreferences(df.getActivity());
             sharedPreferences.edit().putString("TOKEN", token).apply();
 
         }catch (JSONException e){
@@ -104,8 +109,6 @@ public class Addmember extends DialogFragment implements View.OnClickListener {
                     groupname=getGroupname;
                     HAMP.Post(AdduserID,groupname,postUrl);
                 }
-
-
 
                 break;
         }
