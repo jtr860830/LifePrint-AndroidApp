@@ -38,7 +38,7 @@ public class AddGroup extends AppCompatActivity implements View.OnClickListener,
     private String picture_path = null;
     private String GroupName = null;
 
-    private String postUrl = "https://sd.jezrien.one/user/group";
+    private String postUrl = "https://sd.jezrien.one/user/group/";
     static Handler handler; //宣告成static讓service可以直接使用
     Http_AddGroupPost HAGP;
 
