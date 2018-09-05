@@ -26,11 +26,13 @@ public class Http_AddGroupPost extends Service {
     String group_picpath=null;
     String postUrl=null;
     String strResult=null;
+    String token;
 
-    public void Post(String groupName, String picture_path, String Url) {
+    public void Post(String groupName, String picture_path, String Url, String T) {
         groupname=groupName;
         group_picpath=picture_path;
         postUrl=Url;
+        token = T;
 
         new Thread(new Runnable() {
 
@@ -40,6 +42,8 @@ public class Http_AddGroupPost extends Service {
                 HttpClient httpClient = new DefaultHttpClient();
                 //建立一個Post物件，並給予要連線的Url
                 HttpPost httpPost = new HttpPost(postUrl);
+                //send token to backend
+                httpPost.setHeader("Authorization","Bearer "+token);
 
                 //建立一個ArrayList且需是NameValuePair，此ArrayList是用來傳送給Http server端的訊息
                 List params = new ArrayList();

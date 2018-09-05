@@ -28,6 +28,7 @@ public class AddGroup extends AppCompatActivity implements View.OnClickListener,
     ImageView group_pic;
     EditText ad_groupname;
     ToggleButton ag_notification;
+    SharedPreferences sharedPreferences;
 
     //驗證username
     String token;
@@ -35,7 +36,7 @@ public class AddGroup extends AppCompatActivity implements View.OnClickListener,
     private String picture_path = null;
     private String GroupName = null;
 
-    private String postUrl = "https://sd.jezrien.one/user/group";
+    private String postUrl = "https://sd.jezrien.one/user/group/";
     static Handler handler; //宣告成static讓service可以直接使用
     Http_AddGroupPost HAGP;
 
@@ -45,6 +46,9 @@ public class AddGroup extends AppCompatActivity implements View.OnClickListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_group);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        token = sharedPreferences.getString("TOKEN", "");
 
         HAGP=new Http_AddGroupPost();
 
@@ -73,7 +77,7 @@ public class AddGroup extends AppCompatActivity implements View.OnClickListener,
                     case 12:
                         String ss = (String) msg.obj;
                         //Toast.makeText(Login.this, ss, Toast.LENGTH_LONG).show();
-                        getToken(ss);
+                        //getToken(ss);
                         finish();
                         //Intent itCalendar = new Intent(AddGroup.this,MainActivity.class);
                         //startActivity(itCalendar);
@@ -101,7 +105,7 @@ public class AddGroup extends AppCompatActivity implements View.OnClickListener,
                 if (ad_groupname!=null){
                     GroupName =ad_groupname.getEditableText().toString();
                     picture_path=group_pic.toString();
-                    HAGP.Post(GroupName,picture_path,postUrl);
+                    HAGP.Post(GroupName, picture_path, postUrl, token);
                 }
                 //go back
                 finish();
@@ -112,21 +116,7 @@ public class AddGroup extends AppCompatActivity implements View.OnClickListener,
                 break;
         }
     }
-    public void getToken(String s){
-        try {
-            JSONObject jsonObject= new JSONObject(s);
-            token=jsonObject.getString("token");
-            Toast.makeText(AddGroup.this, token, Toast.LENGTH_LONG).show();
 
-            //寫入token
-            SharedPreferences sharedPreferences = PreferenceManager
-                    .getDefaultSharedPreferences(this);
-            sharedPreferences.edit().putString("TOKEN", token).apply();
-
-        }catch (JSONException e){
-            e.printStackTrace();
-        }
-    }
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         if(b){
