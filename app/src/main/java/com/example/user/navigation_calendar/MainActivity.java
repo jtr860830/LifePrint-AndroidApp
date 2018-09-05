@@ -57,7 +57,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SharedPreferences NsharedPreferences;
     private String token;
     private String resultJSON;
+
+    //Get Group Name
     String[]  groupname={"UserName","Isabel"};
+    private String getGNUrl = "https://sd.jezrien.one/user/group/";
+    Http_Get HGNG;
+    public ArrayList<String> groupnameList;//存group name
+
 
     //menu group
     Menu  mySchedual;
@@ -87,12 +93,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         drawer_navigationView = findViewById(R.id.nav_view);
         drawer_navigationView.setNavigationItemSelectedListener(this);
-        //drawer_navigationView.setNavigationItemSelectedListener(drawer_navigationViewListener);
-        //import drawer header
+
         View header=drawer_navigationView.inflateHeaderView(R.layout.drawer_header);
         getUserInfo(header);
-
-        addGroup();
 
         drawer_navigationView.invalidate();
 
@@ -100,6 +103,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         token = NsharedPreferences.getString("TOKEN", "");
 
+        //get group name
+        groupnameList = new ArrayList<>();
+        HGNG=new Http_Get();
+        HGNG.Get(getGNUrl,token);
+        resultJSON=HGNG.getTt();
+        ArrayList<String> GN=GNparseJSON(resultJSON,groupnameList);
+
+        //動態產生群組
+        addGroup(GN);
+        
         //get username & email
         List<PerInfoCard> trans = new ArrayList<>();
         HUG = new Http_Get();
@@ -128,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void addGroup() {
+    public void addGroup(ArrayList<String> GN) {
 
         NavigationView drawer_navigationView = findViewById(R.id.nav_view);
         final Menu menu = drawer_navigationView.getMenu();
@@ -137,10 +150,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //ItemID i=1
         //Menu  mySchedual
         mySchedual= menu.addSubMenu("My Schedual");
-        for(int i=0;i<groupname.length;i++){
-            mySchedual.add(1,i+5,Menu.FIRST,groupname[i]).setIcon(R.drawable.menu_schedule);
+        for(int i=0;i<GN.size();i++){
+            mySchedual.add(1,i+5,Menu.FIRST,GN.get(i)).setIcon(R.drawable.menu_schedule);
         }
-
 
         //groupID 2 "Settings"
         //ItemID 1,2
@@ -172,6 +184,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             e.printStackTrace();
         }
     }
+
+    public ArrayList<String> GNparseJSON(String result, ArrayList<String> stringArrayList) {
+        try {
+            JSONArray array = new JSONArray(result);
+            for (int i=0; i<array.length(); i++){
+                JSONObject obj = array.getJSONObject(i);
+                String group_name=obj.getString("Name");
+
+                Log.d("JSON:",group_name);
+                stringArrayList.add(group_name);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return stringArrayList;
+    }
+
     public void getUserInfo(View header){
         TextView username=header.findViewById(R.id.per_name);
         TextView useremail=header.findViewById(R.id.per_email);
@@ -195,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-    //華開頁面上方選單-->AddGroup
+    //滑開頁面上方選單-->AddGroup
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -205,9 +235,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
+    //滑開頁面選單
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
+        int id=menuItem.getItemId();
 
-//下方選單
+        //Schedual
+        if(id==mySchedual.getItem(1).getItemId()){
+            //group calendar
+
+        }
+        //Settings
+        if (id==settings.getItem(0).getItemId()){
+            //Personal Settings
+            Intent itPS=new Intent(MainActivity.this,PersonalSettings.class);
+            startActivity(itPS);
+        }else if (id==settings.getItem(1).getItemId()) {
+            //Group Settings
+            Intent itGS = new Intent(MainActivity.this, GroupSetting.class);
+            startActivity(itGS);
+        }
+        //Other
+        if (id==other.getItem(0).getItemId()) {
+            //Map
+            Intent itmap = new Intent(MainActivity.this, maps.class);
+            startActivity(itmap);
+        }else if (id==other.getItem(1).getItemId()) {
+            //Exit
+            Toast.makeText(MainActivity.this,"exit",Toast.LENGTH_SHORT).show();
+        }
+
+        return true;
+    }
+
+    //下方選單
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -259,40 +321,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return true;
                 }
             };
-
-    //滑開頁面選單
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-            int id=menuItem.getItemId();
-
-            //Schedual
-            if(id==mySchedual.getItem(1).getItemId()){
-                //group calendar
-
-            }
-            //Settings
-            if (id==settings.getItem(0).getItemId()){
-                //Personal Settings
-                Intent itPS=new Intent(MainActivity.this,PersonalSettings.class);
-                startActivity(itPS);
-            }else if (id==settings.getItem(1).getItemId()) {
-                //Group Settings
-                Intent itGS = new Intent(MainActivity.this, GroupSetting.class);
-                startActivity(itGS);
-            }
-            //Other
-            if (id==other.getItem(0).getItemId()) {
-                //Map
-                Intent itmap = new Intent(MainActivity.this, maps.class);
-                startActivity(itmap);
-            }else if (id==other.getItem(1).getItemId()) {
-                //Exit
-                Toast.makeText(MainActivity.this,"exit",Toast.LENGTH_SHORT).show();
-            }
-
-            return true;
-        }
 }
 
 //JSON-->data
