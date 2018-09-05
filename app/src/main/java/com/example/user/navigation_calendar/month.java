@@ -57,7 +57,7 @@ public class month extends Fragment implements View.OnClickListener, EventItemTo
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_month, container, false);
+        View view = inflater.inflate(R.layout.fragment_month, container, false);
 
         addevent=view.findViewById(R.id.btn_addevent);
         addevent.setOnClickListener(this);
