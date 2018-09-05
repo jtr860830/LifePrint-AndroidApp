@@ -29,9 +29,12 @@ import java.util.ArrayList;
  */
 public class count extends Fragment {
 
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
     private cdAdapter adapter;
-    List<cdItem> trans;
+    private List<cdItem> trans;
+
+    TextView first_event;
+    TextView first_day;
 
     //存放要Get的訊息
     private String getUrl = "https://sd.jezrien.one/user/countdown";
@@ -68,17 +71,21 @@ public class count extends Fragment {
         parseJSON(resultJSON, trans);
 
         adapter = new cdAdapter(trans);
+        //分隔線
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(adapter);
 
-        /*
-        trans.add(new cdItem("Personal", "event1", "time1", "1"));
-        trans.add(new cdItem("Group", "event2", "time2", "2"));
-        trans.add(new cdItem("Group", "event3", "time3", "3"));
-        trans.add(new cdItem("Group", "event4", "time4", "4"));
-        */
+        first_event=view.findViewById(R.id.count_event);
+        first_day=view.findViewById(R.id.count_day);
 
+        if (trans.isEmpty()){
+            first_day.setText("0");
+            first_event.setText("Event");
+        }else{
+            first_day.setText(trans.get(0).getCd());
+            first_event.setText(trans.get(0).getEvent());
+        }
         return view;
     }
 
@@ -87,6 +94,7 @@ public class count extends Fragment {
             JSONArray array = new JSONArray(result);
             for (int i=0; i<array.length(); i++){
                 JSONObject obj = array.getJSONObject(i);
+
                 String belong = obj.getString("BelongsTo");
                 String event = obj.getString("Event");
                 String start_time = obj.getString("StartTime");
@@ -133,7 +141,7 @@ class cdItem {
 
     public String getStartTime() {
 
-        startTime=startTime.substring(0,11);
+        startTime=startTime.substring(0,10);
         return startTime;
     }
 
@@ -171,6 +179,7 @@ class cdAdapter extends RecyclerView.Adapter<cdAdapter.ViewHolder> {
             start = v.findViewById(R.id.cd_starttime);
             belongsTo = v.findViewById(R.id.cd_group);
             cd = v.findViewById(R.id.cd_day);
+
         }
     }
 
@@ -189,6 +198,8 @@ class cdAdapter extends RecyclerView.Adapter<cdAdapter.ViewHolder> {
         holder.start.setText(data.get(position).getStartTime());
         holder.belongsTo.setText(data.get(position).getBelongsTo());
         holder.cd.setText(data.get(position).getCd());
+
+
     }
 
     @Override
