@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+
 import com.anychart.anychart.AnyChart;
 import com.anychart.anychart.AnyChartView;
 import com.anychart.anychart.Cartesian;
@@ -16,6 +17,9 @@ import com.anychart.anychart.Pie;
 import com.anychart.anychart.ValueDataEntry;
 import com.anychart.anychart.chart.common.Event;
 import com.anychart.anychart.chart.common.ListenersInterface;
+
+
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,12 +42,13 @@ public class feed extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         View view= inflater.inflate(R.layout.fragment_feed, container, false);
 
         AnyChartView anyChartView = view.findViewById(R.id.any_chart_view);
         //anyChartView.setProgressBar(view.findViewById(R.id.progress_bar));
 
+        /*
+        //user-->pie
         Pie pie = AnyChart.pie();
         pie.setOnClickListener(new ListenersInterface.OnClickListener(new String[]{"x", "value"}) {
             @Override
@@ -57,11 +62,26 @@ public class feed extends Fragment {
         data.add(new ValueDataEntry("Jake", 12000));
         data.add(new ValueDataEntry("Peter", 18000));
 
-
         pie.setData(data);
-        //pie.title("Fruits imported in 2015 (in kg)");
-
         anyChartView.setChart(pie);
+        */
+
+
+        //groupName -->bar
+        Cartesian cartesian = AnyChart.column();
+
+        List<DataEntry> Gdata = new ArrayList<>();
+        Gdata.add(new ValueDataEntry("Rouge", 80540));
+        Gdata.add(new ValueDataEntry("Foundation", 94190));
+        Gdata.add(new ValueDataEntry("Mascara", 102610));
+        Gdata.add(new ValueDataEntry("Lip gloss", 110430));
+        Gdata.add(new ValueDataEntry("Lipstick", 128000));
+
+        cartesian.column(Gdata);
+        //Column column = cartesian.column(data);
+        anyChartView.setChart(cartesian);
+
+
 
         return view;
     }
