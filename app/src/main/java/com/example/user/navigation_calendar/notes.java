@@ -77,7 +77,6 @@ public class notes extends Fragment implements View.OnClickListener, NoteItemTou
         resultJSON = HNG.getTt();
         parseJSON(resultJSON, trans);
 
-
         adapter = new noteAdapter(trans);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));

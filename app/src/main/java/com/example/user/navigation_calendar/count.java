@@ -1,15 +1,24 @@
 package com.example.user.navigation_calendar;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -22,8 +31,14 @@ public class count extends Fragment {
 
     RecyclerView recyclerView;
     private cdAdapter adapter;
-
     List<cdItem> trans;
+
+    //存放要Get的訊息
+    private String getUrl = "https://sd.jezrien.one/user/countdown";
+    Http_Get HCG;
+    SharedPreferences NsharedPreferences;
+    private String token;
+    private String resultJSON;
 
     public count() {
         // Required empty public constructor
@@ -36,21 +51,53 @@ public class count extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_count, container, false);
 
+        //set token
+        NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        token = NsharedPreferences.getString("TOKEN", "");
+
         recyclerView = view.findViewById(R.id.cdRecyclerView);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
         trans = new ArrayList<>();
+        //get
+        HCG = new Http_Get();
+        HCG.Get(getUrl,token);
+        resultJSON = HCG.getTt();
+        parseJSON(resultJSON, trans);
+
+        adapter = new cdAdapter(trans);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+        recyclerView.setAdapter(adapter);
+
+        /*
         trans.add(new cdItem("Personal", "event1", "time1", "1"));
         trans.add(new cdItem("Group", "event2", "time2", "2"));
         trans.add(new cdItem("Group", "event3", "time3", "3"));
         trans.add(new cdItem("Group", "event4", "time4", "4"));
-
-        adapter = new cdAdapter(trans);
-        recyclerView.setAdapter(adapter);
+        */
 
         return view;
+    }
+
+    public void parseJSON(String result, List<cdItem> trans) {
+        try {
+            JSONArray array = new JSONArray(result);
+            for (int i=0; i<array.length(); i++){
+                JSONObject obj = array.getJSONObject(i);
+                String belong = obj.getString("BelongsTo");
+                String event = obj.getString("Event");
+                String start_time = obj.getString("Start");
+                String count_day=obj.getString("CD");
+
+                Log.d("JSON:",belong+"/"+event+"/"+start_time+"/"+count_day);
+                trans.add(new cdItem(belong, event,start_time,count_day));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 }
@@ -85,6 +132,8 @@ class cdItem {
     }
 
     public String getStartTime() {
+
+        startTime=startTime.substring(0,11);
         return startTime;
     }
 
@@ -118,10 +167,10 @@ class cdAdapter extends RecyclerView.Adapter<cdAdapter.ViewHolder> {
         public ViewHolder(View v) {
             super(v);
 
-            event = v.findViewById(R.id.textView5);
-            start = v.findViewById(R.id.textView8);
-            belongsTo = v.findViewById(R.id.textView9);
-            cd = v.findViewById(R.id.textView10);
+            event = v.findViewById(R.id.cd_event);
+            start = v.findViewById(R.id.cd_starttime);
+            belongsTo = v.findViewById(R.id.cd_group);
+            cd = v.findViewById(R.id.cd_day);
         }
     }
 

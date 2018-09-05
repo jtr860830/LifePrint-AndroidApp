@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //動態產生群組
         addGroup(GN);
-        
+
         //get username & email
         List<PerInfoCard> trans = new ArrayList<>();
         HUG = new Http_Get();
