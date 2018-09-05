@@ -6,8 +6,10 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -28,15 +30,15 @@ public class AddGroup extends AppCompatActivity implements View.OnClickListener,
     ImageView group_pic;
     EditText ad_groupname;
     ToggleButton ag_notification;
-    SharedPreferences sharedPreferences;
 
     //驗證username
-    String token;
+    private String token;
+    SharedPreferences sharedPreferences;
     //存放要Post的訊息
     private String picture_path = null;
     private String GroupName = null;
 
-    private String postUrl = "https://sd.jezrien.one/user/group/";
+    private String postUrl = "https://sd.jezrien.one/user/group";
     static Handler handler; //宣告成static讓service可以直接使用
     Http_AddGroupPost HAGP;
 
@@ -47,10 +49,11 @@ public class AddGroup extends AppCompatActivity implements View.OnClickListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_group);
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        token = sharedPreferences.getString("TOKEN", "");
+        //addGroup();
 
         HAGP=new Http_AddGroupPost();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        token = sharedPreferences.getString("TOKEN", "");
 
         group_save=findViewById(R.id.ag_save);
         group_save.setOnClickListener(this);
@@ -62,6 +65,7 @@ public class AddGroup extends AppCompatActivity implements View.OnClickListener,
         ag_clean.setOnClickListener(this);
 
         ad_groupname=findViewById(R.id.ag_name);
+
 
         group_pic=findViewById(R.id.group_pic);
 
@@ -76,11 +80,15 @@ public class AddGroup extends AppCompatActivity implements View.OnClickListener,
                 switch (msg.what) {
                     case 12:
                         String ss = (String) msg.obj;
-                        //Toast.makeText(Login.this, ss, Toast.LENGTH_LONG).show();
-                        //getToken(ss);
+                        Toast.makeText(AddGroup.this, ss, Toast.LENGTH_LONG).show();
+                        getToken(ss);
                         finish();
                         //Intent itCalendar = new Intent(AddGroup.this,MainActivity.class);
                         //startActivity(itCalendar);
+
+                        //add group name in drawer menu
+                        //addGroup(GroupName);
+
                         break;
                     case 13:
                         String ss2 = (String) msg.obj;
@@ -93,7 +101,19 @@ public class AddGroup extends AppCompatActivity implements View.OnClickListener,
 
         };
     }
+/*
+    private void addGroup() {
 
+        NavigationView drawer_navigationView = findViewById(R.id.nav_view);
+        final Menu menu = drawer_navigationView.getMenu();
+        Menu submenu = menu.addSubMenu("New Super SubMenu");
+
+        submenu.add("Super Item1");
+        submenu.add("Super Item2");
+        submenu.add("Super Item3");
+
+    }
+*/
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -102,10 +122,12 @@ public class AddGroup extends AppCompatActivity implements View.OnClickListener,
                 break;
             case R.id.ag_save:
                 //post group info
+
                 if (ad_groupname!=null){
                     GroupName =ad_groupname.getEditableText().toString();
                     picture_path=group_pic.toString();
-                    HAGP.Post(GroupName, picture_path, postUrl, token);
+
+                    HAGP.Post(GroupName,picture_path,postUrl,token);
                 }
                 //go back
                 finish();
@@ -116,7 +138,21 @@ public class AddGroup extends AppCompatActivity implements View.OnClickListener,
                 break;
         }
     }
+    public void getToken(String s){
+        try {
+            JSONObject jsonObject= new JSONObject(s);
+            token=jsonObject.getString("token");
+            Toast.makeText(AddGroup.this, token, Toast.LENGTH_LONG).show();
 
+            //寫入token
+            SharedPreferences sharedPreferences = PreferenceManager
+                    .getDefaultSharedPreferences(this);
+            sharedPreferences.edit().putString("TOKEN", token).apply();
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         if(b){

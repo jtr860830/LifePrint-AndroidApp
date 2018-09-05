@@ -20,6 +20,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +34,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public ArrayList<String> username;
     public  ArrayList<Bitmap> userimage;
     private TextView title;
+    NavigationView drawer_navigationView;
 
     String person_name;
     String person_email;
@@ -54,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SharedPreferences NsharedPreferences;
     private String token;
     private String resultJSON;
-
+    String[]  groupname={"UserName","Isabel"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,11 +78,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().setTitle("");
         drawer = findViewById(R.id.drawer_layout);
 
-        NavigationView drawer_navigationView = findViewById(R.id.nav_view);
+        drawer_navigationView = findViewById(R.id.nav_view);
         drawer_navigationView.setNavigationItemSelectedListener(drawer_navigationViewListener);
         //import drawer header
         View header=drawer_navigationView.inflateHeaderView(R.layout.drawer_header);
         getUserInfo(header);
+
+        addGroup();
+
+        drawer_navigationView.invalidate();
 
         //set token
         NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -112,6 +119,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         transaction3.commit();
 
     }
+
+    public void addGroup() {
+        String username="username";
+
+        NavigationView drawer_navigationView = findViewById(R.id.nav_view);
+        final Menu menu = drawer_navigationView.getMenu();
+
+        //groupID 1 "My Schedual"
+        //ItemID i=1
+        Menu  mySchedual= menu.addSubMenu("My Schedual");
+        for(int i=0;i<groupname.length;i++){
+            mySchedual.add(1,i+1,Menu.FIRST,groupname[i]).setIcon(R.drawable.menu_schedule);
+        }
+
+
+        //groupID 2 "Settings"
+        //ItemID 1,2
+        Menu  settings= menu.addSubMenu("Settings");
+        settings.add(2,1,Menu.FIRST,"Personal Settings").setIcon(R.drawable.user);
+        settings.add(2,2,Menu.FIRST,"Group Settings").setIcon(R.drawable.member);
+
+        Menu  other= menu.addSubMenu("others");
+        other.add(3,1,Menu.FIRST,"Your Track").setIcon(R.drawable.place);
+        other.add(3,2,Menu.FIRST,"Exit").setIcon(R.drawable.exit);
+
+    }
+
     public void parseJSON(String result, List<PerInfoCard> trans) {
         try {
             JSONArray array = new JSONArray(result);
