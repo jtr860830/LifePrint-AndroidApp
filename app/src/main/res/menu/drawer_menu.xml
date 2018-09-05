@@ -3,44 +3,4 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-
-    <group android:checkableBehavior="single">
-        <item android:title="My Schedule">
-            <menu>
-                <item android:id="@+id/myschedule_1"
-                    android:icon="@drawable/menu_schedule"
-                    android:title="Schedule 1"/>
-                <item android:id="@+id/myschedule_2"
-                    android:icon="@drawable/menu_schedule"
-                    android:title="Schedule 2"/>
-
-            </menu>
-        </item>
-    </group>
-
-    <group android:checkableBehavior="single">
-        <item android:title="Settings">
-            <menu>
-                <item android:id="@+id/personal_settings"
-                    android:icon="@drawable/user"
-                    android:title="Personal Settings"/>
-                <item android:id="@+id/group_settings"
-                    android:icon="@drawable/member"
-                    android:title="Group Settings"/>
-            </menu>
-        </item>
-    </group>
-
-    <item android:title="Your Track"
-        android:id="@+id/map"
-        android:icon="@drawable/place">
-    </item>
-    <item android:title="Exit"
-        android:id="@+id/exit"
-        android:icon="@drawable/exit">
-    </item>
-
-
-
-
 </menu>

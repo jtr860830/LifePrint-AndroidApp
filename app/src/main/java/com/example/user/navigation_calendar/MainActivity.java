@@ -39,7 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawer;
     private static final String TAG = "fri_sug";
@@ -58,6 +58,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String token;
     private String resultJSON;
     String[]  groupname={"UserName","Isabel"};
+
+    //menu group
+    Menu  mySchedual;
+    Menu  settings;
+    Menu  other;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +86,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawer = findViewById(R.id.drawer_layout);
 
         drawer_navigationView = findViewById(R.id.nav_view);
-        drawer_navigationView.setNavigationItemSelectedListener(drawer_navigationViewListener);
+        drawer_navigationView.setNavigationItemSelectedListener(this);
+        //drawer_navigationView.setNavigationItemSelectedListener(drawer_navigationViewListener);
         //import drawer header
         View header=drawer_navigationView.inflateHeaderView(R.layout.drawer_header);
         getUserInfo(header);
@@ -121,28 +129,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void addGroup() {
-        String username="username";
 
         NavigationView drawer_navigationView = findViewById(R.id.nav_view);
         final Menu menu = drawer_navigationView.getMenu();
 
         //groupID 1 "My Schedual"
         //ItemID i=1
-        Menu  mySchedual= menu.addSubMenu("My Schedual");
+        //Menu  mySchedual
+        mySchedual= menu.addSubMenu("My Schedual");
         for(int i=0;i<groupname.length;i++){
-            mySchedual.add(1,i+1,Menu.FIRST,groupname[i]).setIcon(R.drawable.menu_schedule);
+            mySchedual.add(1,i+5,Menu.FIRST,groupname[i]).setIcon(R.drawable.menu_schedule);
         }
 
 
         //groupID 2 "Settings"
         //ItemID 1,2
-        Menu  settings= menu.addSubMenu("Settings");
+        //Menu  settings
+        settings= menu.addSubMenu("Settings");
         settings.add(2,1,Menu.FIRST,"Personal Settings").setIcon(R.drawable.user);
         settings.add(2,2,Menu.FIRST,"Group Settings").setIcon(R.drawable.member);
 
-        Menu  other= menu.addSubMenu("others");
-        other.add(3,1,Menu.FIRST,"Your Track").setIcon(R.drawable.place);
-        other.add(3,2,Menu.FIRST,"Exit").setIcon(R.drawable.exit);
+        //Menu  other
+        other= menu.addSubMenu("Others");
+        other.add(3,3,Menu.FIRST,"Your Track").setIcon(R.drawable.place);
+        other.add(3,4,Menu.FIRST,"Exit").setIcon(R.drawable.exit);
 
     }
 
@@ -196,32 +206,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    //滑開頁面選單
-    private NavigationView.OnNavigationItemSelectedListener drawer_navigationViewListener =
-            new NavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                    switch (menuItem.getItemId()){
-                        case R.id.personal_settings:
-                            Intent itPS=new Intent(MainActivity.this,PersonalSettings.class);
-                            startActivity(itPS);
-                            break;
-                        case R.id.group_settings:
-                            Intent itGS=new Intent(MainActivity.this,GroupSetting.class);
-                            startActivity(itGS);
-                            break;
-                        case R.id.map:
-                            Intent itmap=new Intent(MainActivity.this,maps.class);
-                            startActivity(itmap);
-                            break;
 
-                        case R.id.exit:
-                            Toast.makeText(MainActivity.this,"exit",Toast.LENGTH_SHORT).show();
-                            break;
-                    }
-                    return true;
-                }
-            };
 //下方選單
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -274,6 +259,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return true;
                 }
             };
+
+    //滑開頁面選單
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+            int id=menuItem.getItemId();
+
+            //Schedual
+            if(id==mySchedual.getItem(1).getItemId()){
+                //group calendar
+
+            }
+            //Settings
+            if (id==settings.getItem(0).getItemId()){
+                //Personal Settings
+                Intent itPS=new Intent(MainActivity.this,PersonalSettings.class);
+                startActivity(itPS);
+            }else if (id==settings.getItem(1).getItemId()) {
+                //Group Settings
+                Intent itGS = new Intent(MainActivity.this, GroupSetting.class);
+                startActivity(itGS);
+            }
+            //Other
+            if (id==other.getItem(0).getItemId()) {
+                //Map
+                Intent itmap = new Intent(MainActivity.this, maps.class);
+                startActivity(itmap);
+            }else if (id==other.getItem(1).getItemId()) {
+                //Exit
+                Toast.makeText(MainActivity.this,"exit",Toast.LENGTH_SHORT).show();
+            }
+
+            return true;
+        }
 }
 
 //JSON-->data
