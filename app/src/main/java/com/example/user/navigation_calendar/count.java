@@ -89,8 +89,8 @@ public class count extends Fragment {
                 JSONObject obj = array.getJSONObject(i);
                 String belong = obj.getString("BelongsTo");
                 String event = obj.getString("Event");
-                String start_time = obj.getString("Start");
-                String count_day=obj.getString("CD");
+                String start_time = obj.getString("StartTime");
+                String count_day= Integer.toString(obj.getInt("CD"));
 
                 Log.d("JSON:",belong+"/"+event+"/"+start_time+"/"+count_day);
                 trans.add(new cdItem(belong, event,start_time,count_day));
