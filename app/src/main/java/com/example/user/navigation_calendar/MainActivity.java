@@ -136,8 +136,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (savedInstanceState == null) {
             navigationView.setSelectedItemId(R.id.nav_month); // change to whichever id should be default
         }
-        
-
     }
 
     public void addGroup(ArrayList<String> GN) {
@@ -156,12 +154,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //groupID 2 "Settings"
         //ItemID 1,2
         //Menu  settings
-        settings= menu.addSubMenu("Settings");
+        settings = menu.addSubMenu("Settings");
         settings.add(2,1,Menu.FIRST,"Personal Settings").setIcon(R.drawable.user);
         settings.add(2,2,Menu.FIRST,"Group Settings").setIcon(R.drawable.member);
 
         //Menu  other
-        other= menu.addSubMenu("Others");
+        other = menu.addSubMenu("Others");
         other.add(3,3,Menu.FIRST,"Your Track").setIcon(R.drawable.place);
         other.add(3,4,Menu.FIRST,"Exit").setIcon(R.drawable.exit);
 
@@ -279,6 +277,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //group calendar
             groupname = groupnameList.get(id-5);
             Toast.makeText(MainActivity.this, groupname, Toast.LENGTH_SHORT).show();
+            Bundle data =  new Bundle();
+            data.putString("groupname", groupname);
+            month fragment_month = new month();
+            fragment_month.setArguments(data);
+            FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
+            transaction3.replace(R.id.fragment_space, fragment_month, "Fragment_month");
+            transaction3.commit();
         }
 
         return true;
@@ -310,7 +315,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         //return true;
                         case R.id.nav_month:
                             title.setText("Month");
+                            Bundle data =  new Bundle();
+                            data.putString("groupname", groupname);
                             month fragment_month = new month();
+                            fragment_month.setArguments(data);
                             FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
                             transaction3.replace(R.id.fragment_space, fragment_month, "Fragment_month");
                             transaction3.commit();

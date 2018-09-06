@@ -62,6 +62,12 @@ public class month extends Fragment implements View.OnClickListener, EventItemTo
         addevent=view.findViewById(R.id.btn_addevent);
         addevent.setOnClickListener(this);
 
+        groupname = getArguments().getString("groupname");
+
+        if (groupname != null) {
+            getUrl = "https://sd.jezrien.one/user/group/schedules";
+        }
+
         //set token
         NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         token = NsharedPreferences.getString("TOKEN", "");
