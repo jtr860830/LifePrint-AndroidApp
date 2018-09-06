@@ -1,9 +1,14 @@
 package com.example.user.navigation_calendar;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import org.json.JSONException;
@@ -44,19 +50,47 @@ public class PersonalSettings extends AppCompatActivity implements View.OnClickL
     private String getUrl = "https://sd.jezrien.one/user/profile";
     Http_Get HPSG;
     SharedPreferences NsharedPreferences;
-    private String token;
     private String resultJSON;
 
+    //personal setting patch
+    private String patchUrl = "https://sd.jezrien.one/user/profile";
 
-    //personal setting post
+    //存放要Patch的訊息
+    private String Sbirthday = null;
+    private String Semail = null;
+    SharedPreferences sharedPreferences;
+    private String token;
+
+    Http_PersonalSettingPatch HPSP;
+    static Handler handler; //宣告成static讓service可以直接使用
 
 
-
-
+    @SuppressLint("HandlerLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_settings);
+
+        HPSP=new Http_PersonalSettingPatch();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        token = sharedPreferences.getString("TOKEN", "");
+
+        //post
+        handler = new Handler() {
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case 16:
+                        String ss = (String) msg.obj;
+                        Log.d("Message",ss);
+                        getToken(ss);
+                        Toast.makeText(PersonalSettings.this, ss, Toast.LENGTH_LONG).show();
+                        Intent it = new Intent(PersonalSettings.this,MainActivity.class);
+                        startActivity(it);
+                        break;
+                }
+            }
+
+        };
 
         recyclerView = findViewById(R.id.ps_recyclerview);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -94,7 +128,20 @@ public class PersonalSettings extends AppCompatActivity implements View.OnClickL
 
 
     }
+    public void getToken(String s){
+        try {
+            JSONObject jsonObject= new JSONObject(s);
+            token=jsonObject.getString("token");
 
+            //寫入token
+            SharedPreferences sharedPreferences = PreferenceManager
+                    .getDefaultSharedPreferences(this);
+            sharedPreferences.edit().putString("TOKEN", token).apply();
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
     public void parseJSON(String result, List<PerSetCard> trans) {
         try {
             JSONObject array = new JSONObject(result);
@@ -124,7 +171,9 @@ public class PersonalSettings extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.ps_save:
                 //post
-
+                Sbirthday= birthday.getEditableText().toString();
+                Semail= email.getEditableText().toString();
+                HPSP.Patch(Sbirthday,Semail,patchUrl, token);
                 finish();
                 break;
             case R.id.psbtn_clean:

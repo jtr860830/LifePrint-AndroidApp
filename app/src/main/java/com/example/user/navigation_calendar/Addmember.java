@@ -97,9 +97,6 @@ public class Addmember extends DialogFragment implements View.OnClickListener {
         }catch (JSONException e){
             e.printStackTrace();
         }
-
-
-
     }
 
 
