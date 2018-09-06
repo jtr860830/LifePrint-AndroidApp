@@ -118,6 +118,7 @@ public class AddGroup extends AppCompatActivity implements View.OnClickListener,
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.ag_back:
+                setResult(RESULT_CANCELED);
                 finish();
                 break;
             case R.id.ag_save:
@@ -130,6 +131,7 @@ public class AddGroup extends AppCompatActivity implements View.OnClickListener,
                     HAGP.Post(GroupName,picture_path,postUrl,token);
                 }
                 //go back
+                setResult(RESULT_OK);
                 finish();
                 break;
             case R.id.ag_buttonclean:

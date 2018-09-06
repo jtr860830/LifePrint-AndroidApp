@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SharedPreferences NsharedPreferences;
     private String token;
     private String resultJSON;
+    private int request;
 
     //Get Group Name
     String[]  groupname={"UserName","Isabel"};
@@ -231,10 +233,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()){
             case R.id.btn_addgroup:
                 Intent itAddgroup=new Intent(MainActivity.this,AddGroup.class);
-                startActivity(itAddgroup);
+                startActivityForResult(itAddgroup, request);
                 break;
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (resultCode) {
+            case RESULT_OK:
+                this.recreate();
+                break;
+            case RESULT_CANCELED:
+                break;
+        }
+    }
+
     //滑開頁面選單
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
