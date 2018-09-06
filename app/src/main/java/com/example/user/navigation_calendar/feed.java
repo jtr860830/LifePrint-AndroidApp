@@ -1,11 +1,13 @@
 package com.example.user.navigation_calendar;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 
@@ -30,7 +32,10 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class feed extends Fragment {
+public class feed extends Fragment implements View.OnClickListener {
+
+    ImageButton goto_barchart;
+    ImageButton goto_map;
 
 
     public feed() {
@@ -44,46 +49,28 @@ public class feed extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_feed, container, false);
 
-        AnyChartView anyChartView = view.findViewById(R.id.any_chart_view);
-        //anyChartView.setProgressBar(view.findViewById(R.id.progress_bar));
-
-
-        //user-->pie
-        Pie pie = AnyChart.pie();
-        pie.setOnClickListener(new ListenersInterface.OnClickListener(new String[]{"x", "value"}) {
-            @Override
-            public void onClick(Event event) {
-                Toast.makeText(getActivity(), event.getData().get("x") + ":" + event.getData().get("value"), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        List<DataEntry> data = new ArrayList<>();
-        data.add(new ValueDataEntry("John", 10000));
-        data.add(new ValueDataEntry("Jake", 12000));
-        data.add(new ValueDataEntry("Peter", 18000));
-
-        pie.setData(data);
-        anyChartView.setChart(pie);
-
-
-        /*
-        //groupName -->bar
-        Cartesian cartesian = AnyChart.column();
-
-        List<DataEntry> Gdata = new ArrayList<>();
-        Gdata.add(new ValueDataEntry("Rouge", 80540));
-        Gdata.add(new ValueDataEntry("Foundation", 94190));
-        Gdata.add(new ValueDataEntry("Mascara", 102610));
-        Gdata.add(new ValueDataEntry("Lip gloss", 110430));
-        Gdata.add(new ValueDataEntry("Lipstick", 128000));
-
-        cartesian.column(Gdata);
-        //Column column = cartesian.column(data);
-        anyChartView.setChart(cartesian);
-*/
-
+        goto_barchart=view.findViewById(R.id.btn_barchart);
+        goto_barchart.setOnClickListener(this);
+        goto_map=view.findViewById(R.id.btn_groupmap);
+        goto_map.setOnClickListener(this);
 
         return view;
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btn_barchart:
+                //go to group bar chart
+                Intent itchart=new Intent(getActivity(),GroupBarChart.class);
+                startActivity(itchart);
+
+                break;
+            case R.id.btn_groupmap:
+                //go to group map
+
+
+                break;
+        }
+    }
 }

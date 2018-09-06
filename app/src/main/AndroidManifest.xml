@@ -37,7 +37,8 @@
         <activity android:name=".maps" />
         <activity android:name=".GroupList" />
         <activity android:name=".AddGroup" />
-        <activity android:name=".Addmember"></activity>
+        <activity android:name=".Addmember" />
+        <activity android:name=".GroupBarChart"></activity>
     </application>
 
 </manifest>
