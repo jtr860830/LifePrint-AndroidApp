@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String person_email;
 
     //存放要Get的訊息
-    private String getUrl = "https://sd.jezrien.one/register";
+    private String getUrl = "https://sd.jezrien.one/user/profile";
     Http_Get HUG;
     SharedPreferences NsharedPreferences;
     private String token;
@@ -170,9 +170,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    //顯示user資料，抓不到東西，對應到218,219行顯示
+    
     public void parseJSON(String result, List<PerInfoCard> trans) {
         try {
             JSONArray array = new JSONArray(result);
+            person_name=array.getString(4);
+            person_email=array.getString(5);
+            /*
             for (int i=0; i<array.length(); i++){
                 JSONObject obj = array.getJSONObject(i);
 
@@ -182,6 +187,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d("JSON:",person_name+"/"+person_email);
                 trans.add(new PerInfoCard(person_name, person_email));
             }
+            */
+            Log.d("JSON:",person_name+"/"+person_email);
+            trans.add(new PerInfoCard(person_name, person_email));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -207,11 +215,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void getUserInfo(View header){
         TextView username=header.findViewById(R.id.per_name);
         TextView useremail=header.findViewById(R.id.per_email);
-        //username.setText(person_name);
-        //useremail.setText(person_email);
 
-        username.setText("Isabel");
-        useremail.setText("hahaha@haha");
+        username.setText(person_name);
+        useremail.setText(person_email);
+
+        //username.setText("Isabel");
+        //useremail.setText("hahaha@haha");
 
         ImageButton addgroup=header.findViewById(R.id.btn_addgroup);
         addgroup.setOnClickListener(this);

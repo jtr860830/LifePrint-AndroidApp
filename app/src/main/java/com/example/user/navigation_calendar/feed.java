@@ -47,7 +47,7 @@ public class feed extends Fragment {
         AnyChartView anyChartView = view.findViewById(R.id.any_chart_view);
         //anyChartView.setProgressBar(view.findViewById(R.id.progress_bar));
 
-        /*
+
         //user-->pie
         Pie pie = AnyChart.pie();
         pie.setOnClickListener(new ListenersInterface.OnClickListener(new String[]{"x", "value"}) {
@@ -64,9 +64,9 @@ public class feed extends Fragment {
 
         pie.setData(data);
         anyChartView.setChart(pie);
-        */
 
 
+        /*
         //groupName -->bar
         Cartesian cartesian = AnyChart.column();
 
@@ -80,7 +80,7 @@ public class feed extends Fragment {
         cartesian.column(Gdata);
         //Column column = cartesian.column(data);
         anyChartView.setChart(cartesian);
-
+*/
 
 
         return view;
