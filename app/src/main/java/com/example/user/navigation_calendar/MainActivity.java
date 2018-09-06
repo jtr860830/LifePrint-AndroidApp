@@ -136,11 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (savedInstanceState == null) {
             navigationView.setSelectedItemId(R.id.nav_month); // change to whichever id should be default
         }
-        //setTitle("Fragment title month");
-        month fragment_month = new month();
-        FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
-        transaction3.replace(R.id.fragment_space, fragment_month, "Fragment_month");
-        transaction3.commit();
+        
 
     }
 

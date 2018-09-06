@@ -46,12 +46,12 @@ public class month extends Fragment implements View.OnClickListener, EventItemTo
     SharedPreferences NsharedPreferences;
     private String token;
     private String resultJSON;
+    private String groupname = null;
     List<eventCard> trans;
 
     public month() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
