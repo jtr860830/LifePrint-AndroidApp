@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Http_Get HGNG;
     public ArrayList<String> groupnameList;//存group name
 
-
     //menu group
     Menu  mySchedual;
     Menu  settings;
@@ -107,7 +106,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //get group name
         groupnameList = new ArrayList<>();
-        HGNG=new Http_Get();
+        groupnameList.add("Personal");
+        HGNG = new Http_Get();
         HGNG.Get(getGNUrl, token);
         resultJSON=HGNG.getTt();
         ArrayList<String> GN = GNparseJSON(resultJSON, groupnameList);
@@ -276,6 +276,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (id-5 < groupnameList.size()) {
             //group calendar
             groupname = groupnameList.get(id-5);
+            if (groupname.equals("Personal")) groupname = null;
             Toast.makeText(MainActivity.this, groupname, Toast.LENGTH_SHORT).show();
             Bundle data =  new Bundle();
             data.putString("groupname", groupname);
