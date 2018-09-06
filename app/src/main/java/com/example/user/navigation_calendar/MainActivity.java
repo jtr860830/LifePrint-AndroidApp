@@ -83,8 +83,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             StrictMode.setThreadPolicy(policy);
         }
         //Member 的array資料
-        username=new ArrayList<>();
-        userimage=new ArrayList<>();
+        username = new ArrayList<>();
+        userimage = new ArrayList<>();
         title = findViewById(R.id.toolbar_title);
 
         //滑開頁面
@@ -96,8 +96,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawer_navigationView = findViewById(R.id.nav_view);
         drawer_navigationView.setNavigationItemSelectedListener(this);
 
-        View header=drawer_navigationView.inflateHeaderView(R.layout.drawer_header);
-        getUserInfo(header);
+        View header = drawer_navigationView.inflateHeaderView(R.layout.drawer_header);
+
 
         drawer_navigationView.invalidate();
 
@@ -108,9 +108,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //get group name
         groupnameList = new ArrayList<>();
         HGNG=new Http_Get();
-        HGNG.Get(getGNUrl,token);
+        HGNG.Get(getGNUrl, token);
         resultJSON=HGNG.getTt();
-        ArrayList<String> GN=GNparseJSON(resultJSON,groupnameList);
+        ArrayList<String> GN = GNparseJSON(resultJSON, groupnameList);
 
         //動態產生群組
         addGroup(GN);
@@ -118,9 +118,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //get username & email
         List<PerInfoCard> trans = new ArrayList<>();
         HUG = new Http_Get();
-        HUG.Get(getUrl,token);
+        HUG.Get(getUrl, token);
         resultJSON = HUG.getTt();
         parseJSON(resultJSON, trans);
+        getUserInfo(header);
 
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
@@ -174,9 +175,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     
     public void parseJSON(String result, List<PerInfoCard> trans) {
         try {
-            JSONArray array = new JSONArray(result);
-            person_name=array.getString(4);
-            person_email=array.getString(5);
+            JSONObject array = new JSONObject(result);
+            person_name = array.getString("Username");
+            person_email = array.getString("Email");
             /*
             for (int i=0; i<array.length(); i++){
                 JSONObject obj = array.getJSONObject(i);
@@ -188,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 trans.add(new PerInfoCard(person_name, person_email));
             }
             */
-            Log.d("JSON:",person_name+"/"+person_email);
+            Log.d("JSON:", person_name + "/" + person_email);
             trans.add(new PerInfoCard(person_name, person_email));
         } catch (JSONException e) {
             e.printStackTrace();
