@@ -71,7 +71,7 @@ public class PersonalSettings extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_settings);
 
-        HPSP=new Http_PersonalSettingPatch();
+        HPSP = new Http_PersonalSettingPatch();
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         token = sharedPreferences.getString("TOKEN", "");
 
@@ -82,7 +82,6 @@ public class PersonalSettings extends AppCompatActivity implements View.OnClickL
                     case 16:
                         String ss = (String) msg.obj;
                         Log.d("Message",ss);
-                        getToken(ss);
                         Toast.makeText(PersonalSettings.this, ss, Toast.LENGTH_LONG).show();
                         Intent it = new Intent(PersonalSettings.this,MainActivity.class);
                         startActivity(it);
@@ -128,20 +127,7 @@ public class PersonalSettings extends AppCompatActivity implements View.OnClickL
 
 
     }
-    public void getToken(String s){
-        try {
-            JSONObject jsonObject= new JSONObject(s);
-            token=jsonObject.getString("token");
 
-            //寫入token
-            SharedPreferences sharedPreferences = PreferenceManager
-                    .getDefaultSharedPreferences(this);
-            sharedPreferences.edit().putString("TOKEN", token).apply();
-
-        }catch (JSONException e){
-            e.printStackTrace();
-        }
-    }
     public void parseJSON(String result, List<PerSetCard> trans) {
         try {
             JSONObject array = new JSONObject(result);
@@ -155,14 +141,14 @@ public class PersonalSettings extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    public void getUserInfo(){
-        email=findViewById(R.id.ps_email);
-        birthday=findViewById(R.id.ps_bir);
+    public void getUserInfo() {
+        email = findViewById(R.id.ps_email);
+        birthday = findViewById(R.id.ps_bir);
 
         birthday.setText(person_birthday);
         email.setText(person_email);
-
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){

@@ -43,6 +43,9 @@ public class Http_PersonalSettingPatch extends Service {
                 //建立一個Patch物件，並給予要連線的Url
                 HttpPatch httpPatch=new HttpPatch(patchUrl);
                 //建立一個ArrayList且需是NameValuePair，此ArrayList是用來傳送給Http server端的訊息
+
+                httpPatch.setHeader("Authorization","Bearer "+token);
+
                 List params = new ArrayList();
 
                 params.add(new BasicNameValuePair("birthday",birthday.toString()));
