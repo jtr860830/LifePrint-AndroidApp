@@ -58,10 +58,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SharedPreferences NsharedPreferences;
     private String token;
     private String resultJSON;
-    private int request;
+    private static final int REFRESH = 1;
 
     //Get Group Name
-    String[]  groupname={"UserName","Isabel"};
+    String groupname = null;
     private String getGNUrl = "https://sd.jezrien.one/user/group/";
     Http_Get HGNG;
     public ArrayList<String> groupnameList;//存group name
@@ -178,17 +178,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             JSONObject array = new JSONObject(result);
             person_name = array.getString("Username");
             person_email = array.getString("Email");
-            /*
-            for (int i=0; i<array.length(); i++){
-                JSONObject obj = array.getJSONObject(i);
 
-                person_name=obj.getString("Username");
-                person_email= obj.getString("Email");
-
-                Log.d("JSON:",person_name+"/"+person_email);
-                trans.add(new PerInfoCard(person_name, person_email));
-            }
-            */
             Log.d("JSON:", person_name + "/" + person_email);
             trans.add(new PerInfoCard(person_name, person_email));
         } catch (JSONException e) {
@@ -214,8 +204,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void getUserInfo(View header){
-        TextView username=header.findViewById(R.id.per_name);
-        TextView useremail=header.findViewById(R.id.per_email);
+        TextView username = header.findViewById(R.id.per_name);
+        TextView useremail = header.findViewById(R.id.per_email);
 
         username.setText(person_name);
         useremail.setText(person_email);
@@ -223,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //username.setText("Isabel");
         //useremail.setText("hahaha@haha");
 
-        ImageButton addgroup=header.findViewById(R.id.btn_addgroup);
+        ImageButton addgroup = header.findViewById(R.id.btn_addgroup);
         addgroup.setOnClickListener(this);
 
     }
@@ -242,8 +232,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_addgroup:
-                Intent itAddgroup=new Intent(MainActivity.this,AddGroup.class);
-                startActivityForResult(itAddgroup, request);
+                Intent itAddgroup = new Intent(MainActivity.this, AddGroup.class);
+                startActivityForResult(itAddgroup, REFRESH);
                 break;
         }
     }
@@ -265,31 +255,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-        int id=menuItem.getItemId();
+        int id = menuItem.getItemId();
 
-        //Schedual
-        if(id==mySchedual.getItem(1).getItemId()){
-            //group calendar
-
-        }
         //Settings
-        if (id==settings.getItem(0).getItemId()){
+        if (id == settings.getItem(0).getItemId()){
             //Personal Settings
             Intent itPS=new Intent(MainActivity.this,PersonalSettings.class);
             startActivity(itPS);
-        }else if (id==settings.getItem(1).getItemId()) {
+            return true;
+        } else if (id == settings.getItem(1).getItemId()) {
             //Group Settings
             Intent itGS = new Intent(MainActivity.this, GroupSetting.class);
             startActivity(itGS);
+            return true;
         }
         //Other
-        if (id==other.getItem(0).getItemId()) {
+        if (id == other.getItem(0).getItemId()) {
             //Map
             Intent itmap = new Intent(MainActivity.this, maps.class);
             startActivity(itmap);
-        }else if (id==other.getItem(1).getItemId()) {
+            return true;
+        } else if (id == other.getItem(1).getItemId()) {
             //Exit
             Toast.makeText(MainActivity.this,"exit",Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        //Schedual
+        if (id-5 < groupnameList.size()) {
+            //group calendar
+            groupname = groupnameList.get(id-5);
+            Toast.makeText(MainActivity.this, groupname, Toast.LENGTH_SHORT).show();
         }
 
         return true;
