@@ -167,8 +167,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    //顯示user資料，抓不到東西，對應到218,219行顯示
-    
+
+
     public void parseJSON(String result, List<PerInfoCard> trans) {
         try {
             JSONObject array = new JSONObject(result);
@@ -205,9 +205,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         username.setText(person_name);
         useremail.setText(person_email);
-
-        //username.setText("Isabel");
-        //useremail.setText("hahaha@haha");
 
         ImageButton addgroup = header.findViewById(R.id.btn_addgroup);
         addgroup.setOnClickListener(this);

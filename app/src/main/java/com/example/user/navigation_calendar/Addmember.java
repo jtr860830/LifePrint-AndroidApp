@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,8 +47,10 @@ public class Addmember extends DialogFragment implements View.OnClickListener {
         add = view.findViewById(R.id.add_member);
         add.setOnClickListener(this);
         userID=view.findViewById(R.id.add_memberID);
-        //get groupname
-        //getGroupname=view.findViewById(R.id.);
+
+        //取得group name，才能post
+        // getGroupname=view.findViewById()
+
 
         HAMP=new Http_AddMemberPost();
 
@@ -57,6 +60,7 @@ public class Addmember extends DialogFragment implements View.OnClickListener {
                     case 11:
                         String ss = (String) msg.obj;
                         //Toast.makeText(Login.this, ss, Toast.LENGTH_LONG).show();
+                        Log.d("Message",ss);
                         getToken(ss);
                         Fragment prev = getFragmentManager().findFragmentByTag("fragment_dialog");
                         if (prev != null) {
