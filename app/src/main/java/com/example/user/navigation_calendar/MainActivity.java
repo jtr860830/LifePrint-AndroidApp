@@ -297,6 +297,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
+                    Bundle data =  new Bundle();
+                    data.putString("groupname", groupname);
                     switch (menuItem.getItemId()) {
                         case R.id.nav_notes:
                             title.setText("Notes");
@@ -316,8 +318,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         //return true;
                         case R.id.nav_month:
                             title.setText("Month");
-                            Bundle data =  new Bundle();
-                            data.putString("groupname", groupname);
                             month fragment_month = new month();
                             fragment_month.setArguments(data);
                             FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
@@ -328,6 +328,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.nav_feed:
                             title.setText("Analysis");
                             feed fragment_feed = new feed();
+                            fragment_feed.setArguments(data);
                             FragmentTransaction transaction4 = getSupportFragmentManager().beginTransaction();
                             transaction4.replace(R.id.fragment_space, fragment_feed, "Fragment_feed");
                             transaction4.commit();
@@ -336,6 +337,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.nav_member:
                             title.setText("Member");
                             members fragment_setting = new members();
+                            fragment_setting.setArguments(data);
                             FragmentTransaction transaction5 = getSupportFragmentManager().beginTransaction();
                             transaction5.replace(R.id.fragment_space, fragment_setting, "Fragment_members");
                             transaction5.commit();
