@@ -69,8 +69,6 @@ public class members extends Fragment implements View.OnClickListener {
         View view=inflater.inflate(R.layout.fragment_members, container, false);
         add = view.findViewById(R.id.Add);
 
-        groupname = getArguments().getString("groupname");
-
         //set token
         NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         token = NsharedPreferences.getString("TOKEN", "");
@@ -79,7 +77,10 @@ public class members extends Fragment implements View.OnClickListener {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle args = new Bundle();
                 Addmember dialog = new Addmember();
+                args.putString("groupname", groupname);
+                dialog.setArguments(args);
                 dialog.show(getFragmentManager(), "fragment_dialog");
             }
         });

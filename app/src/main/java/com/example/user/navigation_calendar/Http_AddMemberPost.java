@@ -22,15 +22,17 @@ import java.util.List;
 
 public class Http_AddMemberPost extends Service {
 
-    String Addusername=null;
-    String groupname=null;
-    String postUrl=null;
-    String strResult=null;
+    String Addusername = null;
+    String groupname = null;
+    String postUrl = null;
+    String strResult = null;
+    String token = null;
 
-    public void Post(String username,String GN, final String Url) {
-        Addusername=username;
-        groupname=GN;
+    public void Post(String username,String GN, final String Url, String T) {
+        Addusername = username;
+        groupname = GN;
         postUrl = Url;
+        token = T;
 
         new Thread(new Runnable() {
 
@@ -40,7 +42,7 @@ public class Http_AddMemberPost extends Service {
                 HttpClient httpClient = new DefaultHttpClient();
                 //建立一個Post物件，並給予要連線的Url
                 HttpPost httpPost = new HttpPost(postUrl);
-
+                httpPost.setHeader("Authorization","Bearer " + token);
                 //建立一個ArrayList且需是NameValuePair，此ArrayList是用來傳送給Http server端的訊息
                 //name:資料表欄位
                 List params = new ArrayList();
