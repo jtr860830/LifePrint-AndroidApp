@@ -39,6 +39,7 @@ public class members extends Fragment implements View.OnClickListener {
     private RecyclerView recyclerView;
     private memberAdapter adapter;
     private ImageButton add;
+    private String groupname;
 
 
     public members() {
@@ -53,6 +54,8 @@ public class members extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_members, container, false);
         add = view.findViewById(R.id.Add);
+
+        groupname = getArguments().getString("groupname");
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
