@@ -70,5 +70,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Bar_anychart_view" />
+        app:layout_constraintTop_toBottomOf="@+id/Bar_anychart_view"
+        tools:listitem="@layout/barchart_member_item" />
 </android.support.constraint.ConstraintLayout>

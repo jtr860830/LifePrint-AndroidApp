@@ -54,6 +54,9 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
         recyclerView.setLayoutManager(layoutManager);
 
         trans = new ArrayList<>();
+        trans.add(new BCMemberCard("Isabel"));
+        trans.add(new BCMemberCard("Leah"));
+
         adapter = new BCmemberAdapter(trans);
         recyclerView.setAdapter(adapter);
 
@@ -144,8 +147,8 @@ class BCMemberCard {
     public String getUsername() {
         return username;
     }
-    public void setUsername(String title) {
-        this.username= username;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 }
@@ -177,10 +180,7 @@ class BCmemberAdapter extends RecyclerView.Adapter<BCmemberAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-        //holder.username.setText(data.get(position).getUsername());
-        holder.username.setText("Isabel");
-        holder.username.setText("Leah");
+        holder.username.setText(data.get(position).getUsername());
     }
 
     @Override
