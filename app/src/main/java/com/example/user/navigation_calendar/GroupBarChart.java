@@ -32,7 +32,7 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
 
     ImageButton back;
     private SeekBar seekBar;
-    private TextView textView;
+
     private StringBuffer stringBuffer;
 
     private RecyclerView recyclerView;
@@ -116,8 +116,8 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
     @Override
     //seelbar值變化時觸發
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        stringBuffer.append("正在拖动"+progress+"\n");
-        textView.setText(stringBuffer);
+
+
     }
 
     @Override
@@ -125,14 +125,14 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
     public void onStartTrackingTouch(SeekBar seekBar) {
         stringBuffer=new StringBuffer();
         stringBuffer.append("开始拖动+\n");
-        textView.setText(stringBuffer);
+
     }
 
     @Override
     //seekbar停止拖動時觸發
     public void onStopTrackingTouch(SeekBar seekBar) {
         stringBuffer.append("停止拖动+\n");
-        textView.setText(stringBuffer);
+
     }
 }
 

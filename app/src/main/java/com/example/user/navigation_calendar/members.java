@@ -2,12 +2,14 @@ package com.example.user.navigation_calendar;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.AnimatedImageDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,6 +29,10 @@ import java.util.ArrayList;
 import java.util.List;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import static android.app.Activity.RESULT_OK;
 
 
@@ -39,8 +45,16 @@ public class members extends Fragment implements View.OnClickListener {
     private RecyclerView recyclerView;
     private memberAdapter adapter;
     private ImageButton add;
-    private String groupname;
 
+
+    //存放要Get的訊息
+    private String getUrl = "https://sd.jezrien.one/user/group/member";
+    Http_Get HMG;
+    SharedPreferences NsharedPreferences;
+    private String token;
+    private String resultJSON;
+    private String groupname;
+    List<memberCard> trans;
 
     public members() {
         // Required empty public constructor
@@ -57,6 +71,11 @@ public class members extends Fragment implements View.OnClickListener {
 
         groupname = getArguments().getString("groupname");
 
+        //set token
+        NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        token = NsharedPreferences.getString("TOKEN", "");
+
+        //add member dialog
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,13 +90,29 @@ public class members extends Fragment implements View.OnClickListener {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
+        trans = new ArrayList<>();
+
+        //get
+        groupname = getArguments().getString("groupname");
+        HMG = new Http_Get();
+
+        if (groupname != null) {
+            getUrl = "https://sd.jezrien.one/user/group/member";
+            HMG.Get(getUrl, token, groupname);
+        } else {
+            HMG.Get(getUrl, token);
+        }
+
+        resultJSON = HMG.getTt();
+        parseJSON(resultJSON, trans);
+
+        adapter = new memberAdapter(trans);
+        recyclerView.setAdapter(adapter);
+/*
         List<memberCard> Member = new ArrayList<>();
         Member.add(new memberCard(R.mipmap.ic_launcher ,"isabel"));
         Member.add(new memberCard(R.mipmap.ic_launcher ,"leah"));
-
-        adapter = new memberAdapter(Member);
-        recyclerView.setAdapter(adapter);
-
+*/
         //Change Group Background
 
 
@@ -85,6 +120,25 @@ public class members extends Fragment implements View.OnClickListener {
 
 
     }
+
+    public void parseJSON(String result, List<memberCard> trans) {
+        try {
+            JSONArray array = new JSONArray(result);
+            for (int i=0; i<array.length(); i++){
+                JSONObject obj = array.getJSONObject(i);
+
+                String mem_photo = obj.getString("Sticker");
+                String mem_username = obj.getString("Username");
+
+
+                Log.d("JSON:",mem_username+"/"+mem_photo);
+                trans.add(new memberCard(mem_photo, mem_username));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     //變更群組照片
     @Override
     public void onClick(View view) {
@@ -92,26 +146,23 @@ public class members extends Fragment implements View.OnClickListener {
 
         }
     }
-
-
-
-
-
 }
 class memberCard {
-    private int photo;
+    private String photo;
     private String username;
 
-    public memberCard(int photo, String username) {
+    public memberCard(String photo, String username) {
         this.photo = photo;
         this.username = username;
     }
-    public int getPhoto() {
+    /*
+    public String getPhoto() {
         return photo;
     }
-    public void setPhoto(int photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
+    */
     public String getUsername() {
         return username;
     }
@@ -130,13 +181,13 @@ class memberAdapter extends RecyclerView.Adapter<memberAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public ImageView photo;
+        //public ImageView photo;
         public TextView username;
 
 
         public ViewHolder(View v) {
             super(v);
-            photo = v.findViewById(R.id.userimage);
+            //photo = v.findViewById(R.id.userimage);
             username = v.findViewById(R.id.username);
         }
     }
@@ -151,7 +202,7 @@ class memberAdapter extends RecyclerView.Adapter<memberAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.photo.setImageResource(data.get(position).getPhoto());
+        //holder.photo.setImageResource(data.get(position).getPhoto());
         holder.username.setText(data.get(position).getUsername());
     }
 
