@@ -28,6 +28,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -100,12 +101,11 @@ public class members extends Fragment implements View.OnClickListener {
         if (groupname != null) {
             getUrl = "https://sd.jezrien.one/user/group/member";
             HMG.Get(getUrl, token, groupname);
+            resultJSON = HMG.getTt();
+            parseJSON(resultJSON, trans);
         } else {
-            HMG.Get(getUrl, token);
+            Toast.makeText(getActivity(), "Your state is not in a group, please choose a group", Toast.LENGTH_SHORT).show();
         }
-
-        resultJSON = HMG.getTt();
-        parseJSON(resultJSON, trans);
 
         adapter = new memberAdapter(trans);
         recyclerView.setAdapter(adapter);
