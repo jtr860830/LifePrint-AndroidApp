@@ -36,6 +36,7 @@ public class feed extends Fragment implements View.OnClickListener {
 
     ImageButton goto_barchart;
     ImageButton goto_map;
+    private String groupname = null;
 
 
     public feed() {
@@ -48,6 +49,7 @@ public class feed extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_feed, container, false);
+        groupname = getArguments().getString("groupname");
 
         goto_barchart=view.findViewById(R.id.btn_barchart);
         goto_barchart.setOnClickListener(this);
@@ -62,7 +64,8 @@ public class feed extends Fragment implements View.OnClickListener {
         switch (v.getId()){
             case R.id.btn_barchart:
                 //go to group bar chart
-                Intent itchart=new Intent(getActivity(),GroupBarChart.class);
+                Intent itchart = new Intent(getActivity(),GroupBarChart.class);
+                itchart.putExtra("groupname", groupname);
                 startActivity(itchart);
 
                 break;

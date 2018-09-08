@@ -34,7 +34,7 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
     private SeekBar seekBar;
 
     private StringBuffer stringBuffer;
-
+    private String groupname = null;
     private RecyclerView recyclerView;
     private BCmemberAdapter adapter;
     private List<BCMemberCard> trans;
@@ -44,7 +44,7 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_bar_chart);
-
+        groupname = getIntent().getExtras().getString("groupname");
         back=findViewById(R.id.bc_back);
         back.setOnClickListener(this);
 
