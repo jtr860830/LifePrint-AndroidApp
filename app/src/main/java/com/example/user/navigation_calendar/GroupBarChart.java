@@ -1,5 +1,7 @@
 package com.example.user.navigation_calendar;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +28,10 @@ import com.anychart.anychart.ValueDataEntry;
 import com.anychart.anychart.chart.common.Event;
 import com.anychart.anychart.chart.common.ListenersInterface;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +45,9 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
     private RecyclerView recyclerView;
     private BCmemberAdapter adapter;
     private List<BCMemberCard> trans;
+    SharedPreferences NsharedPreferences;
+    private String token;
+    private String resultJSON;
 
 
     @Override
@@ -48,14 +58,23 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
         back=findViewById(R.id.bc_back);
         back.setOnClickListener(this);
 
+        //set token
+        NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        token = NsharedPreferences.getString("TOKEN", "");
+
         recyclerView = findViewById(R.id.bc_recyclerview);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
         trans = new ArrayList<>();
-        trans.add(new BCMemberCard("Isabel"));
-        trans.add(new BCMemberCard("Leah"));
+
+        Http_Get HMG = new Http_Get();
+        if (groupname != null) {
+            HMG.Get("https://sd.jezrien.one/user/group/analysis", token, groupname);
+            resultJSON = HMG.getTt();
+            parseJSON(resultJSON, trans);
+        }
 
         adapter = new BCmemberAdapter(trans);
         recyclerView.setAdapter(adapter);
@@ -104,6 +123,24 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
 
     }
 
+    public void parseJSON(String result, List<BCMemberCard> trans) {
+        try {
+            JSONArray array = new JSONArray(result);
+            for (int i=0; i<array.length(); i++){
+                JSONObject obj = array.getJSONObject(i);
+
+                String mem_username = obj.getString("Username");
+                int mem_cnt = obj.getInt("Cnt");
+
+
+                Log.d("JSON:",mem_username+"/"+mem_cnt);
+                trans.add(new BCMemberCard(mem_username, mem_cnt));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -140,8 +177,10 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
 class BCMemberCard {
 
     private String username;
+    private int data;
 
-    public BCMemberCard(String username) {
+    public BCMemberCard(String username, int data) {
+        this.data = data;
         this.username = username;
     }
     public String getUsername() {
