@@ -71,7 +71,9 @@ public class feed extends Fragment implements View.OnClickListener {
                 break;
             case R.id.btn_groupmap:
                 //go to group map
-
+                Intent itmap = new Intent(getActivity(),PersonalPieChart.class);
+                itmap.putExtra("groupname", groupname);
+                startActivity(itmap);
 
                 break;
         }
