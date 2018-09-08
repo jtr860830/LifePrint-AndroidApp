@@ -64,16 +64,20 @@ public class feed extends Fragment implements View.OnClickListener {
         switch (v.getId()){
             case R.id.btn_barchart:
                 //go to group bar chart
-                Intent itchart = new Intent(getActivity(),GroupBarChart.class);
-                itchart.putExtra("groupname", groupname);
-                startActivity(itchart);
+                if (groupname == null) {
+                    Intent itmap = new Intent(getActivity(),PersonalPieChart.class);
+                    startActivity(itmap);
+                } else {
+                    Intent itchart = new Intent(getActivity(),GroupBarChart.class);
+                    itchart.putExtra("groupname", groupname);
+                    startActivity(itchart);
+                }
+
 
                 break;
             case R.id.btn_groupmap:
                 //go to group map
-                Intent itmap = new Intent(getActivity(),PersonalPieChart.class);
-                itmap.putExtra("groupname", groupname);
-                startActivity(itmap);
+
 
                 break;
         }
