@@ -38,7 +38,8 @@
         <activity android:name=".GroupList" />
         <activity android:name=".AddGroup" />
         <activity android:name=".Addmember" />
-        <activity android:name=".GroupBarChart"></activity>
+        <activity android:name=".GroupBarChart" />
+        <activity android:name=".PersonalPieChart"></activity>
     </application>
 
 </manifest>

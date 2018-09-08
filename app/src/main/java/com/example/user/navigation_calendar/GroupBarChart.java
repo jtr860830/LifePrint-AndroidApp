@@ -98,24 +98,7 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
         //Column column = cartesian.column(data);
         anyChartView.setChart(cartesian);
 
-        /*
-        //user-->pie
-        Pie pie = AnyChart.pie();
-        pie.setOnClickListener(new ListenersInterface.OnClickListener(new String[]{"x", "value"}) {
-            @Override
-            public void onClick(Event event) {
-                Toast.makeText(this, event.getData().get("x") + ":" + event.getData().get("value"), Toast.LENGTH_SHORT).show();
-            }
-        });
 
-        List<DataEntry> data = new ArrayList<>();
-        data.add(new ValueDataEntry("John", 10000));
-        data.add(new ValueDataEntry("Jake", 12000));
-        data.add(new ValueDataEntry("Peter", 18000));
-
-        pie.setData(data);
-        anyChartView.setChart(pie);
-        */
 
         seekBar=(SeekBar)findViewById(R.id.seekBar);
         //textView=(TextView)findViewById(R.id.tv);
