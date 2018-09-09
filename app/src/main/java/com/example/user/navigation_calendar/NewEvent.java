@@ -17,14 +17,18 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.location.Address;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.text.DecimalFormat;
+
+import com.schibstedspain.leku.*;
 
 public class NewEvent extends AppCompatActivity implements View.OnClickListener {
 
@@ -42,6 +46,7 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
     private TextView textTimeTo;
     private DatePickerDialog datePickerDialogTo;
     private TimePickerDialog timePickerDialogTo;
+    private ImageView lc;
 
     //post取得元件
     EditText new_title;
@@ -51,7 +56,7 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
     TextView end_time;
     Spinner group;
     Spinner category;
-    private String[] category_list = {"聚會","聚餐","出遊","正事","其他"}; //宣告字串陣列
+    private String[] category_list = {"Party","Dinner","Travel","Business","Others"}; //宣告字串陣列
     private ArrayAdapter<String> category_listAdapter; //喧告listAdapter物件
 
     EditText new_location;
@@ -67,6 +72,10 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
     private String Slocation=null;
     private String token;
     SharedPreferences sharedPreferences;
+    double latitude;
+    double longitude;
+    String address;
+
 
     private String postUrl = "https://sd.jezrien.one/user/schedules";
     static Handler handler; //宣告成static讓service可以直接使用
@@ -97,6 +106,7 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
         new_location=findViewById(R.id.ne_location);
         save=findViewById(R.id.new_save);
         close=findViewById(R.id.new_back);
+        lc = findViewById(R.id.imageView4);
 
         //群組選單
         group=findViewById(R.id.group_spinner);
@@ -107,7 +117,7 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
         category_listAdapter = new ArrayAdapter<String>(this, R.layout.myspinner, category_list);//預設android.R.layout.simple_list_item_1
         //設定下拉選單的樣式
         category_listAdapter.setDropDownViewResource(R.layout.myspinner_list);//android.R.layout.simple_spinner_dropdown_item
-        category.setAdapter(category_listAdapter );
+        category.setAdapter(category_listAdapter);
         //設定項目被選取之後的動作
         category.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
             public void onItemSelected(AdapterView adapterView, View view, int position, long id){
@@ -115,6 +125,21 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
             }
             public void onNothingSelected(AdapterView arg0) {
                 Toast.makeText(NewEvent.this, "您沒有選擇任何項目", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        lc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new LocationPickerActivity.Builder()
+                        .withLocation(25.163711623792803, 121.44841454923154)
+                        .withGeolocApiKey("AIzaSyCg2QiaDfiy3cGzlp3DIJeZbEaK82N9OhM")
+                        .withSearchZone("zh_TW")
+                        .shouldReturnOkOnBackPressed()
+                        .withGooglePlacesEnabled()
+                        .build(getApplicationContext());
+
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -142,7 +167,29 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
     }
 
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK){
+                latitude = data.getDoubleExtra("latitude", 0);
+                Log.d("LATITUDE****", String.valueOf(latitude));
+                longitude = data.getDoubleExtra("longitude", 0);
+                Log.d("LONGITUDE****", String.valueOf(longitude));
+                address = data.getStringExtra("location_address");
+                Log.d("ADDRESS****", String.valueOf(address));
+                //String postalcode = data.getStringExtra("zipcode");
+                //Log.d("POSTALCODE****", String.valueOf(postalcode));
+                //Bundle bundle = data.getBundleExtra("transition_bundle");
+                //Log.d("BUNDLE TEXT****", bundle.getString("test"));
+                //Address fullAddress = data.getParcelableExtra("address");
+                //if(fullAddress != null)
+                    //Log.d("FULL ADDRESS****", fullAddress.toString());
+            }
+            if (resultCode == RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    }
 
     public void DateFrom(){
         GregorianCalendar calendar= new GregorianCalendar();
@@ -219,13 +266,10 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
                     Sstart=start_date.getText().toString()+"T"+start_time.getText().toString()+":00Z";
                     Send=end_date.getText().toString()+"T"+end_time.getText().toString()+":00Z";
                     Scategory=category.getSelectedItem().toString();
-                    Sgroup=group.getSelectedItem().toString();
+                    //Sgroup=group.getSelectedItem().toString();
                     Slocation=new_location.getEditableText().toString();
-                    //將經緯度拆開，再post
-                    String[] location=Slocation.split(",");
-                    String Sn=location[1];
-                    String Se=location[2];
-                    HNEP.Post(Stitle,Sstart,Send,Scategory,Sgroup,Sn,Se,postUrl,token);
+
+                    HNEP.Post(Stitle,Sstart,Send,Scategory,Sgroup,Slocation,longitude,latitude,postUrl,token);
 
 
 

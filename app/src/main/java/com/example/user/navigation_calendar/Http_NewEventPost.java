@@ -28,17 +28,18 @@ public class Http_NewEventPost extends Service{
     String start=null;
     String end=null;
     String group;
-    String n;//緯度
-    String e;//經度
+    double n;//緯度
+    double e;//經度
     String category;
     String postUrl=null;
     String strResult=null;
     String token;
+    String location;
 
 
 
     public void Post(String Stitle,String Sstart,String Send,
-                     String Scategory,String Sgroup,String Sn,String Se ,String Url,String T) {
+                     String Scategory,String Sgroup,String lc,double Sn,double Se ,String Url,String T) {
         title=Stitle;
         start=Sstart;
         end=Send;
@@ -48,6 +49,7 @@ public class Http_NewEventPost extends Service{
         group=Sgroup;
         postUrl=Url;
         token = T;
+        location = lc;
 
         new Thread(new Runnable() {
 
@@ -66,9 +68,10 @@ public class Http_NewEventPost extends Service{
                 params.add(new BasicNameValuePair("event", title.toString()));
                 params.add(new BasicNameValuePair("start", start.toString()));
                 params.add(new BasicNameValuePair("end", end.toString()));
+                params.add(new BasicNameValuePair("location", location.toString()));
                 //經度緯度
-                params.add(new BasicNameValuePair("n", n.toString()));
-                params.add(new BasicNameValuePair("e", e.toString()));
+                params.add(new BasicNameValuePair("n", String.valueOf(n)));
+                params.add(new BasicNameValuePair("e", String.valueOf(e)));
                 //事件類別
                 params.add(new BasicNameValuePair("type", category.toString()));
 

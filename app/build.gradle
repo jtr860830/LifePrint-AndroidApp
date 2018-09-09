@@ -40,6 +40,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:15.0.1'
 
     implementation 'com.github.AnyChart:AnyChart-Android:0.3.0'
+    implementation 'com.schibstedspain.android:leku:5.0.0'
 }
 android {
     useLibrary 'org.apache.http.legacy'

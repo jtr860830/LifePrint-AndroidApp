@@ -125,10 +125,11 @@ public class month extends Fragment implements View.OnClickListener, EventItemTo
 
                 String event = obj.getString("Event");
                 String startTime = obj.getString("StartTime");
-                String location = obj.getString("Location");
+                JSONObject location = obj.getJSONObject("Location");
+                String lc = location.getString("Name");
 
                 Log.d("JSON:",event+"/"+startTime+"/"+location);
-                trans.add(new eventCard(event, startTime,location));
+                trans.add(new eventCard(event, startTime,lc));
             }
         } catch (JSONException e) {
             e.printStackTrace();
