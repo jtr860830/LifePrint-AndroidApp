@@ -62,6 +62,10 @@ public class Http_NewEventPost extends Service{
                     postUrl = "https://sd.jezrien.one/user/group/schedules";
                 }
 
+                if (group.equals("Personal")) {
+                    postUrl = "https://sd.jezrien.one/user/schedules";
+                }
+
                 if (group.equals("All")) {
                     postUrl = "https://sd.jezrien.one/user/group/schedules/all";
                 }
