@@ -24,6 +24,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import android.location.Address;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.text.DecimalFormat;
@@ -64,7 +65,7 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
     Spinner category;
     private String[] category_list = {"Party","Dinner","Travel","Business","Others"}; //宣告字串陣列
     private ArrayAdapter<String> category_listAdapter; //喧告listAdapter物件
-    String[] groupname_list=null;
+    ArrayList<String> groupname_list = new ArrayList<>();
     private ArrayAdapter<String> groupname_listAdapter;
 
 
@@ -109,7 +110,6 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
         token = sharedPreferences.getString("TOKEN", "");
 
         //get
-
         HNEG = new Http_Get();
         HNEG.Get(getUrl,token);
         resultJSON = HNEG.getTt();
@@ -120,6 +120,7 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
         DateFrom();
         DateTo();
     }
+
     public void parseJSON(String result) {
         try {
             JSONArray array = new JSONArray(result);
@@ -127,9 +128,8 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
                 JSONObject obj = array.getJSONObject(i);
 
                 String GN = obj.getString("Name");
-                groupname_list=GN.split(",");
-
-                Log.d("JSON:",GN );
+                Log.d("JSON:", GN);
+                groupname_list.add(GN);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -321,7 +321,7 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
                     Sstart=start_date.getText().toString()+"T"+start_time.getText().toString()+":00Z";
                     Send=end_date.getText().toString()+"T"+end_time.getText().toString()+":00Z";
                     Scategory=category.getSelectedItem().toString();
-                    //Sgroup=group.getSelectedItem().toString();
+                    Sgroup=group.getSelectedItem().toString();
                     Slocation=new_location.getEditableText().toString();
 
                     HNEP.Post(Stitle,Sstart,Send,Scategory,Sgroup,Slocation,longitude,latitude,postUrl,token);

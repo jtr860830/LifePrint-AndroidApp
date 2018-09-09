@@ -58,6 +58,9 @@ public class Http_NewEventPost extends Service{
                 //建立HttpClient物件
                 HttpClient httpClient = new DefaultHttpClient();
                 //建立一個Post物件，並給予要連線的Url
+                if (group != null) {
+                    postUrl = "https://sd.jezrien.one/user/group/schedules";
+                }
                 HttpPost httpPost = new HttpPost(postUrl);
 
                 //send token to backend
@@ -65,6 +68,9 @@ public class Http_NewEventPost extends Service{
 
                 //建立一個ArrayList且需是NameValuePair，此ArrayList是用來傳送給Http server端的訊息
                 List params = new ArrayList();
+                if (group != null) {
+                    params.add(new BasicNameValuePair("name", group.toString()));
+                }
                 params.add(new BasicNameValuePair("event", title.toString()));
                 params.add(new BasicNameValuePair("start", start.toString()));
                 params.add(new BasicNameValuePair("end", end.toString()));
@@ -75,8 +81,6 @@ public class Http_NewEventPost extends Service{
                 //事件類別
                 params.add(new BasicNameValuePair("type", category.toString()));
 
-                //要發送的群組名稱
-                //params.add(new BasicNameValuePair("", group.toString()));
 
                 //發送Http Request，內容為params，且為UTF8格式
                 UrlEncodedFormEntity ent = null;
