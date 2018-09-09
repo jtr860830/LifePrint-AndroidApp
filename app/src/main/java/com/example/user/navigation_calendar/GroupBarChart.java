@@ -35,10 +35,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupBarChart extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
+public class GroupBarChart extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton back;
-    private SeekBar seekBar;
+
 
     private StringBuffer stringBuffer;
     private String groupname = null;
@@ -99,11 +99,6 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
         anyChartView.setChart(cartesian);
 
 
-
-        seekBar=(SeekBar)findViewById(R.id.seekBar);
-        //textView=(TextView)findViewById(R.id.tv);
-        seekBar.setOnSeekBarChangeListener(this);
-
     }
 
     public void parseJSON(String result, List<BCMemberCard> trans) {
@@ -133,27 +128,6 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    @Override
-    //seelbar值變化時觸發
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-
-    }
-
-    @Override
-    //seekbar開始拖動時觸發
-    public void onStartTrackingTouch(SeekBar seekBar) {
-        stringBuffer=new StringBuffer();
-        stringBuffer.append("开始拖动+\n");
-
-    }
-
-    @Override
-    //seekbar停止拖動時觸發
-    public void onStopTrackingTouch(SeekBar seekBar) {
-        stringBuffer.append("停止拖动+\n");
-
-    }
 }
 
 //JSON-->data

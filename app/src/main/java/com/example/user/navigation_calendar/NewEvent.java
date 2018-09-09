@@ -12,9 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -46,8 +49,11 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
     TextView start_time;
     TextView end_date;
     TextView end_time;
-    EditText new_alert;
-    EditText new_notes;
+    Spinner group;
+    Spinner category;
+    private String[] category_list = {"聚會","聚餐","出遊","正事","其他"}; //宣告字串陣列
+    private ArrayAdapter<String> category_listAdapter; //喧告listAdapter物件
+
     EditText new_location;
     ImageButton save;
     ImageButton close;
@@ -56,8 +62,8 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
     private String Stitle = null;
     private String Sstart = null;
     private String Send=null;
-    private String Salert=null;
-    private String Snotes=null;
+    private String Sgroup=null;
+    private String Scategory=null;
     private String Slocation=null;
     private String token;
     SharedPreferences sharedPreferences;
@@ -88,11 +94,31 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
         start_time=findViewById(R.id.timetextFrom);
         end_date=findViewById(R.id.datetextTo);
         end_time=findViewById(R.id.timetextTo);
-        new_alert=findViewById(R.id.ne_alert);
-        new_notes=findViewById(R.id.ne_note);
         new_location=findViewById(R.id.ne_location);
         save=findViewById(R.id.new_save);
         close=findViewById(R.id.new_back);
+
+        //群組選單
+        group=findViewById(R.id.group_spinner);
+
+        //類別選單
+        category=findViewById(R.id.category_spinner);
+        //建立一個ArrayAdapter物件，並放置下拉選單的內容
+        category_listAdapter = new ArrayAdapter<String>(this, R.layout.myspinner, category_list);//預設android.R.layout.simple_list_item_1
+        //設定下拉選單的樣式
+        category_listAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        category.setAdapter(category_listAdapter );
+        //設定項目被選取之後的動作
+        category.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
+            public void onItemSelected(AdapterView adapterView, View view, int position, long id){
+                Toast.makeText(NewEvent.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+            }
+            public void onNothingSelected(AdapterView arg0) {
+                Toast.makeText(NewEvent.this, "您沒有選擇任何項目", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
 
         save.setOnClickListener(this);
         close.setOnClickListener(this);
@@ -192,11 +218,14 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
                     Stitle=new_title.getEditableText().toString();
                     Sstart=start_date.getText().toString()+"T"+start_time.getText().toString()+":00Z";
                     Send=end_date.getText().toString()+"T"+end_time.getText().toString()+":00Z";
-                    Salert=new_alert.getEditableText().toString();
-                    Slocation=new_location.getEditableText().toString();
-                    Snotes=new_notes.getEditableText().toString();
 
-                    HNEP.Post(Stitle,Sstart,Send,Salert,Slocation,Snotes,postUrl,token);
+                    //Scategory=category.getEditableText().toString();
+
+                    Slocation=new_location.getEditableText().toString();
+
+                    //Sgroup=group.getEditableText().toString();
+
+                    //HNEP.Post(Stitle,Sstart,Send,Salert,Slocation,Snotes,postUrl,token);
                     Log.d("Time",Sstart);
                 }
                 break;

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -220,25 +221,20 @@
         android:scaleType="centerInside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/datetextTo"
-        app:srcCompat="@drawable/notification" />
+        app:srcCompat="@drawable/label" />
 
-    <EditText
-        android:id="@+id/ne_alert"
+    <Spinner
+        android:id="@+id/category_spinner"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="24dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="72dp"
-        android:ems="10"
         android:gravity="center"
-        android:hint="Alert"
-        android:inputType="time"
         android:textColor="@color/textColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/dateButtonTo" />
+        app:layout_constraintTop_toBottomOf="@+id/timetextTo" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -249,27 +245,22 @@
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ne_alert"
-        app:srcCompat="@drawable/notebook" />
+        app:layout_constraintTop_toBottomOf="@+id/category_spinner"
+        app:srcCompat="@drawable/todayicon" />
 
-    <EditText
-        android:id="@+id/ne_note"
+    <Spinner
+        android:id="@+id/group_spinner"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="24dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:ems="10"
         android:gravity="center"
-        android:hint="Notes"
-        android:inputType="textPersonName"
         android:textColor="@color/textColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.157"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/ne_alert" />
+        app:layout_constraintTop_toBottomOf="@+id/category_spinner" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -280,7 +271,7 @@
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ne_note"
+        app:layout_constraintTop_toBottomOf="@+id/group_spinner"
         app:srcCompat="@drawable/placeholder" />
 
     <EditText
@@ -299,7 +290,7 @@
         android:textColor="@color/textColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/ne_note" />
+        app:layout_constraintTop_toBottomOf="@+id/group_spinner" />
 
 
 
