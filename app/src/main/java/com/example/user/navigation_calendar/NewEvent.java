@@ -106,7 +106,7 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
         //建立一個ArrayAdapter物件，並放置下拉選單的內容
         category_listAdapter = new ArrayAdapter<String>(this, R.layout.myspinner, category_list);//預設android.R.layout.simple_list_item_1
         //設定下拉選單的樣式
-        category_listAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        category_listAdapter.setDropDownViewResource(R.layout.myspinner_list);//android.R.layout.simple_spinner_dropdown_item
         category.setAdapter(category_listAdapter );
         //設定項目被選取之後的動作
         category.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
@@ -219,7 +219,7 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
                     Sstart=start_date.getText().toString()+"T"+start_time.getText().toString()+":00Z";
                     Send=end_date.getText().toString()+"T"+end_time.getText().toString()+":00Z";
 
-                    //Scategory=category.getEditableText().toString();
+                    Scategory=category.getSelectedItem().toString();
 
                     Slocation=new_location.getEditableText().toString();
 
