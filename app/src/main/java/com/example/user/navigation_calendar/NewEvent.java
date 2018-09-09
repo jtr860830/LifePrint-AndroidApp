@@ -27,8 +27,14 @@ import android.location.Address;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.text.DecimalFormat;
+import java.util.List;
 
+import com.anychart.anychart.StockRangeType;
 import com.schibstedspain.leku.*;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class NewEvent extends AppCompatActivity implements View.OnClickListener {
 
@@ -58,6 +64,9 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
     Spinner category;
     private String[] category_list = {"Party","Dinner","Travel","Business","Others"}; //宣告字串陣列
     private ArrayAdapter<String> category_listAdapter; //喧告listAdapter物件
+    String[] groupname_list=null;
+    private ArrayAdapter<String> groupname_listAdapter;
+
 
     EditText new_location;
     ImageButton save;
@@ -76,6 +85,13 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
     double longitude;
     String address;
 
+    //存放要Get的訊息
+    private String getUrl = "https://sd.jezrien.one/user/group/";
+    Http_Get HNEG;
+    private String resultJSON;
+
+
+
 
     private String postUrl = "https://sd.jezrien.one/user/schedules";
     static Handler handler; //宣告成static讓service可以直接使用
@@ -88,15 +104,40 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
         setContentView(R.layout.activity_new_event);
 
         HNEP=new Http_NewEventPost();
+        //set token
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         token = sharedPreferences.getString("TOKEN", "");
+
+        //get
+
+        HNEG = new Http_Get();
+        HNEG.Get(getUrl,token);
+        resultJSON = HNEG.getTt();
+        parseJSON(resultJSON);
 
         getelement();
         doFindView();
         DateFrom();
         DateTo();
     }
+    public void parseJSON(String result) {
+        try {
+            JSONArray array = new JSONArray(result);
+            for (int i=0; i<array.length(); i++){
+                JSONObject obj = array.getJSONObject(i);
 
+                String GN = obj.getString("Name");
+                groupname_list=GN.split(",");
+
+                Log.d("JSON:",GN );
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
     public void getelement(){
         new_title=findViewById(R.id.ne_title);
         start_date=findViewById(R.id.datetextFrom);
@@ -110,6 +151,19 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
 
         //群組選單
         group=findViewById(R.id.group_spinner);
+        groupname_listAdapter = new ArrayAdapter<String>(this, R.layout.myspinner, groupname_list);
+        groupname_listAdapter.setDropDownViewResource(R.layout.myspinner_list);//android.R.layout.simple_spinner_dropdown_item
+        group.setAdapter(groupname_listAdapter);
+        //設定項目被選取之後的動作
+        group.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
+            public void onItemSelected(AdapterView adapterView, View view, int position, long id){
+                Toast.makeText(NewEvent.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+            }
+            public void onNothingSelected(AdapterView arg0) {
+                Toast.makeText(NewEvent.this, "您沒有選擇任何項目", Toast.LENGTH_LONG).show();
+            }
+        });
+
 
         //類別選單
         category=findViewById(R.id.category_spinner);
@@ -131,6 +185,7 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
         lc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new LocationPickerActivity.Builder()
                         .withLocation(25.163711623792803, 121.44841454923154)
                         .withGeolocApiKey("AIzaSyCg2QiaDfiy3cGzlp3DIJeZbEaK82N9OhM")
