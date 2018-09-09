@@ -103,7 +103,7 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_event);
-
+        groupname_list.add("All");
         HNEP=new Http_NewEventPost();
         //set token
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);

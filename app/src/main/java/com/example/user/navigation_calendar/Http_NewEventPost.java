@@ -61,6 +61,10 @@ public class Http_NewEventPost extends Service{
                 if (group != null) {
                     postUrl = "https://sd.jezrien.one/user/group/schedules";
                 }
+
+                if (group.equals("All")) {
+                    postUrl = "https://sd.jezrien.one/user/group/schedules/all";
+                }
                 HttpPost httpPost = new HttpPost(postUrl);
 
                 //send token to backend
