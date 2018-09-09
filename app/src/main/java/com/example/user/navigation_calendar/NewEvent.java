@@ -218,14 +218,17 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
                     Stitle=new_title.getEditableText().toString();
                     Sstart=start_date.getText().toString()+"T"+start_time.getText().toString()+":00Z";
                     Send=end_date.getText().toString()+"T"+end_time.getText().toString()+":00Z";
-
                     Scategory=category.getSelectedItem().toString();
-
+                    Sgroup=group.getSelectedItem().toString();
                     Slocation=new_location.getEditableText().toString();
+                    //將經緯度拆開，再post
+                    String[] location=Slocation.split(",");
+                    String Sn=location[1];
+                    String Se=location[2];
+                    HNEP.Post(Stitle,Sstart,Send,Scategory,Sgroup,Sn,Se,postUrl,token);
 
-                    //Sgroup=group.getEditableText().toString();
 
-                    //HNEP.Post(Stitle,Sstart,Send,Salert,Slocation,Snotes,postUrl,token);
+
                     Log.d("Time",Sstart);
                 }
                 break;
