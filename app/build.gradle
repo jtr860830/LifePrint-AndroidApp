@@ -8,6 +8,7 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -41,6 +42,7 @@ dependencies {
 
     implementation 'com.github.AnyChart:AnyChart-Android:0.3.0'
     implementation 'com.schibstedspain.android:leku:5.0.0'
+    implementation 'com.android.support:multidex:1.0.3'
 }
 android {
     useLibrary 'org.apache.http.legacy'
