@@ -76,11 +76,18 @@ public class feed extends Fragment implements View.OnClickListener {
                     itchart.putExtra("groupname", groupname);
                     startActivity(itchart);
                 }
-
-
                 break;
             case R.id.btn_groupmap:
                 //go to group map
+                if (groupname == null) {
+                    Intent itPmap = new Intent(getActivity(),PersonalMap.class);
+                    startActivity(itPmap);
+                } else {
+                    Intent itGchart = new Intent(getActivity(),GroupMap.class);
+                    itGchart.putExtra("groupname", groupname);
+                    startActivity(itGchart);
+                }
+
 
 
                 break;
