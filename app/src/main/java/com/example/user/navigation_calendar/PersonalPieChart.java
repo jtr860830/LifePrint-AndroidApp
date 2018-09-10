@@ -1,7 +1,10 @@
 package com.example.user.navigation_calendar;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +19,10 @@ import com.anychart.anychart.Pie;
 import com.anychart.anychart.ValueDataEntry;
 import com.anychart.anychart.chart.common.Event;
 import com.anychart.anychart.chart.common.ListenersInterface;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,11 +44,45 @@ public class PersonalPieChart extends AppCompatActivity {
     private ArrayAdapter<String> year_listAdapter; //喧告listAdapter物件
     Spinner year;
 
+    //存放要Get的訊息
+    private String pie_getUrl = "https://sd.jezrien.one/user/analysis/2";
+    Http_Get HPG;
+    String[] pie_groupnane;
+    double[] pie_count;
+
+    private String bar_getUrl = "https://sd.jezrien.one/user/analysis/1";
+    Http_Get HBG;
+    String[] bar_trans;
+
+    SharedPreferences NsharedPreferences;
+    private String token;
+    private String resultJSON;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_pie_chart);
+
+        getSpinnerItem();
+        Pie_chart();
+        Bar_chart();
+
+        //set token
+        NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        token = NsharedPreferences.getString("TOKEN", "");
+
+        //get_pie
+        HPG = new Http_Get();
+        HPG.Get(pie_getUrl,token);
+        resultJSON = HPG.getTt();
+        pie_parseJSON(resultJSON);
+
+    }
+
+
+
+    public void getSpinnerItem(){
 
         //選擇"週"的下拉式選單
         week=findViewById(R.id.spinner2);
@@ -93,8 +134,30 @@ public class PersonalPieChart extends AppCompatActivity {
             }
         });
 
-        AnyChartView anyChartView_Pie = findViewById(R.id.Pie_anychart_view);
 
+    }
+
+    public void pie_parseJSON(String result) {
+        try {
+            JSONArray array = new JSONArray(result);
+            for (int i=0; i<array.length(); i++){
+                JSONObject obj = array.getJSONObject(i);
+
+                String groupname=obj.getString("Groupname");
+                Double cnt = obj.getDouble("Cnt");
+
+                String[] pie_groupnane=groupname.split(",");
+                Double[] pie_count=cnt;
+
+                Log.d("JSON:",groupname+"/"+cnt);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void Pie_chart(){
+        AnyChartView anyChartView_Pie = findViewById(R.id.Pie_anychart_view);
         //user-->pie chart
         Pie pie = AnyChart.pie();
         pie.setOnClickListener(new ListenersInterface.OnClickListener(new String[]{"x", "value"}) {
@@ -105,18 +168,20 @@ public class PersonalPieChart extends AppCompatActivity {
         });
 
         List<DataEntry> data = new ArrayList<>();
-        data.add(new ValueDataEntry("John", 10000));
-        data.add(new ValueDataEntry("Jake", 12000));
-        data.add(new ValueDataEntry("Peter", 18000));
+        for(int i=0;i<pie_groupnane.length;i++){
+            for (int j=0;j<pie_count.length;j++){
+                data.add(new ValueDataEntry(pie_groupnane[i], pie_count[i]));
+            }
+        }
 
         //pie.setFill("FFFFFF");
         pie.fill("FFFFFF",1);
-
         pie.setStroke("#00FFFF");//圓餅圖周圍顏色
         pie.setData(data);
         anyChartView_Pie.setChart(pie);
 
-
+    }
+    public void Bar_chart(){
         //user-->bar chart
         AnyChartView anyChartView_Bar = findViewById(R.id.bar_anychart_view);
         Cartesian cartesian = AnyChart.column();
@@ -129,10 +194,6 @@ public class PersonalPieChart extends AppCompatActivity {
         cartesian.column(Gdata);
 
         anyChartView_Bar.setChart(cartesian);
-
-
-
-
 
     }
 }
