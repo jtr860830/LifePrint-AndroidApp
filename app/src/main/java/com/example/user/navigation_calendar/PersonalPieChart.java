@@ -2,6 +2,7 @@ package com.example.user.navigation_calendar;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -75,11 +76,14 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
         NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         token = NsharedPreferences.getString("TOKEN", "");
 
+
         //get_pie
         HPG = new Http_Get();
         HPG.Get(pie_getUrl,token);
         resultJSON = HPG.getTt();
         pie_parseJSON(resultJSON);
+
+
 
         //get_bar
         HBG = new Http_Get();
@@ -88,7 +92,7 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
         bar_parseJSON(resultJSON);
 
 
-        //Pie_chart();
+        Pie_chart();
         Bar_chart();
     }
 

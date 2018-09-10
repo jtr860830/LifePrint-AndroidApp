@@ -45,7 +45,7 @@ public class PersonalMap extends AppCompatActivity implements View.OnClickListen
     }
 
     public void category_menu(){
-        //選擇"週"的下拉式選單
+        //選擇"類別"的下拉式選單
         Pcategory=findViewById(R.id.pm_spinner);
         //建立一個ArrayAdapter物件，並放置下拉選單的內容
         Pcategory_listAdapter = new ArrayAdapter<String>(this, R.layout.myspinner,Pcategory_list);

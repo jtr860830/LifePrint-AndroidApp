@@ -58,6 +58,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+
         <com.anychart.anychart.AnyChartView
             android:id="@+id/Pie_anychart_view"
             android:layout_width="217dp"
@@ -67,10 +68,7 @@
             android:layout_marginTop="40dp"
             app:layout_constraintBottom_toTopOf="@+id/textView12"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-        </com.anychart.anychart.AnyChartView>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <Spinner
             android:id="@+id/spinner2"

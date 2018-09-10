@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GroupMap">
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="411dp"
+        android:layout_height="64dp"
+        android:background="@color/underBar"
+        android:gravity="center"
+        android:text="Group Track"
+        android:textColor="@color/darkRed"
+        android:textSize="20sp" />
+
+    <ImageButton
+        android:id="@+id/gm_back"
+        android:layout_width="20dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:scaleType="centerInside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/verification_back" />
+
+    <ImageView
+        android:id="@+id/imageView19"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="64dp"
+        android:background="@android:color/transparent"
+        android:scaleType="centerInside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView23"
+        app:srcCompat="@drawable/label" />
+
+    <Spinner
+        android:id="@+id/gm_spinnerweek"
+        android:layout_width="40dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/week_on"
+        app:layout_constraintEnd_toStartOf="@+id/gm_spinnermonth"
+        app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+    <Spinner
+        android:id="@+id/gm_spinnermonth"
+        android:layout_width="40dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/month_off"
+        app:layout_constraintEnd_toStartOf="@+id/gm_spinneryear"
+        app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+    <Spinner
+        android:id="@+id/gm_spinneryear"
+        android:layout_width="40dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/year_off"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView23" />
+    <Spinner
+        android:id="@+id/gm_spinner"
+        android:layout_width="309dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="56dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView20"
+                android:layout_width="8dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/rectangle118"
+                tools:layout_editor_absoluteX="24dp"
+                tools:layout_editor_absoluteY="442dp" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="Business"
+                tools:layout_editor_absoluteX="65dp"
+                tools:layout_editor_absoluteY="435dp" />
+
+            <ImageView
+                android:id="@+id/imageView21"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/rectangle121"
+                tools:layout_editor_absoluteX="162dp"
+                tools:layout_editor_absoluteY="560dp" />
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="Gathering"
+                tools:layout_editor_absoluteX="200dp"
+                tools:layout_editor_absoluteY="560dp" />
+
+            <ImageView
+                android:id="@+id/imageView22"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/rectangle122"
+                tools:layout_editor_absoluteX="302dp"
+                tools:layout_editor_absoluteY="561dp" />
+
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="45dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Dinner"
+                tools:layout_editor_absoluteX="343dp"
+                tools:layout_editor_absoluteY="561dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView23"
+                android:layout_width="44dp"
+                android:layout_height="25dp"
+
+                app:srcCompat="@drawable/rectangle119"
+                tools:layout_editor_absoluteX="24dp"
+                tools:layout_editor_absoluteY="617dp" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="73dp"
+                android:layout_height="25dp"
+
+                android:text="Travel"
+                tools:layout_editor_absoluteX="65dp"
+                tools:layout_editor_absoluteY="617dp" />
+
+            <ImageView
+                android:id="@+id/imageView24"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+
+                app:srcCompat="@drawable/rectangle120"
+                tools:layout_editor_absoluteX="160dp"
+                tools:layout_editor_absoluteY="617dp" />
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+
+                android:text="Others"
+                tools:layout_editor_absoluteX="201dp"
+                tools:layout_editor_absoluteY="617dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
