@@ -1,6 +1,7 @@
 package com.example.user.navigation_calendar;
 
-import android.support.v4.app.FragmentTransaction;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -55,10 +56,12 @@ public class PersonalMap extends AppCompatActivity implements View.OnClickListen
         Pcategory.setAdapter(Pcategory_listAdapter);
         //設定項目被選取之後的動作
         Pcategory.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             public void onItemSelected(AdapterView adapterView, View view, int position, long id){
                 Toast.makeText(PersonalMap.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
                 if (adapterView.getSelectedItem().toString() == "Business"){
                     Pcategory.setBackgroundColor(getResources().getColor(R.color.block1));
+                    //Pcategory.setBackground(getDrawable(R.drawable.rectangle118));
                 }else if (adapterView.getSelectedItem().toString() == "Gathering"){
                     Pcategory.setBackgroundColor(getResources().getColor(R.color.block2));
                 }else if (adapterView.getSelectedItem().toString() == "Dinner"){
@@ -67,6 +70,8 @@ public class PersonalMap extends AppCompatActivity implements View.OnClickListen
                     Pcategory.setBackgroundColor(getResources().getColor(R.color.block4));
                 }else if (adapterView.getSelectedItem().toString() == "Others"){
                     Pcategory.setBackgroundColor(getResources().getColor(R.color.block5));
+                }else{
+                    Pcategory.setBackgroundColor(getResources().getColor(R.color.white));
                 }
 
             }

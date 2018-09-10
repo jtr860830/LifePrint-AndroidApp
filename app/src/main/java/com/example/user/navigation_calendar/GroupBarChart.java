@@ -18,7 +18,12 @@ import com.anychart.anychart.AnyChart;
 import com.anychart.anychart.AnyChartView;
 import com.anychart.anychart.Cartesian;
 import com.anychart.anychart.DataEntry;
+import com.anychart.anychart.Mapping;
+import com.anychart.anychart.MarkerType;
+import com.anychart.anychart.Stroke;
+import com.anychart.anychart.TooltipPositionMode;
 import com.anychart.anychart.ValueDataEntry;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +31,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class GroupBarChart extends AppCompatActivity implements View.OnClickListener {
 
@@ -75,7 +81,6 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
         AnyChartView anyChartView = findViewById(R.id.group_barchart);
         //anyChartView.setProgressBar(view.findViewById(R.id.progress_bar));
 
-
         //groupName -->bar
         Cartesian cartesian = AnyChart.column();
 
@@ -89,6 +94,11 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
         cartesian.column(Gdata);
         //Column column = cartesian.column(data);
         anyChartView.setChart(cartesian);
+
+
+
+
+
 
 
     }
