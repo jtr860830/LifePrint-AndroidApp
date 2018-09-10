@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -27,7 +28,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonalPieChart extends AppCompatActivity {
+public class PersonalPieChart extends AppCompatActivity implements View.OnClickListener {
+
+    ImageButton back;
 
     private String[] week_list = {"1 week","2 week","3 week"}; //宣告字串陣列
     private ArrayAdapter<String> week_listAdapter; //喧告listAdapter物件
@@ -66,6 +69,8 @@ public class PersonalPieChart extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_pie_chart);
 
+        back=findViewById(R.id.ppc_back);
+        back.setOnClickListener(this);
         getSpinnerItem();
 
         //set token
@@ -190,5 +195,14 @@ public class PersonalPieChart extends AppCompatActivity {
 
         anyChartView_Bar.setChart(cartesian);
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.ppc_back:
+                finish();
+                break;
+        }
     }
 }

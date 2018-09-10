@@ -21,7 +21,7 @@
 
 
     <ImageButton
-        android:id="@+id/pc_back"
+        android:id="@+id/ppc_back"
         android:layout_width="20dp"
         android:layout_height="25dp"
         android:layout_marginLeft="16dp"

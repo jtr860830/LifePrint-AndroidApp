@@ -12,4 +12,11 @@
     <color name="star"> #EFCE4A</color>
     <color name="gray">#DDDDDD</color>
     <color name="bgRowBackground">#FA315B</color>
+
+    <color name="block1">#C1CBD7</color>
+    <color name="block2">#F9ECC1</color>
+    <color name="block3">#F3EDE6</color>
+    <color name="block4">#FFE1E1</color>
+    <color name="block5">#E0E5DF</color>
+
 </resources>
