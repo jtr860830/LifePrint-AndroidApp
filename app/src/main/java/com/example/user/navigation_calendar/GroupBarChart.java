@@ -3,30 +3,22 @@ package com.example.user.navigation_calendar;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
-import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.anychart.anychart.AnyChart;
 import com.anychart.anychart.AnyChartView;
 import com.anychart.anychart.Cartesian;
 import com.anychart.anychart.DataEntry;
-import com.anychart.anychart.Pie;
 import com.anychart.anychart.ValueDataEntry;
-import com.anychart.anychart.chart.common.Event;
-import com.anychart.anychart.chart.common.ListenersInterface;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -80,7 +72,7 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
         recyclerView.setAdapter(adapter);
 
 
-        AnyChartView anyChartView = findViewById(R.id.Bar_anychart_view);
+        AnyChartView anyChartView = findViewById(R.id.group_barchart);
         //anyChartView.setProgressBar(view.findViewById(R.id.progress_bar));
 
 
