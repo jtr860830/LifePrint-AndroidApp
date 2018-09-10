@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Menu  settings;
     Menu  other;
 
-
+    BottomNavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         toggle.syncState();
 
         //主頁面下方選單
-        BottomNavigationView navigationView = findViewById(R.id.Navbar);
+        navigationView = findViewById(R.id.Navbar);
         navigationView.setOnNavigationItemSelectedListener(navListener);
 
         if (savedInstanceState == null) {
@@ -285,6 +285,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
             transaction3.replace(R.id.fragment_space, fragment_month, "Fragment_month");
             transaction3.commit();
+            navigationView.setSelectedItemId(R.id.nav_month);
         }
 
         return true;
