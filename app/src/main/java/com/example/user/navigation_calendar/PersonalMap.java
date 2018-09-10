@@ -13,7 +13,7 @@ public class PersonalMap extends AppCompatActivity implements View.OnClickListen
 
     ImageButton back;
     //下拉式選單
-    private String[] Pcategory_list = {"Business","Gathering","Dinner","Travel","Others"}; //宣告字串陣列
+    private String[] Pcategory_list = {"All","Business","Gathering","Dinner","Travel","Others"}; //宣告字串陣列
     private ArrayAdapter<String> Pcategory_listAdapter; //喧告listAdapter物件
     Spinner Pcategory;
 
