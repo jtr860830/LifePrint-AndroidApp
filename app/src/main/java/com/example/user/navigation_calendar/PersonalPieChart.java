@@ -58,6 +58,8 @@ public class PersonalPieChart extends AppCompatActivity {
     private String token;
     private String resultJSON;
 
+    List<DataEntry> pieData = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +67,6 @@ public class PersonalPieChart extends AppCompatActivity {
         setContentView(R.layout.activity_personal_pie_chart);
 
         getSpinnerItem();
-        Pie_chart();
-        Bar_chart();
 
         //set token
         NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -78,6 +78,8 @@ public class PersonalPieChart extends AppCompatActivity {
         resultJSON = HPG.getTt();
         pie_parseJSON(resultJSON);
 
+        Pie_chart();
+        Bar_chart();
     }
 
 
@@ -146,8 +148,7 @@ public class PersonalPieChart extends AppCompatActivity {
                 String groupname=obj.getString("Groupname");
                 Double cnt = obj.getDouble("Cnt");
 
-                String[] pie_groupnane=groupname.split(",");
-                Double[] pie_count=cnt;
+                pieData.add(new ValueDataEntry(groupname, cnt));
 
                 Log.d("JSON:",groupname+"/"+cnt);
             }
@@ -167,20 +168,14 @@ public class PersonalPieChart extends AppCompatActivity {
             }
         });
 
-        List<DataEntry> data = new ArrayList<>();
-        for(int i=0;i<pie_groupnane.length;i++){
-            for (int j=0;j<pie_count.length;j++){
-                data.add(new ValueDataEntry(pie_groupnane[i], pie_count[i]));
-            }
-        }
-
         //pie.setFill("FFFFFF");
         pie.fill("FFFFFF",1);
         pie.setStroke("#00FFFF");//圓餅圖周圍顏色
-        pie.setData(data);
+        pie.setData(pieData);
         anyChartView_Pie.setChart(pie);
 
     }
+
     public void Bar_chart(){
         //user-->bar chart
         AnyChartView anyChartView_Bar = findViewById(R.id.bar_anychart_view);
