@@ -45,7 +45,7 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener 
 
     public void category_menu(){
         //選擇"類別"的下拉式選單
-        Gcategory=findViewById(R.id.pm_spinner);
+        Gcategory=findViewById(R.id.gm_spinner);
         //建立一個ArrayAdapter物件，並放置下拉選單的內容
         Gcategory_listAdapter = new ArrayAdapter<String>(this, R.layout.myspinner,Gcategory_list);
         //設定下拉選單的樣式
@@ -77,7 +77,7 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener 
     public void getGMSpinnerItem(){
 
         //選擇"週"的下拉式選單
-        Gweek=findViewById(R.id.pm_spinnerweek);
+        Gweek=findViewById(R.id.gm_spinnerweek);
         //建立一個ArrayAdapter物件，並放置下拉選單的內容
         Gweek_listAdapter = new ArrayAdapter<String>(this, R.layout.myspinner, Gweek_list);
         //設定下拉選單的樣式
@@ -93,7 +93,7 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener 
             }
         });
         //選擇"月"的下拉式選單
-        Gmonth=findViewById(R.id.pm_spinnermonth);
+        Gmonth=findViewById(R.id.gm_spinnermonth);
         //建立一個ArrayAdapter物件，並放置下拉選單的內容
         Gmonth_listAdapter = new ArrayAdapter<String>(this, R.layout.myspinner, Gmonth_list);
         //設定下拉選單的樣式
@@ -110,7 +110,7 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener 
         });
 
         //選擇"年"的下拉式選單
-        Gyear=findViewById(R.id.pm_spinneryear);
+        Gyear=findViewById(R.id.gm_spinneryear);
         //建立一個ArrayAdapter物件，並放置下拉選單的內容
         Gyear_listAdapter = new ArrayAdapter<String>(this, R.layout.myspinner, Gyear_list);
         //設定下拉選單的樣式
