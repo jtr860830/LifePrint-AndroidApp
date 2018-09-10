@@ -50,19 +50,17 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
     //存放要Get的訊息
     private String pie_getUrl = "https://sd.jezrien.one/user/analysis/2";
     Http_Get HPG;
-    String[] pie_groupnane;
-    double[] pie_count;
 
     private String bar_getUrl = "https://sd.jezrien.one/user/analysis/1";
     Http_Get HBG;
-    String[] bar_trans;
+
 
     SharedPreferences NsharedPreferences;
     private String token;
     private String resultJSON;
 
     List<DataEntry> pieData = new ArrayList<>();
-
+    List<DataEntry> barData = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +81,14 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
         resultJSON = HPG.getTt();
         pie_parseJSON(resultJSON);
 
-        Pie_chart();
+        //get_bar
+        HBG = new Http_Get();
+        HBG.Get(bar_getUrl,token);
+        resultJSON = HBG.getTt();
+        bar_parseJSON(resultJSON);
+
+
+        //Pie_chart();
         Bar_chart();
     }
 
@@ -150,17 +155,36 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
             for (int i=0; i<array.length(); i++){
                 JSONObject obj = array.getJSONObject(i);
 
-                String groupname=obj.getString("Groupname");
-                Double cnt = obj.getDouble("Cnt");
+                String Pgroupname=obj.getString("Groupname");
+                Double Pcnt = obj.getDouble("Cnt");
 
-                pieData.add(new ValueDataEntry(groupname, cnt));
+                pieData.add(new ValueDataEntry(Pgroupname, Pcnt));
 
-                Log.d("JSON:",groupname+"/"+cnt);
+                Log.d("JSON:",Pgroupname+"/"+Pcnt);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+
+    public void bar_parseJSON(String result) {
+        try {
+            JSONArray array = new JSONArray(result);
+            for (int i=0; i<array.length(); i++){
+                JSONObject obj = array.getJSONObject(i);
+
+                String Bgroupname=obj.getString("Groupname");
+                Integer Bcnt = obj.getInt("Cnt");
+
+                barData.add(new ValueDataEntry(Bgroupname, Bcnt));
+
+                Log.d("JSON:",Bgroupname+"/"+Bcnt);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void Pie_chart(){
         AnyChartView anyChartView_Pie = findViewById(R.id.Pie_anychart_view);
@@ -187,11 +211,7 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
         Cartesian cartesian = AnyChart.column();
 
         cartesian.setPalette("#FFFFFF");
-        List<DataEntry> Gdata = new ArrayList<>();
-        Gdata.add(new ValueDataEntry("Rouge", 80540));
-        Gdata.add(new ValueDataEntry("Foundation", 94190));
-
-        cartesian.column(Gdata);
+        cartesian.column(barData);
 
         anyChartView_Bar.setChart(cartesian);
 
