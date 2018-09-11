@@ -84,7 +84,6 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
         pie_parseJSON(resultJSON);
 
 
-
         //get_bar
         HBG = new Http_Get();
         HBG.Get(bar_getUrl,token);

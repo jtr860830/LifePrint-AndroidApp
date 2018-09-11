@@ -1,9 +1,12 @@
 package com.example.user.navigation_calendar;
 
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,6 +14,8 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.anychart.anychart.DataEntry;
+import com.anychart.anychart.ValueDataEntry;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.GoogleMap;
@@ -20,7 +25,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.CameraUpdateFactory;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class PersonalMap extends AppCompatActivity implements View.OnClickListener, OnMarkerClickListener, OnMapReadyCallback {
 
@@ -49,6 +59,16 @@ public class PersonalMap extends AppCompatActivity implements View.OnClickListen
     private GoogleMap mMap;
     private ArrayList<LatLng> markers;
 
+    //存放要Get的訊息
+    private String PMap_getUrl = "https://sd.jezrien.one/user/map";
+    Http_Get HMG;
+
+    SharedPreferences NsharedPreferences;
+    private String token;
+    private String resultJSON;
+
+    List<DataEntry> mapData = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +78,16 @@ public class PersonalMap extends AppCompatActivity implements View.OnClickListen
         back.setOnClickListener(this);
         category_menu();
         getPMSpinnerItem();
+
+        //set token
+        NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        token = NsharedPreferences.getString("TOKEN", "");
+
+        //get_pie
+        HMG = new Http_Get();
+        HMG.Get(PMap_getUrl,token);
+        resultJSON = HMG.getTt();
+        map_parseJSON(resultJSON);
 
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -154,6 +184,26 @@ public class PersonalMap extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    public void map_parseJSON(String result) {
+        try {
+            JSONArray array = new JSONArray(result);
+            for (int i=0; i<array.length(); i++){
+                JSONObject obj = array.getJSONObject(i);
+
+                String map_event=obj.getString("Event");
+                String map_category=obj.getString("Type");
+                Double map_E = obj.getDouble("E");
+                Double map_N = obj.getDouble("N");
+
+
+                mapData.add(new ValueDataEntry(map_event, map_category,map_E,map_N));
+
+                Log.d("JSON:",map_event+"/"+map_category+"/"+map_E+"/"+map_N);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()){
