@@ -88,7 +88,7 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
 
         //get_bar
         HGBG = new Http_Get();
-        HGBG.Get(groupbar_getUrl,token);
+        HGBG.Get(groupbar_getUrl, token, groupname);
         resultJSON = HGBG.getTt();
         bar_parseJSON(resultJSON);
 
@@ -97,6 +97,7 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
 
 
     }
+
     public void bar_parseJSON(String result) {
         try {
             JSONArray array = new JSONArray(result);

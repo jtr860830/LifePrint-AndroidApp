@@ -66,6 +66,10 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
     private String resultJSON;
 
     List<MapData> mapData = new ArrayList<>();
+    List<MapData> mapDataTemp;
+    SupportMapFragment mapFragment;
+
+    GroupMap temp = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +92,7 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
         resultJSON = HMG.getTt();
         map_parseJSON(resultJSON);
 
-        SupportMapFragment mapFragment =
+        mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
@@ -102,19 +106,58 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
         Gcategory_listAdapter.setDropDownViewResource(R.layout.myspinner_list);//android.R.layout.simple_spinner_dropdown_item
         Gcategory.setAdapter(Gcategory_listAdapter);
         //設定項目被選取之後的動作
-        Gcategory.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
+        Gcategory.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
             public void onItemSelected(AdapterView adapterView, View view, int position, long id){
                 Toast.makeText(GroupMap.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
-                if (adapterView.getSelectedItem().toString() == "Business"){
+                if (adapterView.getSelectedItem().toString().equals("All")) {
                     Gcategory.setBackgroundColor(getResources().getColor(R.color.block1));
-                }else if (adapterView.getSelectedItem().toString() == "Party"){
+                    mapData = new ArrayList<>(mapDataTemp);
+                    mapFragment.getMapAsync(temp);
+                } else if (adapterView.getSelectedItem().toString().equals("Business")) {
+                    Gcategory.setBackgroundColor(getResources().getColor(R.color.block1));
+                    mapData = new ArrayList<>(mapDataTemp);
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (!mapData.get(i).getType().equals("Business")) {
+                            mapData.remove(i);
+                        }
+                    }
+                    mapFragment.getMapAsync(temp);
+                } else if (adapterView.getSelectedItem().toString().equals("Party")) {
                     Gcategory.setBackgroundColor(getResources().getColor(R.color.block2));
-                }else if (adapterView.getSelectedItem().toString() == "Dinner"){
+                    mapData = new ArrayList<>(mapDataTemp);
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (!mapData.get(i).getType().equals("Party")) {
+                            mapData.remove(i);
+                        }
+                    }
+                    mapFragment.getMapAsync(temp);
+                } else if (adapterView.getSelectedItem().toString().equals("Dinner")) {
                     Gcategory.setBackgroundColor(getResources().getColor(R.color.block3));
-                }else if (adapterView.getSelectedItem().toString() == "Travel"){
+                    mapData = new ArrayList<>(mapDataTemp);
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (!mapData.get(i).getType().equals("Dinner")) {
+                            mapData.remove(i);
+                        }
+                    }
+                    mapFragment.getMapAsync(temp);
+                } else if (adapterView.getSelectedItem().toString().equals("Travel")) {
                     Gcategory.setBackgroundColor(getResources().getColor(R.color.block4));
-                }else if (adapterView.getSelectedItem().toString() == "Others"){
+                    mapData = new ArrayList<>(mapDataTemp);
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (!mapData.get(i).getType().equals("Travel")) {
+                            mapData.remove(i);
+                        }
+                    }
+                    mapFragment.getMapAsync(temp);
+                } else if (adapterView.getSelectedItem().toString().equals("Others")) {
                     Gcategory.setBackgroundColor(getResources().getColor(R.color.block5));
+                    mapData = new ArrayList<>(mapDataTemp);
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (!mapData.get(i).getType().equals("Others")) {
+                            mapData.remove(i);
+                        }
+                    }
+                    mapFragment.getMapAsync(temp);
                 }
 
             }
@@ -195,6 +238,7 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
 
                 Log.d("JSON:",map_event+"/"+map_category+"/"+map_E+"/"+map_N);
             }
+            mapDataTemp = new ArrayList<>(mapData);
         } catch (JSONException e) {
             e.printStackTrace();
         }
