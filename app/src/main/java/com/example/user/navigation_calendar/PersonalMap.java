@@ -67,7 +67,7 @@ public class PersonalMap extends AppCompatActivity implements View.OnClickListen
     private String token;
     private String resultJSON;
 
-    List<DataEntry> mapData = new ArrayList<>();
+    List<MapData> mapData = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +85,7 @@ public class PersonalMap extends AppCompatActivity implements View.OnClickListen
 
         //get_pie
         HMG = new Http_Get();
-        HMG.Get(PMap_getUrl,token);
+        HMG.Get(PMap_getUrl, token);
         resultJSON = HMG.getTt();
         map_parseJSON(resultJSON);
 
@@ -190,13 +190,13 @@ public class PersonalMap extends AppCompatActivity implements View.OnClickListen
             for (int i=0; i<array.length(); i++){
                 JSONObject obj = array.getJSONObject(i);
 
-                String map_event=obj.getString("Event");
-                String map_category=obj.getString("Type");
+                String map_event = obj.getString("Event");
+                String map_category = obj.getString("Type");
                 Double map_E = obj.getDouble("E");
                 Double map_N = obj.getDouble("N");
 
 
-                mapData.add(new ValueDataEntry(map_event, map_category,map_E,map_N));
+                mapData.add(new MapData(map_event, map_category, map_E, map_N));
 
                 Log.d("JSON:",map_event+"/"+map_category+"/"+map_E+"/"+map_N);
             }
@@ -218,15 +218,10 @@ public class PersonalMap extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onMapReady(GoogleMap map) {
         mMap = map;
-        markers = new ArrayList<>();
 
-        markers.add(new LatLng(-31.952854, 115.857342));
-        markers.add(new LatLng(-33.87365, 151.20689));
-        // get
-
-        for (int i = 0; i < markers.size(); i++) {
-            mMap.addMarker(new MarkerOptions().position(markers.get(i)).title("test"));
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(markers.get(i), 4.0f));
+        for (int i = 0; i < mapData.size(); i++) {
+            mMap.addMarker(new MarkerOptions().position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN())).title(mapData.get(i).getEvent()));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 4.0f));
         }
 
         mMap.setOnMarkerClickListener(this);
@@ -243,3 +238,48 @@ public class PersonalMap extends AppCompatActivity implements View.OnClickListen
     }
 }
 
+class MapData {
+    String event;
+    String type;
+    double E;
+    double N;
+
+    public MapData(String event, String type, double e, double n) {
+        this.event = event;
+        this.type = type;
+        E = e;
+        N = n;
+    }
+
+    public String getEvent() {
+        return event;
+    }
+
+    public void setEvent(String event) {
+        this.event = event;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public double getE() {
+        return E;
+    }
+
+    public void setE(double e) {
+        E = e;
+    }
+
+    public double getN() {
+        return N;
+    }
+
+    public void setN(double n) {
+        N = n;
+    }
+}

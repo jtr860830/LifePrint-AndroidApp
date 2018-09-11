@@ -52,12 +52,16 @@ public class feed extends Fragment implements View.OnClickListener {
         groupname = getArguments().getString("groupname");
 
         goto_barchart=view.findViewById(R.id.btn_barchart);
+        goto_map=view.findViewById(R.id.btn_groupmap);
+
         if (groupname == null) {
             goto_barchart.setImageResource(android.R.color.transparent);
             goto_barchart.setBackgroundResource(R.drawable.group76);
+            goto_map.setImageResource(android.R.color.transparent);
+            goto_map.setBackgroundResource(R.drawable.group77);
         }
+
         goto_barchart.setOnClickListener(this);
-        goto_map=view.findViewById(R.id.btn_groupmap);
         goto_map.setOnClickListener(this);
 
         return view;
