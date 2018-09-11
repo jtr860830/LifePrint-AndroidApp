@@ -263,8 +263,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Other
         if (id == other.getItem(0).getItemId()) {
             //Map
-            Intent itmap = new Intent(MainActivity.this, PersonalMap.class);
-            startActivity(itmap);
+            Intent itaboutus = new Intent(MainActivity.this, PersonalMap.class);
+            startActivity(itaboutus);
             return true;
         } else if (id == other.getItem(1).getItemId()) {
             //Exit

@@ -8,13 +8,16 @@
 
     <TextView
         android:id="@+id/textView23"
-        android:layout_width="411dp"
+        android:layout_width="0dp"
         android:layout_height="64dp"
         android:background="@color/underBar"
         android:gravity="center"
         android:text="Group Track"
         android:textColor="@color/darkRed"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/gm_back"
@@ -67,13 +70,16 @@
         android:background="@drawable/year_off"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
     <Spinner
         android:id="@+id/gm_spinner"
         android:layout_width="309dp"
         android:layout_height="40dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="56dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView19"
         app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
     <LinearLayout
@@ -208,8 +214,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         map:layout_constraintBottom_toTopOf="@+id/linearLayout4"
         map:layout_constraintEnd_toEndOf="parent"
