@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Menu  other
         other = menu.addSubMenu("Others");
-        other.add(3,3,Menu.FIRST,"Your Track").setIcon(R.drawable.place);
+        other.add(3,3,Menu.FIRST,"About Us").setIcon(R.drawable.phonebook);
         other.add(3,4,Menu.FIRST,"Exit").setIcon(R.drawable.exit);
 
     }
@@ -263,7 +263,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Other
         if (id == other.getItem(0).getItemId()) {
             //Map
-            Intent itaboutus = new Intent(MainActivity.this, PersonalMap.class);
+            Intent itaboutus = new Intent(MainActivity.this, AboutUs.class);
             startActivity(itaboutus);
             return true;
         } else if (id == other.getItem(1).getItemId()) {

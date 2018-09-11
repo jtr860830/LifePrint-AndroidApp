@@ -33,6 +33,7 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
 
     ImageButton back;
 
+    //宣告字串陣列
     private String[] week_list = {"1 week","2 week","3 week"}; //宣告字串陣列
     private ArrayAdapter<String> week_listAdapter; //喧告listAdapter物件
     Spinner week;
