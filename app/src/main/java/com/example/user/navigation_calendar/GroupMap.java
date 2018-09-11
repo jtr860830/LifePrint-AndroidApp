@@ -1,7 +1,10 @@
 package com.example.user.navigation_calendar;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -9,7 +12,22 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class GroupMap extends AppCompatActivity implements View.OnClickListener {
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class GroupMap extends AppCompatActivity implements View.OnClickListener, GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
 
     ImageButton GMback;
     //下拉式選單
@@ -31,16 +49,47 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener 
     private String[] Gyear_list = {"1 year","2 year","3 year","4 year","5 year"};
     private ArrayAdapter<String> Gyear_listAdapter; //喧告listAdapter物件
     Spinner Gyear;
+
+    private String groupname;
+
+    // map
+    private GoogleMap mMap;
+    private ArrayList<LatLng> markers;
+
+    //存放要Get的訊息
+    private String Map_getUrl = "https://sd.jezrien.one/user/map";
+    Http_Get HMG;
+
+    SharedPreferences NsharedPreferences;
+    private String token;
+    private String resultJSON;
+
+    List<MapData> mapData = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_map);
 
+        groupname = getIntent().getExtras().getString("groupname");
         GMback=findViewById(R.id.gm_back);
         GMback.setOnClickListener(this);
         category_menu();
         getGMSpinnerItem();
 
+        // set token
+        NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        token = NsharedPreferences.getString("TOKEN", "");
+
+        // get
+        HMG = new Http_Get();
+        HMG.Get(Map_getUrl, token, groupname);
+        resultJSON = HMG.getTt();
+        map_parseJSON(resultJSON);
+
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     public void category_menu(){
@@ -129,7 +178,26 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener 
 
     }
 
+    public void map_parseJSON(String result) {
+        try {
+            JSONArray array = new JSONArray(result);
+            for (int i=0; i<array.length(); i++){
+                JSONObject obj = array.getJSONObject(i);
 
+                String map_event = obj.getString("Event");
+                String map_category = obj.getString("Type");
+                Double map_E = obj.getDouble("E");
+                Double map_N = obj.getDouble("N");
+
+
+                mapData.add(new MapData(map_event, map_category, map_E, map_N));
+
+                Log.d("JSON:",map_event+"/"+map_category+"/"+map_E+"/"+map_N);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void onClick(View v) {
@@ -138,5 +206,28 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener 
                 finish();
                 break;
         }
+    }
+
+    /** Called when the map is ready. */
+    @Override
+    public void onMapReady(GoogleMap map) {
+        mMap = map;
+
+        for (int i = 0; i < mapData.size(); i++) {
+            mMap.addMarker(new MarkerOptions().position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN())).title(mapData.get(i).getEvent()));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 4.0f));
+        }
+
+        mMap.setOnMarkerClickListener(this);
+    }
+
+    /** Called when the user clicks a marker. */
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+
+        // Return false to indicate that we have not consumed the event and that we wish
+        // for the default behavior to occur (which is for the camera to move such that the
+        // marker is centered and for the marker's info window to open, if it has one).
+        return false;
     }
 }
