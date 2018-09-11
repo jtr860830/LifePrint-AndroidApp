@@ -11,7 +11,18 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class PersonalMap extends AppCompatActivity implements View.OnClickListener {
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.CameraUpdateFactory;
+
+import java.util.ArrayList;
+
+public class PersonalMap extends AppCompatActivity implements View.OnClickListener, OnMarkerClickListener, OnMapReadyCallback {
 
     ImageButton back;
     //下拉式選單
@@ -34,6 +45,10 @@ public class PersonalMap extends AppCompatActivity implements View.OnClickListen
     private ArrayAdapter<String> Pyear_listAdapter; //喧告listAdapter物件
     Spinner Pyear;
 
+    // map
+    private GoogleMap mMap;
+    private ArrayList<LatLng> markers;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +59,9 @@ public class PersonalMap extends AppCompatActivity implements View.OnClickListen
         category_menu();
         getPMSpinnerItem();
 
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     public void category_menu(){
@@ -145,4 +163,33 @@ public class PersonalMap extends AppCompatActivity implements View.OnClickListen
         }
 
     }
+
+    /** Called when the map is ready. */
+    @Override
+    public void onMapReady(GoogleMap map) {
+        mMap = map;
+        markers = new ArrayList<>();
+
+        markers.add(new LatLng(-31.952854, 115.857342));
+        markers.add(new LatLng(-33.87365, 151.20689));
+        // get
+
+        for (int i = 0; i < markers.size(); i++) {
+            mMap.addMarker(new MarkerOptions().position(markers.get(i)).title("test"));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(markers.get(i), 4.0f));
+        }
+
+        mMap.setOnMarkerClickListener(this);
+    }
+
+    /** Called when the user clicks a marker. */
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+
+        // Return false to indicate that we have not consumed the event and that we wish
+        // for the default behavior to occur (which is for the camera to move such that the
+        // marker is centered and for the marker's info window to open, if it has one).
+        return false;
+    }
 }
+
