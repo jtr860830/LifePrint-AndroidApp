@@ -60,17 +60,22 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
     private StringBuffer stringBuffer;
     private String groupname = null;
 
+    List<DataEntry> GroupbarData = new ArrayList<>();
 
-    private List<BCMemberCard> trans;
     SharedPreferences NsharedPreferences;
     private String token;
     private String resultJSON;
+
+    private String groupbar_getUrl = "https://sd.jezrien.one/user/group/analysis/1";
+    Http_Get HGBG;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_bar_chart);
+
         groupname = getIntent().getExtras().getString("groupname");
         back=findViewById(R.id.bc_back);
         back.setOnClickListener(this);
@@ -81,42 +86,44 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
         NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         token = NsharedPreferences.getString("TOKEN", "");
 
+        //get_bar
+        HGBG = new Http_Get();
+        HGBG.Get(groupbar_getUrl,token);
+        resultJSON = HGBG.getTt();
+        bar_parseJSON(resultJSON);
+
+        GroupBar_chart();
 
 
-        trans = new ArrayList<>();
-        Http_Get HMG = new Http_Get();
-        if (groupname != null) {
-            HMG.Get("https://sd.jezrien.one/user/group/analysis", token, groupname);
-            resultJSON = HMG.getTt();
-            parseJSON(resultJSON, trans);
+
+    }
+    public void bar_parseJSON(String result) {
+        try {
+            JSONArray array = new JSONArray(result);
+            for (int i=0; i<array.length(); i++){
+                JSONObject obj = array.getJSONObject(i);
+
+                String groupname=obj.getString("Username");
+                Integer cnt = obj.getInt("Cnt");
+
+                GroupbarData.add(new ValueDataEntry(groupname, cnt));
+
+                Log.d("JSON:",groupname+"/"+cnt);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+    }
 
-
-
+    public void GroupBar_chart(){
 
         AnyChartView anyChartView = findViewById(R.id.group_barchart);
-        //anyChartView.setProgressBar(view.findViewById(R.id.progress_bar));
-
-        //groupName -->bar
         Cartesian cartesian = AnyChart.column();
 
-        List<DataEntry> Gdata = new ArrayList<>();
-        Gdata.add(new ValueDataEntry("Rouge", 80540));
-        Gdata.add(new ValueDataEntry("Foundation", 94190));
-        Gdata.add(new ValueDataEntry("Mascara", 102610));
-        Gdata.add(new ValueDataEntry("Lip gloss", 110430));
-        Gdata.add(new ValueDataEntry("Lipstick", 128000));
+        cartesian.setPalette("#FFFFFF");
+        cartesian.column(GroupbarData);
 
-        cartesian.column(Gdata);
-        //Column column = cartesian.column(data);
         anyChartView.setChart(cartesian);
-
-
-
-
-
-
-
     }
 
     public void getSpinnerItem(){
@@ -174,23 +181,6 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
 
     }
 
-    public void parseJSON(String result, List<BCMemberCard> trans) {
-        try {
-            JSONArray array = new JSONArray(result);
-            for (int i=0; i<array.length(); i++){
-                JSONObject obj = array.getJSONObject(i);
-
-                String mem_username = obj.getString("Username");
-                int mem_cnt = obj.getInt("Cnt");
-
-
-                Log.d("JSON:",mem_username+"/"+mem_cnt);
-                trans.add(new BCMemberCard(mem_username, mem_cnt));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void onClick(View v) {
@@ -203,22 +193,4 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
 
 }
 
-//JSON-->data
-class BCMemberCard {
-
-    private String username;
-    private int data;
-
-    public BCMemberCard(String username, int data) {
-        this.data = data;
-        this.username = username;
-    }
-    public String getUsername() {
-        return username;
-    }
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-}
 
