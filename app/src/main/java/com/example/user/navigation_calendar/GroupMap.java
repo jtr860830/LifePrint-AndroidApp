@@ -32,7 +32,7 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
 
     ImageButton GMback;
     //下拉式選單
-    private String[] Gcategory_list = {"All","Party","Gathering","Dinner","Travel","Others"}; //宣告字串陣列
+    private String[] Gcategory_list = {"All","Party","Business","Dinner","Travel","Others"}; //宣告字串陣列
     private ArrayAdapter<String> Gcategory_listAdapter; //喧告listAdapter物件
     Spinner Gcategory;
 
@@ -66,10 +66,6 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
     private String resultJSON;
 
     List<MapData> mapData = new ArrayList<>();
-    List<MapData> mapDataTemp;
-    SupportMapFragment mapFragment;
-
-    GroupMap temp = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +75,6 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
         groupname = getIntent().getExtras().getString("groupname");
         GMback=findViewById(R.id.gm_back);
         GMback.setOnClickListener(this);
-        category_menu();
         getGMSpinnerItem();
 
         // set token
@@ -92,9 +87,10 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
         resultJSON = HMG.getTt();
         map_parseJSON(resultJSON);
 
-        mapFragment =
+        SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        category_menu();
     }
 
     public void category_menu(){
@@ -110,54 +106,96 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
             public void onItemSelected(AdapterView adapterView, View view, int position, long id){
                 Toast.makeText(GroupMap.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
                 if (adapterView.getSelectedItem().toString().equals("All")) {
-                    Gcategory.setBackgroundColor(getResources().getColor(R.color.block1));
-                    mapData = new ArrayList<>(mapDataTemp);
-                    mapFragment.getMapAsync(temp);
+                    mMap.clear();
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (mapData.get(i).getType().equals("Business")) {
+                            mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(213)));
+                        } else if (mapData.get(i).getType().equals("Party")) {
+                            mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                        } else if (mapData.get(i).getType().equals("Dinner")) {
+                            mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(32)));
+                        } else if (mapData.get(i).getType().equals("Travel")) {
+                            mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(0)));
+                        } else {
+                            mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(110)));
+                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
+                    }
                 } else if (adapterView.getSelectedItem().toString().equals("Business")) {
                     Gcategory.setBackgroundColor(getResources().getColor(R.color.block1));
-                    mapData = new ArrayList<>(mapDataTemp);
+                    mMap.clear();
                     for (int i = 0; i < mapData.size(); i++) {
-                        if (!mapData.get(i).getType().equals("Business")) {
-                            mapData.remove(i);
+                        if (mapData.get(i).getType().equals("Business")) {
+                            mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(213)));
                         }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
                     }
-                    mapFragment.getMapAsync(temp);
                 } else if (adapterView.getSelectedItem().toString().equals("Party")) {
                     Gcategory.setBackgroundColor(getResources().getColor(R.color.block2));
-                    mapData = new ArrayList<>(mapDataTemp);
+                    mMap.clear();
                     for (int i = 0; i < mapData.size(); i++) {
-                        if (!mapData.get(i).getType().equals("Party")) {
-                            mapData.remove(i);
+                        if (mapData.get(i).getType().equals("Party")) {
+                            mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(46)));
                         }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
                     }
-                    mapFragment.getMapAsync(temp);
                 } else if (adapterView.getSelectedItem().toString().equals("Dinner")) {
                     Gcategory.setBackgroundColor(getResources().getColor(R.color.block3));
-                    mapData = new ArrayList<>(mapDataTemp);
+                    mMap.clear();
                     for (int i = 0; i < mapData.size(); i++) {
-                        if (!mapData.get(i).getType().equals("Dinner")) {
-                            mapData.remove(i);
+                        if (mapData.get(i).getType().equals("Dinner")) {
+                            mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(46)));
                         }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
                     }
-                    mapFragment.getMapAsync(temp);
                 } else if (adapterView.getSelectedItem().toString().equals("Travel")) {
                     Gcategory.setBackgroundColor(getResources().getColor(R.color.block4));
-                    mapData = new ArrayList<>(mapDataTemp);
+                    mMap.clear();
                     for (int i = 0; i < mapData.size(); i++) {
-                        if (!mapData.get(i).getType().equals("Travel")) {
-                            mapData.remove(i);
+                        if (mapData.get(i).getType().equals("Travel")) {
+                            mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(0)));
                         }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
                     }
-                    mapFragment.getMapAsync(temp);
                 } else if (adapterView.getSelectedItem().toString().equals("Others")) {
                     Gcategory.setBackgroundColor(getResources().getColor(R.color.block5));
-                    mapData = new ArrayList<>(mapDataTemp);
+                    mMap.clear();
                     for (int i = 0; i < mapData.size(); i++) {
-                        if (!mapData.get(i).getType().equals("Others")) {
-                            mapData.remove(i);
+                        if (mapData.get(i).getType().equals("Others")) {
+                            mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(110)));
                         }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
                     }
-                    mapFragment.getMapAsync(temp);
                 }
 
             }
@@ -238,7 +276,6 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
 
                 Log.d("JSON:",map_event+"/"+map_category+"/"+map_E+"/"+map_N);
             }
-            mapDataTemp = new ArrayList<>(mapData);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -257,36 +294,6 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
     @Override
     public void onMapReady(GoogleMap map) {
         mMap = map;
-
-        for (int i = 0; i < mapData.size(); i++) {
-            if (mapData.get(i).getType().equals("Business")) {
-                mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
-                        .title(mapData.get(i).getEvent())
-                        .icon(BitmapDescriptorFactory.defaultMarker(213)));
-            } else if (mapData.get(i).getType().equals("Party")) {
-                mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
-                        .title(mapData.get(i).getEvent())
-                        .icon(BitmapDescriptorFactory.defaultMarker(46)));
-            } else if (mapData.get(i).getType().equals("Dinner")) {
-                mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
-                        .title(mapData.get(i).getEvent())
-                        .icon(BitmapDescriptorFactory.defaultMarker(32)));
-            } else if (mapData.get(i).getType().equals("Travel")) {
-                mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
-                        .title(mapData.get(i).getEvent())
-                        .icon(BitmapDescriptorFactory.defaultMarker(0)));
-            } else {
-                mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
-                        .title(mapData.get(i).getEvent())
-                        .icon(BitmapDescriptorFactory.defaultMarker(110)));
-            }
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 4.0f));
-        }
 
         mMap.setOnMarkerClickListener(this);
     }
