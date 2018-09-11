@@ -16,6 +16,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -31,7 +32,7 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
 
     ImageButton GMback;
     //下拉式選單
-    private String[] Gcategory_list = {"All","Business","Gathering","Dinner","Travel","Others"}; //宣告字串陣列
+    private String[] Gcategory_list = {"All","Party","Gathering","Dinner","Travel","Others"}; //宣告字串陣列
     private ArrayAdapter<String> Gcategory_listAdapter; //喧告listAdapter物件
     Spinner Gcategory;
 
@@ -106,7 +107,7 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
                 Toast.makeText(GroupMap.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
                 if (adapterView.getSelectedItem().toString() == "Business"){
                     Gcategory.setBackgroundColor(getResources().getColor(R.color.block1));
-                }else if (adapterView.getSelectedItem().toString() == "Gathering"){
+                }else if (adapterView.getSelectedItem().toString() == "Party"){
                     Gcategory.setBackgroundColor(getResources().getColor(R.color.block2));
                 }else if (adapterView.getSelectedItem().toString() == "Dinner"){
                     Gcategory.setBackgroundColor(getResources().getColor(R.color.block3));
@@ -214,7 +215,32 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
         mMap = map;
 
         for (int i = 0; i < mapData.size(); i++) {
-            mMap.addMarker(new MarkerOptions().position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN())).title(mapData.get(i).getEvent()));
+            if (mapData.get(i).getType().equals("Business")) {
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                        .title(mapData.get(i).getEvent())
+                        .icon(BitmapDescriptorFactory.defaultMarker(213)));
+            } else if (mapData.get(i).getType().equals("Party")) {
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                        .title(mapData.get(i).getEvent())
+                        .icon(BitmapDescriptorFactory.defaultMarker(46)));
+            } else if (mapData.get(i).getType().equals("Dinner")) {
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                        .title(mapData.get(i).getEvent())
+                        .icon(BitmapDescriptorFactory.defaultMarker(32)));
+            } else if (mapData.get(i).getType().equals("Travel")) {
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                        .title(mapData.get(i).getEvent())
+                        .icon(BitmapDescriptorFactory.defaultMarker(0)));
+            } else {
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                        .title(mapData.get(i).getEvent())
+                        .icon(BitmapDescriptorFactory.defaultMarker(110)));
+            }
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 4.0f));
         }
 
