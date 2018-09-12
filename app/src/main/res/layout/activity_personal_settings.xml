@@ -51,9 +51,9 @@
         android:layout_height="72dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ps_email" />
 
@@ -62,11 +62,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="Birthday"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txv_personal" />
+        app:layout_constraintTop_toBottomOf="@+id/per_pic" />
 
     <EditText
         android:id="@+id/ps_bir"
@@ -74,11 +74,13 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
         android:ems="10"
         android:hint="birthday "
         android:inputType="textPersonName"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/psbtn_clean"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -86,8 +88,7 @@
         android:id="@+id/psbtn_clean"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="36dp"
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"
@@ -99,7 +100,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:text="Email"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -109,13 +109,15 @@
         android:id="@+id/ps_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="4dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
         android:ems="10"
         android:hint="email "
         android:inputType="textPersonName"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/psbtn_clean2"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
@@ -123,12 +125,48 @@
         android:id="@+id/psbtn_clean2"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginTop="12dp"
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
         app:srcCompat="@drawable/cancelicon" />
+
+    <ImageView
+        android:id="@+id/per_pic"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txv_personal"
+        app:srcCompat="@drawable/userpic5" />
+
+    <ImageButton
+        android:id="@+id/btn_changePP1"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:background="@android:color/transparent"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toStartOf="@+id/btn_changePP2"
+        app:layout_constraintTop_toBottomOf="@+id/per_pic"
+        app:srcCompat="@drawable/cameraicon" />
+
+    <Button
+        android:id="@+id/btn_changePP2"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginEnd="8dp"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:scaleType="centerInside"
+        android:text="Upload Photo"
+        android:textAllCaps="false"
+        android:textColor="@color/tag"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/per_pic" />
 
 </android.support.constraint.ConstraintLayout>
