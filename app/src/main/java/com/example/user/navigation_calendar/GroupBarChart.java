@@ -18,8 +18,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.anychart.chart.common.dataentry.DataEntry;
-import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,13 +58,15 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
     private StringBuffer stringBuffer;
     private String groupname = null;
 
-    List<DataEntry> GroupbarData = new ArrayList<>();
+    List<BarEntry> GroupbarData = new ArrayList<>();
+    List<Entry> GrouplineData = new ArrayList<>();
 
     SharedPreferences NsharedPreferences;
     private String token;
     private String resultJSON;
 
     private String groupbar_getUrl = "https://sd.jezrien.one/user/group/analysis/1";
+    private String groupline_getUrl = "https://sd.jezrien.one/user/group/analysis/2";
     Http_Get HGBG;
 
 
@@ -84,7 +92,38 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
         resultJSON = HGBG.getTt();
         bar_parseJSON(resultJSON);
 
+        // get_line
+        HGBG.Get(groupline_getUrl, token, groupname);
+        resultJSON = HGBG.getTt();
+        line_parseJSON(resultJSON);
 
+        ArrayList<Integer> colors = new ArrayList<Integer>();
+        colors.add(getResources().getColor(R.color.group1));
+        colors.add(getResources().getColor(R.color.group2));
+        colors.add(getResources().getColor(R.color.group3));
+        colors.add(getResources().getColor(R.color.group4));
+        colors.add(getResources().getColor(R.color.group5));
+
+        // Bar
+        BarChart barChart = findViewById(R.id.chart_bar2);
+        barChart.setDrawValueAboveBar(true);
+        BarDataSet barDataSet = new BarDataSet(GroupbarData, "Member");
+        barDataSet.setColors(colors);
+        BarData bardata = new BarData(barDataSet);
+        barChart.getXAxis().setDrawGridLines(false);
+        barChart.getAxisLeft().setDrawGridLines(false);
+        barChart.getAxisRight().setDrawGridLines(false);
+        barChart.setDrawGridBackground(false);
+        barChart.setData(bardata);
+        barChart.invalidate();
+
+        // Line
+        LineChart lineChart = findViewById(R.id.chart_line);
+        LineDataSet dataSet = new LineDataSet(GrouplineData, "Month");
+        dataSet.setColor(R.color.darkRed);
+        LineData lineData = new LineData(dataSet);
+        lineChart.setData(lineData);
+        lineChart.invalidate();
     }
 
     public void bar_parseJSON(String result) {
@@ -96,8 +135,22 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
                 String groupname=obj.getString("Username");
                 Integer cnt = obj.getInt("Cnt");
 
-                GroupbarData.add(new ValueDataEntry(groupname, cnt));
+                GroupbarData.add(new BarEntry(i, cnt));
 
+                Log.d("JSON:",groupname+"/"+cnt);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void line_parseJSON(String result) {
+        try {
+            JSONArray array = new JSONArray(result);
+            for (int i=0; i<array.length(); i++){
+                JSONObject obj = array.getJSONObject(i);
+                Integer cnt = obj.getInt("Cnt");
+                GrouplineData.add(new Entry(i, cnt));
                 Log.d("JSON:",groupname+"/"+cnt);
             }
         } catch (JSONException e) {

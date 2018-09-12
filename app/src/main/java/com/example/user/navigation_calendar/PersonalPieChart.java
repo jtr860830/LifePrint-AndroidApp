@@ -13,8 +13,17 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.anychart.chart.common.dataentry.DataEntry;
-import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,8 +64,8 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
     private String token;
     private String resultJSON;
 
-    List<DataEntry> pieData = new ArrayList<>();
-    List<DataEntry> barData = new ArrayList<>();
+    List<PieEntry> pieData = new ArrayList<>();
+    List<BarEntry> barData = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,10 +94,37 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
         resultJSON = HBG.getTt();
         bar_parseJSON(resultJSON);
 
+        ArrayList<Integer> colors = new ArrayList<Integer>();
+        colors.add(getResources().getColor(R.color.group1));
+        colors.add(getResources().getColor(R.color.group2));
+        colors.add(getResources().getColor(R.color.group3));
+        colors.add(getResources().getColor(R.color.group4));
+        colors.add(getResources().getColor(R.color.group5));
 
+        // Pie
+        PieChart pieChart = findViewById(R.id.chart_pie);
+        PieDataSet dataSet = new PieDataSet(pieData, "Group");
+        dataSet.setColors(colors);
+        PieData piedata = new PieData(dataSet);
+        piedata.setDrawValues(true);
+        pieChart.setHoleRadius(0);
+        pieChart.setTransparentCircleRadius(0);
+        pieChart.setData(piedata);
+        pieChart.invalidate();
 
+        // Bar
+        BarChart barChart = findViewById(R.id.chart_bar);
+        barChart.setDrawValueAboveBar(true);
+        BarDataSet barDataSet = new BarDataSet(barData, "Group");
+        barDataSet.setColors(colors);
+        BarData bardata = new BarData(barDataSet);
+        barChart.getXAxis().setDrawGridLines(false);
+        barChart.getAxisLeft().setDrawGridLines(false);
+        barChart.getAxisRight().setDrawGridLines(false);
+        barChart.setDrawGridBackground(false);
+        barChart.setData(bardata);
+        barChart.invalidate();
     }
-
 
 
     public void getSpinnerItem(){
@@ -155,7 +191,7 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
                 String Pgroupname=obj.getString("Groupname");
                 Double Pcnt = obj.getDouble("Cnt");
 
-                pieData.add(new ValueDataEntry(Pgroupname, Pcnt));
+                pieData.add(new PieEntry(Pcnt.floatValue(), Pgroupname));
 
                 Log.d("JSON:",Pgroupname+"/"+Pcnt);
             }
@@ -173,7 +209,7 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
                 String Bgroupname=obj.getString("Groupname");
                 Integer Bcnt = obj.getInt("Cnt");
 
-                barData.add(new ValueDataEntry(Bgroupname, Bcnt));
+                barData.add(new BarEntry(i, Bcnt));
 
                 Log.d("JSON:",Bgroupname+"/"+Bcnt);
             }

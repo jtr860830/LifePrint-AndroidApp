@@ -19,4 +19,10 @@
     <color name="block4">#FFE1E1</color>
     <color name="block5">#E0E5DF</color>
 
+    <color name="group1">#F9A2A2</color>
+    <color name="group2">#8AAED9</color>
+    <color name="group3">#A5CD9D</color>
+    <color name="group4">#F9DC83</color>
+    <color name="group5">#F6C893</color>
+
 </resources>
