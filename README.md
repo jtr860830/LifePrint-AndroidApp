@@ -8,4 +8,4 @@ This project is for TKUIMSD.
 - [Jezrien Hsieh](https://github.com/jtr860830)
 
 ## Designer
-- [Ally Shu](https://github.com/06a17y)
+- [Ally Hsu](https://github.com/06a17y)
