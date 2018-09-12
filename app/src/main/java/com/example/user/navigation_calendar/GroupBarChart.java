@@ -18,16 +18,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.anychart.anychart.AnyChart;
-import com.anychart.anychart.AnyChartView;
-import com.anychart.anychart.Cartesian;
-import com.anychart.anychart.DataEntry;
-import com.anychart.anychart.Mapping;
-import com.anychart.anychart.MarkerType;
-import com.anychart.anychart.Stroke;
-import com.anychart.anychart.TooltipPositionMode;
-import com.anychart.anychart.ValueDataEntry;
-
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -92,9 +84,6 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
         resultJSON = HGBG.getTt();
         bar_parseJSON(resultJSON);
 
-        GroupBar_chart();
-
-
 
     }
 
@@ -114,17 +103,6 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    public void GroupBar_chart(){
-
-        AnyChartView anyChartView = findViewById(R.id.group_barchart);
-        Cartesian cartesian = AnyChart.column();
-
-        cartesian.setPalette("#FFFFFF");
-        cartesian.column(GroupbarData);
-
-        anyChartView.setChart(cartesian);
     }
 
     public void getSpinnerItem(){

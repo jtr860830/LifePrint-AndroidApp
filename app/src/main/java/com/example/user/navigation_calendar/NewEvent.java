@@ -30,7 +30,7 @@ import java.util.GregorianCalendar;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import com.anychart.anychart.StockRangeType;
+
 import com.schibstedspain.leku.*;
 
 import org.json.JSONArray;

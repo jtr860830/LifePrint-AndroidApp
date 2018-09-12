@@ -13,14 +13,8 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.anychart.anychart.AnyChart;
-import com.anychart.anychart.AnyChartView;
-import com.anychart.anychart.Cartesian;
-import com.anychart.anychart.DataEntry;
-import com.anychart.anychart.Pie;
-import com.anychart.anychart.ValueDataEntry;
-import com.anychart.anychart.chart.common.Event;
-import com.anychart.anychart.chart.common.ListenersInterface;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -92,8 +86,7 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
         bar_parseJSON(resultJSON);
 
 
-        Pie_chart();
-        Bar_chart();
+
     }
 
 
@@ -187,38 +180,6 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-
-    public void Pie_chart(){
-        AnyChartView anyChartView_Pie = findViewById(R.id.Pie_anychart_view);
-        //user-->pie chart
-        Pie pie = AnyChart.pie();
-        pie.setOnClickListener(new ListenersInterface.OnClickListener(new String[]{"x", "value"}) {
-            @Override
-            public void onClick(Event event) {
-                Toast.makeText(PersonalPieChart.this, event.getData().get("x") + ":" + event.getData().get("value"), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        //pie.setFill("FFFFFF");
-        pie.fill("FFFFFF",1);
-        pie.setStroke("#00FFFF");//圓餅圖周圍顏色
-        pie.setData(pieData);
-        anyChartView_Pie.setChart(pie);
-
-    }
-
-    public void Bar_chart(){
-        //user-->bar chart
-        AnyChartView anyChartView_Bar = findViewById(R.id.bar_anychart_view);
-        Cartesian cartesian = AnyChart.column();
-
-        cartesian.setPalette("#FFFFFF");
-        cartesian.column(barData);
-
-        anyChartView_Bar.setChart(cartesian);
-
     }
 
     @Override
