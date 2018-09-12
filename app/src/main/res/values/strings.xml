@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Navigation_Calendar</string>
-
+    <string name="app_name">LifePrint</string>
     <string name="login_logo">login_logo</string>
     <string name="txv_login">L O G I N</string>
     <string name="name">N</string>
