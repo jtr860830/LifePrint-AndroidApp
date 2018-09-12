@@ -109,30 +109,35 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
                     mMap.clear();
                     for (int i = 0; i < mapData.size(); i++) {
                         if (mapData.get(i).getType().equals("Business")) {
-                            mMap.addMarker(new MarkerOptions()
+                            Marker marker = mMap.addMarker(new MarkerOptions()
                                     .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
                                     .title(mapData.get(i).getEvent())
                                     .icon(BitmapDescriptorFactory.defaultMarker(213)));
+                            marker.setTag(mapData.get(i).getType());
                         } else if (mapData.get(i).getType().equals("Party")) {
-                            mMap.addMarker(new MarkerOptions()
+                            Marker marker = mMap.addMarker(new MarkerOptions()
                                     .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
                                     .title(mapData.get(i).getEvent())
                                     .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                            marker.setTag(mapData.get(i).getType());
                         } else if (mapData.get(i).getType().equals("Dinner")) {
-                            mMap.addMarker(new MarkerOptions()
+                            Marker marker = mMap.addMarker(new MarkerOptions()
                                     .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
                                     .title(mapData.get(i).getEvent())
                                     .icon(BitmapDescriptorFactory.defaultMarker(32)));
+                            marker.setTag(mapData.get(i).getType());
                         } else if (mapData.get(i).getType().equals("Travel")) {
-                            mMap.addMarker(new MarkerOptions()
+                            Marker marker = mMap.addMarker(new MarkerOptions()
                                     .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
                                     .title(mapData.get(i).getEvent())
                                     .icon(BitmapDescriptorFactory.defaultMarker(0)));
+                            marker.setTag(mapData.get(i).getType());
                         } else {
-                            mMap.addMarker(new MarkerOptions()
+                            Marker marker = mMap.addMarker(new MarkerOptions()
                                     .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
                                     .title(mapData.get(i).getEvent())
                                     .icon(BitmapDescriptorFactory.defaultMarker(110)));
+                            marker.setTag(mapData.get(i).getType());
                         }
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
                     }
@@ -141,10 +146,11 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
                     mMap.clear();
                     for (int i = 0; i < mapData.size(); i++) {
                         if (mapData.get(i).getType().equals("Business")) {
-                            mMap.addMarker(new MarkerOptions()
+                            Marker marker = mMap.addMarker(new MarkerOptions()
                                     .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
                                     .title(mapData.get(i).getEvent())
                                     .icon(BitmapDescriptorFactory.defaultMarker(213)));
+                            marker.setTag(mapData.get(i).getType());
                         }
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
                     }
@@ -153,10 +159,11 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
                     mMap.clear();
                     for (int i = 0; i < mapData.size(); i++) {
                         if (mapData.get(i).getType().equals("Party")) {
-                            mMap.addMarker(new MarkerOptions()
+                            Marker marker = mMap.addMarker(new MarkerOptions()
                                     .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
                                     .title(mapData.get(i).getEvent())
                                     .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                            marker.setTag(mapData.get(i).getType());
                         }
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
                     }
@@ -165,10 +172,11 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
                     mMap.clear();
                     for (int i = 0; i < mapData.size(); i++) {
                         if (mapData.get(i).getType().equals("Dinner")) {
-                            mMap.addMarker(new MarkerOptions()
+                            Marker marker = mMap.addMarker(new MarkerOptions()
                                     .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
                                     .title(mapData.get(i).getEvent())
                                     .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                            marker.setTag(mapData.get(i).getType());
                         }
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
                     }
@@ -177,10 +185,11 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
                     mMap.clear();
                     for (int i = 0; i < mapData.size(); i++) {
                         if (mapData.get(i).getType().equals("Travel")) {
-                            mMap.addMarker(new MarkerOptions()
+                            Marker marker = mMap.addMarker(new MarkerOptions()
                                     .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
                                     .title(mapData.get(i).getEvent())
                                     .icon(BitmapDescriptorFactory.defaultMarker(0)));
+                            marker.setTag(mapData.get(i).getType());
                         }
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
                     }
@@ -189,10 +198,11 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
                     mMap.clear();
                     for (int i = 0; i < mapData.size(); i++) {
                         if (mapData.get(i).getType().equals("Others")) {
-                            mMap.addMarker(new MarkerOptions()
+                            Marker marker = mMap.addMarker(new MarkerOptions()
                                     .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
                                     .title(mapData.get(i).getEvent())
                                     .icon(BitmapDescriptorFactory.defaultMarker(110)));
+                            marker.setTag(mapData.get(i).getType());
                         }
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
                     }
@@ -301,7 +311,8 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
     /** Called when the user clicks a marker. */
     @Override
     public boolean onMarkerClick(final Marker marker) {
-
+        String type = (String) marker.getTag();
+        Toast.makeText(this, type, Toast.LENGTH_SHORT).show();
         // Return false to indicate that we have not consumed the event and that we wish
         // for the default behavior to occur (which is for the camera to move such that the
         // marker is centered and for the marker's info window to open, if it has one).
