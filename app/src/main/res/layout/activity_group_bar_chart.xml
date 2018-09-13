@@ -95,7 +95,7 @@
         android:layout_marginEnd="45dp"
         android:layout_marginStart="45dp"
         android:gravity="center"
-        android:text="Number of events added by every member"
+        android:text="Number of every member's events"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
         app:layout_constraintEnd_toEndOf="parent"

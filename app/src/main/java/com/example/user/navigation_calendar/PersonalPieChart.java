@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -66,6 +68,7 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
 
     List<PieEntry> pieData = new ArrayList<>();
     List<BarEntry> barData = new ArrayList<>();
+    String[] barstr = new String[5];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,15 +206,16 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
     public void bar_parseJSON(String result) {
         try {
             JSONArray array = new JSONArray(result);
-            for (int i=0; i<array.length(); i++){
+            for (int i=0; i<array.length() || i<5; i++){
                 JSONObject obj = array.getJSONObject(i);
 
                 String Bgroupname=obj.getString("Groupname");
                 Integer Bcnt = obj.getInt("Cnt");
 
                 barData.add(new BarEntry(i, Bcnt));
+                barstr[i] = Bgroupname;
 
-                Log.d("JSON:",Bgroupname+"/"+Bcnt);
+                Log.d("JSON:",Bgroupname + "/" + Bcnt);
             }
         } catch (JSONException e) {
             e.printStackTrace();

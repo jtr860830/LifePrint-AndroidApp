@@ -69,7 +69,7 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
     private String groupline_getUrl = "https://sd.jezrien.one/user/group/analysis/2";
     Http_Get HGBG;
 
-
+    String[] barstr = new String[5];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +122,10 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
         LineDataSet dataSet = new LineDataSet(GrouplineData, "Month");
         dataSet.setColor(R.color.darkRed);
         LineData lineData = new LineData(dataSet);
+        lineChart.getXAxis().setDrawGridLines(false);
+        lineChart.getAxisLeft().setDrawGridLines(false);
+        lineChart.getAxisRight().setDrawGridLines(false);
+        lineChart.setDrawGridBackground(false);
         lineChart.setData(lineData);
         lineChart.invalidate();
     }
@@ -129,13 +133,14 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
     public void bar_parseJSON(String result) {
         try {
             JSONArray array = new JSONArray(result);
-            for (int i=0; i<array.length(); i++){
+            for (int i=0; i<array.length() || i<5; i++){
                 JSONObject obj = array.getJSONObject(i);
 
                 String groupname=obj.getString("Username");
                 Integer cnt = obj.getInt("Cnt");
 
                 GroupbarData.add(new BarEntry(i, cnt));
+                barstr[i] = groupname;
 
                 Log.d("JSON:",groupname+"/"+cnt);
             }
