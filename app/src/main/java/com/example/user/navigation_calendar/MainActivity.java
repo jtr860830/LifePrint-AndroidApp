@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,12 +22,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.MalformedJsonException;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.os.StrictMode;
@@ -35,7 +38,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Array;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,10 +81,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     BottomNavigationView navigationView;
 
+    ImageView per_pic;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final Bitmap mbitmap=getBitmapFromURL("https://cdn.shopify.com/s/files/1/1285/0147/products/activity-047a.png?v=1476366736");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        per_pic=findViewById(R.id.per_pic);
+                        per_pic.setImageBitmap(mbitmap);
+                    }
+                });
+            }
+        }).start();
+
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
@@ -87,6 +113,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         title = findViewById(R.id.toolbar_title);
 
         //滑開頁面
+
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
@@ -137,6 +165,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             navigationView.setSelectedItemId(R.id.nav_month); // change to whichever id should be default
         }
     }
+
+    public static Bitmap getBitmapFromURL(String src){
+
+        try {
+            URL url=new URL(src);
+            HttpURLConnection conn=(HttpURLConnection)url.openConnection();
+            conn.connect();
+
+            InputStream input = conn.getInputStream();
+            Bitmap bitmap= BitmapFactory.decodeStream(input);
+            return bitmap;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 
     public void addGroup(ArrayList<String> GN) {
 
