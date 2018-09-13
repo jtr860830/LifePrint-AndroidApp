@@ -111,6 +111,7 @@ public class PersonalMap extends AppCompatActivity implements View.OnClickListen
             public void onItemSelected(AdapterView adapterView, View view, int position, long id){
                 Toast.makeText(PersonalMap.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
                 if (adapterView.getSelectedItem().toString().equals("All")) {
+                    Pcategory.setBackgroundColor(getResources().getColor(R.color.white));
                     mMap.clear();
                     for (int i = 0; i < mapData.size(); i++) {
                         if (mapData.get(i).getType().equals("Business")) {
