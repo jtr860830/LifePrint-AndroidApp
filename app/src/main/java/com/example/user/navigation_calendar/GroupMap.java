@@ -234,32 +234,169 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
                 Toast.makeText(GroupMap.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
                 if (adapterView.getSelectedItem().toString().equals("1 week")) {
                     mapData.clear();
-                    HMG = new Http_Get();
                     HMG.Get(Map_getUrl_week, token, groupname, 1);
                     resultJSON = HMG.getTt();
                     map_parseJSON(resultJSON);
-                    Gcategory.setSelection(0);
+                    Gcategory.setSelection(0, false);
+                    Gcategory.setBackgroundColor(getResources().getColor(R.color.white));
+                    mMap.clear();
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (mapData.get(i).getType().equals("Business")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(213)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Party")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Dinner")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(32)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Travel")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(0)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(110)));
+                            marker.setTag(mapData.get(i).getType());
+                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
+                    }
                 } else if (adapterView.getSelectedItem().toString().equals("2 week")) {
                     mapData.clear();
-                    HMG = new Http_Get();
                     HMG.Get(Map_getUrl_week, token, groupname, 2);
                     resultJSON = HMG.getTt();
                     map_parseJSON(resultJSON);
-                    Gcategory.setSelection(0);
+                    Gcategory.setBackgroundColor(getResources().getColor(R.color.white));
+                    mMap.clear();
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (mapData.get(i).getType().equals("Business")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(213)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Party")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Dinner")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(32)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Travel")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(0)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(110)));
+                            marker.setTag(mapData.get(i).getType());
+                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
+                    }
                 } else if (adapterView.getSelectedItem().toString().equals("3 week")) {
                     mapData.clear();
-                    HMG = new Http_Get();
                     HMG.Get(Map_getUrl_week, token, groupname, 3);
                     resultJSON = HMG.getTt();
                     map_parseJSON(resultJSON);
-                    Gcategory.setSelection(0);
+                    Gcategory.setBackgroundColor(getResources().getColor(R.color.white));
+                    mMap.clear();
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (mapData.get(i).getType().equals("Business")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(213)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Party")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Dinner")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(32)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Travel")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(0)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(110)));
+                            marker.setTag(mapData.get(i).getType());
+                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
+                    }
                 } else {
                     mapData.clear();
-                    HMG = new Http_Get();
                     HMG.Get(Map_getUrl, token, groupname);
                     resultJSON = HMG.getTt();
                     map_parseJSON(resultJSON);
-                    Gcategory.setSelection(0);
+                    Gcategory.setBackgroundColor(getResources().getColor(R.color.white));
+                    mMap.clear();
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (mapData.get(i).getType().equals("Business")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(213)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Party")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Dinner")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(32)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Travel")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(0)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(110)));
+                            marker.setTag(mapData.get(i).getType());
+                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
+                    }
                 }
             }
             public void onNothingSelected(AdapterView arg0) {
@@ -279,88 +416,496 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
                 Toast.makeText(GroupMap.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
                 if (adapterView.getSelectedItem().toString().equals("1 month")) {
                     mapData.clear();
-                    HMG = new Http_Get();
                     HMG.Get(Map_getUrl_month, token, groupname, 1);
                     resultJSON = HMG.getTt();
                     map_parseJSON(resultJSON);
-                    Gcategory.setSelection(0);
+                    Gcategory.setBackgroundColor(getResources().getColor(R.color.white));
+                    mMap.clear();
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (mapData.get(i).getType().equals("Business")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(213)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Party")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Dinner")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(32)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Travel")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(0)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(110)));
+                            marker.setTag(mapData.get(i).getType());
+                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
+                    }
                 } else if (adapterView.getSelectedItem().toString().equals("2 month")) {
                     mapData.clear();
-                    HMG = new Http_Get();
                     HMG.Get(Map_getUrl_month, token, groupname, 2);
                     resultJSON = HMG.getTt();
                     map_parseJSON(resultJSON);
-                    Gcategory.setSelection(0);
+                    Gcategory.setBackgroundColor(getResources().getColor(R.color.white));
+                    mMap.clear();
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (mapData.get(i).getType().equals("Business")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(213)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Party")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Dinner")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(32)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Travel")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(0)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(110)));
+                            marker.setTag(mapData.get(i).getType());
+                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
+                    }
                 } else if (adapterView.getSelectedItem().toString().equals("3 month")) {
                     mapData.clear();
-                    HMG = new Http_Get();
                     HMG.Get(Map_getUrl_month, token, groupname, 3);
                     resultJSON = HMG.getTt();
                     map_parseJSON(resultJSON);
-                    Gcategory.setSelection(0);
+                    Gcategory.setBackgroundColor(getResources().getColor(R.color.white));
+                    mMap.clear();
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (mapData.get(i).getType().equals("Business")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(213)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Party")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Dinner")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(32)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Travel")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(0)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(110)));
+                            marker.setTag(mapData.get(i).getType());
+                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
+                    }
                 } else if (adapterView.getSelectedItem().toString().equals("4 month")) {
                     mapData.clear();
-                    HMG = new Http_Get();
                     HMG.Get(Map_getUrl_month, token, groupname, 4);
                     resultJSON = HMG.getTt();
                     map_parseJSON(resultJSON);
-                    Gcategory.setSelection(0);
+                    Gcategory.setBackgroundColor(getResources().getColor(R.color.white));
+                    mMap.clear();
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (mapData.get(i).getType().equals("Business")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(213)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Party")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Dinner")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(32)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Travel")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(0)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(110)));
+                            marker.setTag(mapData.get(i).getType());
+                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
+                    }
                 } else if (adapterView.getSelectedItem().toString().equals("5 month")) {
                     mapData.clear();
-                    HMG = new Http_Get();
                     HMG.Get(Map_getUrl_month, token, groupname, 5);
                     resultJSON = HMG.getTt();
                     map_parseJSON(resultJSON);
-                    Gcategory.setSelection(0);
+                    Gcategory.setBackgroundColor(getResources().getColor(R.color.white));
+                    mMap.clear();
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (mapData.get(i).getType().equals("Business")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(213)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Party")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Dinner")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(32)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Travel")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(0)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(110)));
+                            marker.setTag(mapData.get(i).getType());
+                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
+                    }
                 } else if (adapterView.getSelectedItem().toString().equals("6 month")) {
                     mapData.clear();
-                    HMG = new Http_Get();
                     HMG.Get(Map_getUrl_month, token, groupname, 6);
                     resultJSON = HMG.getTt();
                     map_parseJSON(resultJSON);
-                    Gcategory.setSelection(0);
+                    Gcategory.setBackgroundColor(getResources().getColor(R.color.white));
+                    mMap.clear();
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (mapData.get(i).getType().equals("Business")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(213)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Party")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Dinner")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(32)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Travel")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(0)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(110)));
+                            marker.setTag(mapData.get(i).getType());
+                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
+                    }
                 } else if (adapterView.getSelectedItem().toString().equals("7 month")) {
                     mapData.clear();
-                    HMG = new Http_Get();
                     HMG.Get(Map_getUrl_month, token, groupname, 7);
                     resultJSON = HMG.getTt();
                     map_parseJSON(resultJSON);
-                    Gcategory.setSelection(0);
+                    Gcategory.setBackgroundColor(getResources().getColor(R.color.white));
+                    mMap.clear();
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (mapData.get(i).getType().equals("Business")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(213)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Party")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Dinner")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(32)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Travel")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(0)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(110)));
+                            marker.setTag(mapData.get(i).getType());
+                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
+                    }
                 } else if (adapterView.getSelectedItem().toString().equals("8 month")) {
                     mapData.clear();
-                    HMG = new Http_Get();
                     HMG.Get(Map_getUrl_month, token, groupname, 8);
                     resultJSON = HMG.getTt();
                     map_parseJSON(resultJSON);
-                    Gcategory.setSelection(0);
+                    Gcategory.setBackgroundColor(getResources().getColor(R.color.white));
+                    mMap.clear();
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (mapData.get(i).getType().equals("Business")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(213)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Party")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Dinner")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(32)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Travel")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(0)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(110)));
+                            marker.setTag(mapData.get(i).getType());
+                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
+                    }
                 } else if (adapterView.getSelectedItem().toString().equals("9 month")) {
                     mapData.clear();
-                    HMG = new Http_Get();
                     HMG.Get(Map_getUrl_month, token, groupname, 9);
                     resultJSON = HMG.getTt();
                     map_parseJSON(resultJSON);
-                    Gcategory.setSelection(0);
+                    Gcategory.setBackgroundColor(getResources().getColor(R.color.white));
+                    mMap.clear();
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (mapData.get(i).getType().equals("Business")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(213)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Party")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Dinner")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(32)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Travel")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(0)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(110)));
+                            marker.setTag(mapData.get(i).getType());
+                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
+                    }
                 } else if (adapterView.getSelectedItem().toString().equals("10 month")) {
                     mapData.clear();
-                    HMG = new Http_Get();
                     HMG.Get(Map_getUrl_month, token, groupname, 10);
                     resultJSON = HMG.getTt();
                     map_parseJSON(resultJSON);
-                    Gcategory.setSelection(0);
+                    Gcategory.setBackgroundColor(getResources().getColor(R.color.white));
+                    mMap.clear();
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (mapData.get(i).getType().equals("Business")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(213)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Party")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Dinner")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(32)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Travel")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(0)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(110)));
+                            marker.setTag(mapData.get(i).getType());
+                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
+                    }
                 } else if (adapterView.getSelectedItem().toString().equals("11 month")) {
                     mapData.clear();
-                    HMG = new Http_Get();
                     HMG.Get(Map_getUrl_month, token, groupname, 11);
                     resultJSON = HMG.getTt();
                     map_parseJSON(resultJSON);
-                    Gcategory.setSelection(0);
+                    Gcategory.setBackgroundColor(getResources().getColor(R.color.white));
+                    mMap.clear();
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (mapData.get(i).getType().equals("Business")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(213)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Party")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Dinner")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(32)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Travel")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(0)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(110)));
+                            marker.setTag(mapData.get(i).getType());
+                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
+                    }
                 } else {
                     mapData.clear();
-                    HMG = new Http_Get();
                     HMG.Get(Map_getUrl, token, groupname);
                     resultJSON = HMG.getTt();
                     map_parseJSON(resultJSON);
-                    Gcategory.setSelection(0);
+                    Gcategory.setBackgroundColor(getResources().getColor(R.color.white));
+                    mMap.clear();
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (mapData.get(i).getType().equals("Business")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(213)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Party")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Dinner")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(32)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Travel")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(0)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(110)));
+                            marker.setTag(mapData.get(i).getType());
+                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
+                    }
                 }
             }
             public void onNothingSelected(AdapterView arg0) {
@@ -381,46 +926,250 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
                 Toast.makeText(GroupMap.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
                 if (adapterView.getSelectedItem().toString().equals("1 year")) {
                     mapData.clear();
-                    HMG = new Http_Get();
                     HMG.Get(Map_getUrl_year, token, groupname, 1);
                     resultJSON = HMG.getTt();
                     map_parseJSON(resultJSON);
-                    Gcategory.setSelection(0);
+                    Gcategory.setBackgroundColor(getResources().getColor(R.color.white));
+                    mMap.clear();
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (mapData.get(i).getType().equals("Business")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(213)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Party")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Dinner")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(32)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Travel")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(0)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(110)));
+                            marker.setTag(mapData.get(i).getType());
+                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
+                    }
                 } else if (adapterView.getSelectedItem().toString().equals("2 year")) {
                     mapData.clear();
-                    HMG = new Http_Get();
                     HMG.Get(Map_getUrl_year, token, groupname, 2);
                     resultJSON = HMG.getTt();
                     map_parseJSON(resultJSON);
-                    Gcategory.setSelection(0);
+                    Gcategory.setBackgroundColor(getResources().getColor(R.color.white));
+                    mMap.clear();
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (mapData.get(i).getType().equals("Business")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(213)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Party")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Dinner")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(32)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Travel")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(0)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(110)));
+                            marker.setTag(mapData.get(i).getType());
+                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
+                    }
                 } else if (adapterView.getSelectedItem().toString().equals("3 year")) {
                     mapData.clear();
-                    HMG = new Http_Get();
                     HMG.Get(Map_getUrl_year, token, groupname, 3);
                     resultJSON = HMG.getTt();
                     map_parseJSON(resultJSON);
-                    Gcategory.setSelection(0);
+                    Gcategory.setBackgroundColor(getResources().getColor(R.color.white));
+                    mMap.clear();
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (mapData.get(i).getType().equals("Business")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(213)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Party")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Dinner")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(32)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Travel")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(0)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(110)));
+                            marker.setTag(mapData.get(i).getType());
+                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
+                    }
                 } else if (adapterView.getSelectedItem().toString().equals("4 year")) {
                     mapData.clear();
-                    HMG = new Http_Get();
                     HMG.Get(Map_getUrl_year, token, groupname, 4);
                     resultJSON = HMG.getTt();
                     map_parseJSON(resultJSON);
-                    Gcategory.setSelection(0);
+                    Gcategory.setBackgroundColor(getResources().getColor(R.color.white));
+                    mMap.clear();
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (mapData.get(i).getType().equals("Business")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(213)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Party")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Dinner")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(32)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Travel")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(0)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(110)));
+                            marker.setTag(mapData.get(i).getType());
+                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
+                    }
                 } else if (adapterView.getSelectedItem().toString().equals("5 year")) {
                     mapData.clear();
-                    HMG = new Http_Get();
                     HMG.Get(Map_getUrl_year, token, groupname, 5);
                     resultJSON = HMG.getTt();
                     map_parseJSON(resultJSON);
-                    Gcategory.setSelection(0);
+                    Gcategory.setBackgroundColor(getResources().getColor(R.color.white));
+                    mMap.clear();
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (mapData.get(i).getType().equals("Business")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(213)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Party")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Dinner")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(32)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Travel")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(0)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(110)));
+                            marker.setTag(mapData.get(i).getType());
+                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
+                    }
                 } else {
                     mapData.clear();
-                    HMG = new Http_Get();
                     HMG.Get(Map_getUrl, token, groupname);
                     resultJSON = HMG.getTt();
                     map_parseJSON(resultJSON);
-                    Gcategory.setSelection(0);
+                    Gcategory.setBackgroundColor(getResources().getColor(R.color.white));
+                    mMap.clear();
+                    for (int i = 0; i < mapData.size(); i++) {
+                        if (mapData.get(i).getType().equals("Business")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(213)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Party")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(46)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Dinner")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(32)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else if (mapData.get(i).getType().equals("Travel")) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(0)));
+                            marker.setTag(mapData.get(i).getType());
+                        } else {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()))
+                                    .title(mapData.get(i).getEvent())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(110)));
+                            marker.setTag(mapData.get(i).getType());
+                        }
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
+                    }
                 }
             }
             public void onNothingSelected(AdapterView arg0) {
