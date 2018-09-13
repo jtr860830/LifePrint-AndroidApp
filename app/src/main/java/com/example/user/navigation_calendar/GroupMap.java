@@ -36,18 +36,18 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
     private ArrayAdapter<String> Gcategory_listAdapter; //喧告listAdapter物件
     Spinner Gcategory;
 
-    private String[] Gweek_list = {"1 week","2 week","3 week"}; //宣告字串陣列
+    private String[] Gweek_list = {"none", "1 week","2 week","3 week"}; //宣告字串陣列
     private ArrayAdapter<String> Gweek_listAdapter; //喧告listAdapter物件
     Spinner Gweek;
 
     //宣告字串陣列
-    private String[] Gmonth_list = {"1 month","2 month","3 month","4 month","5 month","6 month",
-            "7 month","8 month","9 month","10 month","11 month","12 month"};
+    private String[] Gmonth_list = {"none", "1 month","2 month","3 month","4 month","5 month","6 month",
+            "7 month","8 month","9 month","10 month","11 month"};
     private ArrayAdapter<String> Gmonth_listAdapter; //喧告listAdapter物件
     Spinner Gmonth;
 
     //宣告字串陣列
-    private String[] Gyear_list = {"1 year","2 year","3 year","4 year","5 year"};
+    private String[] Gyear_list = {"none", "1 year","2 year","3 year","4 year","5 year"};
     private ArrayAdapter<String> Gyear_listAdapter; //喧告listAdapter物件
     Spinner Gyear;
 
@@ -59,6 +59,9 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
 
     //存放要Get的訊息
     private String Map_getUrl = "https://sd.jezrien.one/user/map";
+    private String Map_getUrl_week = "https://sd.jezrien.one/user/map/weeks";
+    private String Map_getUrl_month = "https://sd.jezrien.one/user/map/months";
+    private String Map_getUrl_year = "https://sd.jezrien.one/user/map/years";
     Http_Get HMG;
 
     SharedPreferences NsharedPreferences;
@@ -75,7 +78,6 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
         groupname = getIntent().getExtras().getString("groupname");
         GMback=findViewById(R.id.gm_back);
         GMback.setOnClickListener(this);
-        getGMSpinnerItem();
 
         // set token
         NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -91,6 +93,7 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         category_menu();
+        getGMSpinnerItem();
     }
 
     public void category_menu(){
@@ -228,6 +231,31 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
         Gweek.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
             public void onItemSelected(AdapterView adapterView, View view, int position, long id){
                 Toast.makeText(GroupMap.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+                if (adapterView.getSelectedItem().toString().equals("1 week")) {
+                    HMG = new Http_Get();
+                    HMG.Get(Map_getUrl_week, token, groupname, 1);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Gcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("2 week")) {
+                    HMG = new Http_Get();
+                    HMG.Get(Map_getUrl_week, token, groupname, 2);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Gcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("3 week")) {
+                    HMG = new Http_Get();
+                    HMG.Get(Map_getUrl_week, token, groupname, 3);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Gcategory.setSelection(0);
+                } else {
+                    HMG = new Http_Get();
+                    HMG.Get(Map_getUrl, token, groupname);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Gcategory.setSelection(0);
+                }
             }
             public void onNothingSelected(AdapterView arg0) {
                 Toast.makeText(GroupMap.this, "您沒有選擇任何項目", Toast.LENGTH_SHORT).show();
@@ -244,6 +272,79 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
         Gmonth.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
             public void onItemSelected(AdapterView adapterView, View view, int position, long id){
                 Toast.makeText(GroupMap.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+                if (adapterView.getSelectedItem().toString().equals("1 month")) {
+                    HMG = new Http_Get();
+                    HMG.Get(Map_getUrl_month, token, groupname, 1);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Gcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("2 month")) {
+                    HMG = new Http_Get();
+                    HMG.Get(Map_getUrl_month, token, groupname, 2);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Gcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("3 month")) {
+                    HMG = new Http_Get();
+                    HMG.Get(Map_getUrl_month, token, groupname, 3);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Gcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("4 month")) {
+                    HMG = new Http_Get();
+                    HMG.Get(Map_getUrl_month, token, groupname, 4);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Gcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("5 month")) {
+                    HMG = new Http_Get();
+                    HMG.Get(Map_getUrl_month, token, groupname, 5);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Gcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("6 month")) {
+                    HMG = new Http_Get();
+                    HMG.Get(Map_getUrl_month, token, groupname, 6);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Gcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("7 month")) {
+                    HMG = new Http_Get();
+                    HMG.Get(Map_getUrl_month, token, groupname, 7);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Gcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("8 month")) {
+                    HMG = new Http_Get();
+                    HMG.Get(Map_getUrl_month, token, groupname, 8);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Gcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("9 month")) {
+                    HMG = new Http_Get();
+                    HMG.Get(Map_getUrl_month, token, groupname, 9);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Gcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("10 month")) {
+                    HMG = new Http_Get();
+                    HMG.Get(Map_getUrl_month, token, groupname, 10);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Gcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("11 month")) {
+                    HMG = new Http_Get();
+                    HMG.Get(Map_getUrl_month, token, groupname, 11);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Gcategory.setSelection(0);
+                } else {
+                    HMG = new Http_Get();
+                    HMG.Get(Map_getUrl, token, groupname);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Gcategory.setSelection(0);
+                }
             }
             public void onNothingSelected(AdapterView arg0) {
                 Toast.makeText(GroupMap.this, "您沒有選擇任何項目", Toast.LENGTH_SHORT).show();
@@ -261,6 +362,43 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
         Gyear.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
             public void onItemSelected(AdapterView adapterView, View view, int position, long id){
                 Toast.makeText(GroupMap.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+                if (adapterView.getSelectedItem().toString().equals("1 year")) {
+                    HMG = new Http_Get();
+                    HMG.Get(Map_getUrl_year, token, groupname, 1);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Gcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("2 year")) {
+                    HMG = new Http_Get();
+                    HMG.Get(Map_getUrl_year, token, groupname, 2);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Gcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("3 year")) {
+                    HMG = new Http_Get();
+                    HMG.Get(Map_getUrl_year, token, groupname, 3);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Gcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("4 year")) {
+                    HMG = new Http_Get();
+                    HMG.Get(Map_getUrl_year, token, groupname, 4);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Gcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("5 year")) {
+                    HMG = new Http_Get();
+                    HMG.Get(Map_getUrl_year, token, groupname, 5);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Gcategory.setSelection(0);
+                } else {
+                    HMG = new Http_Get();
+                    HMG.Get(Map_getUrl, token, groupname);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Gcategory.setSelection(0);
+                }
             }
             public void onNothingSelected(AdapterView arg0) {
                 Toast.makeText(GroupMap.this, "您沒有選擇任何項目", Toast.LENGTH_SHORT).show();

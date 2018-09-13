@@ -39,18 +39,18 @@ public class PersonalMap extends AppCompatActivity implements View.OnClickListen
     private ArrayAdapter<String> Pcategory_listAdapter; //喧告listAdapter物件
     Spinner Pcategory;
 
-    private String[] Pweek_list = {"1 week","2 week","3 week"}; //宣告字串陣列
+    private String[] Pweek_list = {"none", "1 week","2 week","3 week"}; //宣告字串陣列
     private ArrayAdapter<String> Pweek_listAdapter; //喧告listAdapter物件
     Spinner Pweek;
 
     //宣告字串陣列
-    private String[] Pmonth_list = {"1 month","2 month","3 month","4 month","5 month","6 month",
-            "7 month","8 month","9 month","10 month","11 month","12 month"};
+    private String[] Pmonth_list = {"none", "1 month","2 month","3 month","4 month","5 month","6 month",
+            "7 month","8 month","9 month","10 month","11 month"};
     private ArrayAdapter<String> Pmonth_listAdapter; //喧告listAdapter物件
     Spinner Pmonth;
 
     //宣告字串陣列
-    private String[] Pyear_list = {"1 year","2 year","3 year","4 year","5 year"};
+    private String[] Pyear_list = {"none", "1 year","2 year","3 year","4 year","5 year"};
     private ArrayAdapter<String> Pyear_listAdapter; //喧告listAdapter物件
     Spinner Pyear;
 
@@ -60,6 +60,10 @@ public class PersonalMap extends AppCompatActivity implements View.OnClickListen
 
     //存放要Get的訊息
     private String PMap_getUrl = "https://sd.jezrien.one/user/map";
+    private String PMap_getUrl_week = "https://sd.jezrien.one/user/map/weeks";
+    private String PMap_getUrl_month = "https://sd.jezrien.one/user/map/months";
+    private String PMap_getUrl_year = "https://sd.jezrien.one/user/map/years";
+
     Http_Get HMG;
 
     SharedPreferences NsharedPreferences;
@@ -81,7 +85,7 @@ public class PersonalMap extends AppCompatActivity implements View.OnClickListen
         NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         token = NsharedPreferences.getString("TOKEN", "");
 
-        //get_pie
+        // get
         HMG = new Http_Get();
         HMG.Get(PMap_getUrl, token);
         resultJSON = HMG.getTt();
@@ -229,6 +233,31 @@ public class PersonalMap extends AppCompatActivity implements View.OnClickListen
         Pweek.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
             public void onItemSelected(AdapterView adapterView, View view, int position, long id){
                 Toast.makeText(PersonalMap.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+                if (adapterView.getSelectedItem().toString().equals("1 week")) {
+                    HMG = new Http_Get();
+                    HMG.Get(PMap_getUrl_week, token, "", 1);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Pcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("2 week")) {
+                    HMG = new Http_Get();
+                    HMG.Get(PMap_getUrl_week, token, "", 2);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Pcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("3 week")) {
+                    HMG = new Http_Get();
+                    HMG.Get(PMap_getUrl_week, token, "", 3);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Pcategory.setSelection(0);
+                } else {
+                    HMG = new Http_Get();
+                    HMG.Get(PMap_getUrl, token);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Pcategory.setSelection(0);
+                }
             }
             public void onNothingSelected(AdapterView arg0) {
                 Toast.makeText(PersonalMap.this, "您沒有選擇任何項目", Toast.LENGTH_SHORT).show();
@@ -245,6 +274,79 @@ public class PersonalMap extends AppCompatActivity implements View.OnClickListen
         Pmonth.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
             public void onItemSelected(AdapterView adapterView, View view, int position, long id){
                 Toast.makeText(PersonalMap.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+                if (adapterView.getSelectedItem().toString().equals("1 month")) {
+                    HMG = new Http_Get();
+                    HMG.Get(PMap_getUrl_month, token, "", 1);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Pcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("2 month")) {
+                    HMG = new Http_Get();
+                    HMG.Get(PMap_getUrl_month, token, "", 2);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Pcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("3 month")) {
+                    HMG = new Http_Get();
+                    HMG.Get(PMap_getUrl_month, token, "", 3);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Pcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("4 month")) {
+                    HMG = new Http_Get();
+                    HMG.Get(PMap_getUrl_month, token, "", 4);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Pcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("5 month")) {
+                    HMG = new Http_Get();
+                    HMG.Get(PMap_getUrl_month, token, "", 5);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Pcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("6 month")) {
+                    HMG = new Http_Get();
+                    HMG.Get(PMap_getUrl_month, token, "", 6);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Pcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("7 month")) {
+                    HMG = new Http_Get();
+                    HMG.Get(PMap_getUrl_month, token, "", 7);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Pcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("8 month")) {
+                    HMG = new Http_Get();
+                    HMG.Get(PMap_getUrl_month, token, "", 8);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Pcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("9 month")) {
+                    HMG = new Http_Get();
+                    HMG.Get(PMap_getUrl_month, token, "", 9);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Pcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("10 month")) {
+                    HMG = new Http_Get();
+                    HMG.Get(PMap_getUrl_month, token, "", 10);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Pcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("11 month")) {
+                    HMG = new Http_Get();
+                    HMG.Get(PMap_getUrl_month, token, "", 11);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Pcategory.setSelection(0);
+                } else {
+                    HMG = new Http_Get();
+                    HMG.Get(PMap_getUrl, token);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Pcategory.setSelection(0);
+                }
             }
             public void onNothingSelected(AdapterView arg0) {
                 Toast.makeText(PersonalMap.this, "您沒有選擇任何項目", Toast.LENGTH_SHORT).show();
@@ -262,6 +364,43 @@ public class PersonalMap extends AppCompatActivity implements View.OnClickListen
         Pyear.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
             public void onItemSelected(AdapterView adapterView, View view, int position, long id){
                 Toast.makeText(PersonalMap.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+                if (adapterView.getSelectedItem().toString().equals("1 year")) {
+                    HMG = new Http_Get();
+                    HMG.Get(PMap_getUrl_year, token, "", 1);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Pcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("2 year")) {
+                    HMG = new Http_Get();
+                    HMG.Get(PMap_getUrl_year, token, "", 2);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Pcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("3 year")) {
+                    HMG = new Http_Get();
+                    HMG.Get(PMap_getUrl_year, token, "", 3);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Pcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("4 year")) {
+                    HMG = new Http_Get();
+                    HMG.Get(PMap_getUrl_year, token, "", 4);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Pcategory.setSelection(0);
+                } else if (adapterView.getSelectedItem().toString().equals("5 year")) {
+                    HMG = new Http_Get();
+                    HMG.Get(PMap_getUrl_year, token, "", 5);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Pcategory.setSelection(0);
+                } else {
+                    HMG = new Http_Get();
+                    HMG.Get(PMap_getUrl, token);
+                    resultJSON = HMG.getTt();
+                    map_parseJSON(resultJSON);
+                    Pcategory.setSelection(0);
+                }
             }
             public void onNothingSelected(AdapterView arg0) {
                 Toast.makeText(PersonalMap.this, "您沒有選擇任何項目", Toast.LENGTH_SHORT).show();
