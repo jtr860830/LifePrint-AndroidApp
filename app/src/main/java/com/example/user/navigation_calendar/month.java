@@ -151,7 +151,9 @@ class eventCard {
 
     public String getStartTime() {
         String substring;
-        substring=starttime.substring(11,16);
+        substring = starttime.substring(0, 10);
+        String temp = starttime.substring(11,16);
+        substring = substring + " " + temp;
         return substring;
     }
 
