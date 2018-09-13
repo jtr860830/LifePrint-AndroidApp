@@ -76,7 +76,7 @@ public class Http_Get extends Service {
     }
 
     public void Get(String Url, String T, String name, int size) {
-        getUrl = Url + "?name=" + name + "&&size=" + size;
+        getUrl = Url + "?name=" + name + "&size=" + size;
         token = T;
         //建立HttpClient物件
         HttpClient httpClient = new DefaultHttpClient();
