@@ -26,6 +26,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,7 +70,7 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
     private String groupline_getUrl = "https://sd.jezrien.one/user/group/analysis/2";
     Http_Get HGBG;
 
-    String[] barstr = new String[5];
+    ArrayList barstr = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +116,7 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
         barChart.getAxisRight().setDrawGridLines(false);
         barChart.setDrawGridBackground(false);
         barChart.setData(bardata);
+        barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(barstr));
         barChart.invalidate();
 
         // Line
@@ -140,7 +142,7 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
                 Integer cnt = obj.getInt("Cnt");
 
                 GroupbarData.add(new BarEntry(i, cnt));
-                barstr[i] = groupname;
+                barstr.add(groupname);
 
                 Log.d("JSON:",groupname+"/"+cnt);
             }

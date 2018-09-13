@@ -25,6 +25,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
 import org.json.JSONArray;
@@ -68,7 +69,7 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
 
     List<PieEntry> pieData = new ArrayList<>();
     List<BarEntry> barData = new ArrayList<>();
-    String[] barstr = new String[5];
+    ArrayList barstr = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +127,7 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
         barChart.getAxisRight().setDrawGridLines(false);
         barChart.setDrawGridBackground(false);
         barChart.setData(bardata);
+        barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(barstr));
         barChart.invalidate();
     }
 
@@ -213,7 +215,7 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
                 Integer Bcnt = obj.getInt("Cnt");
 
                 barData.add(new BarEntry(i, Bcnt));
-                barstr[i] = Bgroupname;
+                barstr.add(Bgroupname);
 
                 Log.d("JSON:",Bgroupname + "/" + Bcnt);
             }
