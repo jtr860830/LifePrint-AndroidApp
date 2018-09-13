@@ -316,6 +316,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (id == other.getItem(1).getItemId()) {
             //Exit
             Toast.makeText(MainActivity.this,"exit",Toast.LENGTH_SHORT).show();
+            Intent logout=new Intent(MainActivity.this,Login.class);
+            startActivity(logout);
             return true;
         }
 
