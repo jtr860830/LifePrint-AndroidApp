@@ -79,7 +79,6 @@ public class PersonalMap extends AppCompatActivity implements View.OnClickListen
 
         back=findViewById(R.id.pm_back);
         back.setOnClickListener(this);
-        getPMSpinnerItem();
 
         //set token
         NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -95,6 +94,7 @@ public class PersonalMap extends AppCompatActivity implements View.OnClickListen
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         category_menu();
+        getPMSpinnerItem();
     }
 
     public void category_menu(){
