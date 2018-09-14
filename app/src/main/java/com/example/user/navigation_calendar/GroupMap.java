@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -76,6 +77,8 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
         setContentView(R.layout.activity_group_map);
 
         groupname = getIntent().getExtras().getString("groupname");
+        TextView title = findViewById(R.id.textView23);
+        title.setText(groupname + " Track");
         GMback=findViewById(R.id.gm_back);
         GMback.setOnClickListener(this);
 

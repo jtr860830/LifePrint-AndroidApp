@@ -89,19 +89,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                final Bitmap mbitmap=getBitmapFromURL("https://cdn.shopify.com/s/files/1/1285/0147/products/activity-047a.png?v=1476366736");
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        per_pic=findViewById(R.id.per_pic);
-                        per_pic.setImageBitmap(mbitmap);
-                    }
-                });
-            }
-        }).start();
 
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -166,24 +153,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public static Bitmap getBitmapFromURL(String src){
-
-        try {
-            URL url=new URL(src);
-            HttpURLConnection conn=(HttpURLConnection)url.openConnection();
-            conn.connect();
-
-            InputStream input = conn.getInputStream();
-            Bitmap bitmap= BitmapFactory.decodeStream(input);
-            return bitmap;
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-
 
     public void addGroup(ArrayList<String> GN) {
 
@@ -216,7 +185,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             JSONObject array = new JSONObject(result);
             person_name = array.getString("Username");
             person_email = array.getString("Email");
-
             Log.d("JSON:", person_name + "/" + person_email);
             trans.add(new PerInfoCard(person_name, person_email));
         } catch (JSONException e) {
@@ -346,6 +314,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     Bundle data =  new Bundle();
                     data.putString("groupname", groupname);
+                    data.putString("username", person_name);
                     switch (menuItem.getItemId()) {
                         case R.id.nav_notes:
                             title.setText("Notes");
@@ -373,7 +342,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             break;
                         //return true;
                         case R.id.nav_feed:
-                            title.setText("Analysis");
+                            if (groupname != null) {
+                                title.setText(groupname + " Analysis");
+                            } else {
+                                title.setText( person_name + " Analysis");
+                            }
                             feed fragment_feed = new feed();
                             fragment_feed.setArguments(data);
                             FragmentTransaction transaction4 = getSupportFragmentManager().beginTransaction();
@@ -382,7 +355,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             break;
                         //return true;
                         case R.id.nav_member:
-                            title.setText("Member");
+                            if (groupname != null) {
+                                title.setText(groupname + " Member");
+                            } else {
+                                title.setText("Member");
+                            }
                             members fragment_setting = new members();
                             fragment_setting.setArguments(data);
                             FragmentTransaction transaction5 = getSupportFragmentManager().beginTransaction();

@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
@@ -76,6 +77,9 @@ public class PersonalMap extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_map);
+        String username = getIntent().getExtras().getString("username");
+        TextView title = findViewById(R.id.textView17);
+        title.setText(username + " Track");
 
         back=findViewById(R.id.pm_back);
         back.setOnClickListener(this);

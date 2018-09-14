@@ -27,7 +27,7 @@ public class feed extends Fragment implements View.OnClickListener {
     ImageButton goto_barchart;
     ImageButton goto_map;
     private String groupname = null;
-
+    private String username = null;
 
     public feed() {
         // Required empty public constructor
@@ -40,6 +40,7 @@ public class feed extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_feed, container, false);
         groupname = getArguments().getString("groupname");
+        username = getArguments().getString("username");
 
         goto_barchart=view.findViewById(R.id.btn_barchart);
         goto_map=view.findViewById(R.id.btn_groupmap);
@@ -64,6 +65,7 @@ public class feed extends Fragment implements View.OnClickListener {
                 //go to group bar chart
                 if (groupname == null) {
                     Intent itmap = new Intent(getActivity(),PersonalPieChart.class);
+                    itmap.putExtra("username", username);
                     startActivity(itmap);
                 } else {
                     Intent itchart = new Intent(getActivity(),GroupBarChart.class);
@@ -75,6 +77,7 @@ public class feed extends Fragment implements View.OnClickListener {
                 //go to group map
                 if (groupname == null) {
                     Intent itPmap = new Intent(getActivity(),PersonalMap.class);
+                    itPmap.putExtra("username", username);
                     startActivity(itPmap);
                 } else {
                     Intent itGchart = new Intent(getActivity(),GroupMap.class);

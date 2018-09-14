@@ -78,9 +78,10 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_group_bar_chart);
 
         groupname = getIntent().getExtras().getString("groupname");
+        TextView title = findViewById(R.id.textView9);
+        title.setText(groupname + " Chart");
         back=findViewById(R.id.bc_back);
         back.setOnClickListener(this);
-
         getSpinnerItem();
 
         //set token
