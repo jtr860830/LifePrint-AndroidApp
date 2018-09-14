@@ -86,7 +86,7 @@ public class Addmember extends DialogFragment implements View.OnClickListener {
                 AdduserID = userID.getEditableText().toString();
                 //抓到groupname
                 HAMP.Post(AdduserID, groupname, postUrl, token);
-
+                getActivity().recreate();
                 break;
         }
     }

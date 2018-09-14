@@ -66,7 +66,6 @@ public class AddGroup extends AppCompatActivity implements View.OnClickListener,
 
         ad_groupname=findViewById(R.id.ag_name);
 
-
         group_pic=findViewById(R.id.group_pic);
 
         ag_notification=findViewById(R.id.ag_toggleButton);

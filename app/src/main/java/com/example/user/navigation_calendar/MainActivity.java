@@ -209,10 +209,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         other = menu.addSubMenu("Others");
         other.add(3,3,Menu.FIRST,"About Us").setIcon(R.drawable.phonebook);
         other.add(3,4,Menu.FIRST,"Exit").setIcon(R.drawable.exit);
-
     }
-
-
 
     public void parseJSON(String result, List<PerInfoCard> trans) {
         try {

@@ -63,7 +63,7 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
     TextView end_time;
     Spinner group;
     Spinner category;
-    private String[] category_list = {"Party","Dinner","Travel","Business","Others"}; //宣告字串陣列
+    private String[] category_list = {"聚會","聚餐","出遊","公事","其他"}; //宣告字串陣列
     private ArrayAdapter<String> category_listAdapter; //喧告listAdapter物件
     ArrayList<String> groupname_list = new ArrayList<>();
     private ArrayAdapter<String> groupname_listAdapter;
@@ -231,6 +231,7 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
                 Log.d("LATITUDE****", String.valueOf(latitude));
                 longitude = data.getDoubleExtra("longitude", 0);
                 Log.d("LONGITUDE****", String.valueOf(longitude));
+                Toast.makeText(this, "經度：" + String.valueOf(latitude) + " " +"緯度：" + String.valueOf(longitude), Toast.LENGTH_LONG).show();
                 address = data.getStringExtra("location_address");
                 Log.d("ADDRESS****", String.valueOf(address));
                 //String postalcode = data.getStringExtra("zipcode");
@@ -321,7 +322,17 @@ public class NewEvent extends AppCompatActivity implements View.OnClickListener 
                     Stitle=new_title.getEditableText().toString();
                     Sstart=start_date.getText().toString()+"T"+start_time.getText().toString()+":00Z";
                     Send=end_date.getText().toString()+"T"+end_time.getText().toString()+":00Z";
-                    Scategory=category.getSelectedItem().toString();
+                    if (category.getSelectedItem().toString().equals("聚會")) {
+                        Scategory = "Party";
+                    } else if (category.getSelectedItem().toString().equals("聚餐")) {
+                        Scategory = "Dinner";
+                    } else if (category.getSelectedItem().toString().equals("出遊")) {
+                        Scategory = "Travel";
+                    } else if (category.getSelectedItem().toString().equals("公事")) {
+                        Scategory = "Business";
+                    } else {
+                        Scategory = "Others";
+                    }
                     Sgroup=group.getSelectedItem().toString();
                     Slocation=new_location.getEditableText().toString();
 

@@ -32,7 +32,7 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
 
     ImageButton GMback;
     //下拉式選單
-    private String[] Gcategory_list = {"All","Party","Business","Dinner","Travel","Others"}; //宣告字串陣列
+    private String[] Gcategory_list = {"所有類別","聚會","公事","聚餐","出遊","其他"}; //宣告字串陣列
     private ArrayAdapter<String> Gcategory_listAdapter; //喧告listAdapter物件
     Spinner Gcategory;
 
@@ -108,7 +108,7 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
         Gcategory.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
             public void onItemSelected(AdapterView adapterView, View view, int position, long id){
                 Toast.makeText(GroupMap.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
-                if (adapterView.getSelectedItem().toString().equals("All")) {
+                if (adapterView.getSelectedItem().toString().equals("所有類別")) {
                     Gcategory.setBackgroundColor(getResources().getColor(R.color.white));
                     mMap.clear();
                     for (int i = 0; i < mapData.size(); i++) {
@@ -145,7 +145,7 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
                         }
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
                     }
-                } else if (adapterView.getSelectedItem().toString().equals("Business")) {
+                } else if (adapterView.getSelectedItem().toString().equals("公事")) {
                     Gcategory.setBackgroundColor(getResources().getColor(R.color.block1));
                     mMap.clear();
                     for (int i = 0; i < mapData.size(); i++) {
@@ -158,7 +158,7 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
                         }
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
                     }
-                } else if (adapterView.getSelectedItem().toString().equals("Party")) {
+                } else if (adapterView.getSelectedItem().toString().equals("聚會")) {
                     Gcategory.setBackgroundColor(getResources().getColor(R.color.block2));
                     mMap.clear();
                     for (int i = 0; i < mapData.size(); i++) {
@@ -171,7 +171,7 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
                         }
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
                     }
-                } else if (adapterView.getSelectedItem().toString().equals("Dinner")) {
+                } else if (adapterView.getSelectedItem().toString().equals("聚餐")) {
                     Gcategory.setBackgroundColor(getResources().getColor(R.color.block3));
                     mMap.clear();
                     for (int i = 0; i < mapData.size(); i++) {
@@ -184,7 +184,7 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
                         }
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
                     }
-                } else if (adapterView.getSelectedItem().toString().equals("Travel")) {
+                } else if (adapterView.getSelectedItem().toString().equals("出遊")) {
                     Gcategory.setBackgroundColor(getResources().getColor(R.color.block4));
                     mMap.clear();
                     for (int i = 0; i < mapData.size(); i++) {
@@ -197,7 +197,7 @@ public class GroupMap extends AppCompatActivity implements View.OnClickListener,
                         }
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mapData.get(i).getE(), mapData.get(i).getN()), 10.0f));
                     }
-                } else if (adapterView.getSelectedItem().toString().equals("Others")) {
+                } else if (adapterView.getSelectedItem().toString().equals("其他")) {
                     Gcategory.setBackgroundColor(getResources().getColor(R.color.block5));
                     mMap.clear();
                     for (int i = 0; i < mapData.size(); i++) {
