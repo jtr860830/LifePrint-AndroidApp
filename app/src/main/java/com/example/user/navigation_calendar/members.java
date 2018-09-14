@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -56,6 +57,7 @@ public class members extends Fragment implements View.OnClickListener {
     private String resultJSON;
     private String groupname;
     List<memberCard> trans;
+    SwipeRefreshLayout mRefreshLayout;
 
     public members() {
         // Required empty public constructor
@@ -69,6 +71,17 @@ public class members extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_members, container, false);
         add = view.findViewById(R.id.Add);
+
+        mRefreshLayout = view.findViewById(R.id.layout_swipe_refresh);
+        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            public void onRefresh() {
+                trans.clear();
+                HMG.Get(getUrl, token, groupname);
+                resultJSON = HMG.getTt();
+                parseJSON(resultJSON, trans);
+                mRefreshLayout.setRefreshing(false);
+            }
+        });
 
         //set token
         NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
