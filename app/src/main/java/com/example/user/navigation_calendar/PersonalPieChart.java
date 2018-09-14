@@ -77,7 +77,7 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_pie_chart);
         String username = getIntent().getExtras().getString("username");
-        TextView title = findViewById(R.id.textView9);
+        TextView title = findViewById(R.id.textView10);
         title.setText(username + " Chart");
 
         back=findViewById(R.id.ppc_back);
