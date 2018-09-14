@@ -57,9 +57,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 switch (msg.what) {
                     case 2:
                         String ss = (String) msg.obj;
-                        //Toast.makeText(Login.this, ss, Toast.LENGTH_LONG).show();
+                        Toast.makeText(Login.this, "登入成功", Toast.LENGTH_LONG).show();
                         getToken(ss);
-                        Intent itCalendar = new Intent(Login.this,MainActivity.class);
+                        Intent itCalendar = new Intent(Login.this, MainActivity.class);
                         startActivity(itCalendar);
                         break;
                     case 3:
@@ -79,7 +79,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         try {
             JSONObject jsonObject= new JSONObject(s);
             token=jsonObject.getString("token");
-            Toast.makeText(Login.this, token, Toast.LENGTH_LONG).show();
+            //Toast.makeText(Login.this, token, Toast.LENGTH_LONG).show();
 
             //寫入token
             SharedPreferences sharedPreferences = PreferenceManager
