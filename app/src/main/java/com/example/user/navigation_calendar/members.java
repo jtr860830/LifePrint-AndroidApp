@@ -79,6 +79,8 @@ public class members extends Fragment implements View.OnClickListener {
                 HMG.Get(getUrl, token, groupname);
                 resultJSON = HMG.getTt();
                 parseJSON(resultJSON, trans);
+                adapter = new memberAdapter(trans);
+                recyclerView.setAdapter(adapter);
                 mRefreshLayout.setRefreshing(false);
             }
         });
