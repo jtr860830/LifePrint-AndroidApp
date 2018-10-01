@@ -196,7 +196,9 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.ppc_back:
-                finish();
+                //finish();
+                Intent ittt=new Intent(this,PersonalBarChart.class);
+                startActivity(ittt);
                 break;
 
         }
