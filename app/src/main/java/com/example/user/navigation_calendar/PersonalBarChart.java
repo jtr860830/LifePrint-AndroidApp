@@ -1,35 +1,23 @@
 package com.example.user.navigation_calendar;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.LegendEntry;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,7 +26,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonalPieChart extends AppCompatActivity implements View.OnClickListener {
+public class PersonalBarChart extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton back;
 
@@ -49,7 +37,7 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
 
     //宣告字串陣列
     private String[]month_list = {"1 month","2 month","3 month","4 month","5 month","6 month",
-                                    "7 month","8 month","9 month","10 month","11 month","12 month"};
+            "7 month","8 month","9 month","10 month","11 month","12 month"};
     private ArrayAdapter<String> month_listAdapter; //喧告listAdapter物件
     Spinner month;
 
@@ -59,42 +47,34 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
     Spinner year;
 
     //存放要Get的訊息
-    private String pie_getUrl = "https://sd.jezrien.one/user/analysis/2";
-    Http_Get HPG;
-
-
+    private String bar_getUrl = "https://sd.jezrien.one/user/analysis/1";
+    Http_Get HBG;
 
     SharedPreferences NsharedPreferences;
     private String token;
     private String resultJSON;
 
-    List<PieEntry> pieData = new ArrayList<>();
+    List<BarEntry> barData = new ArrayList<>();
     ArrayList barstr = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_personal_pie_chart);
+        setContentView(R.layout.activity_personal_bar_chart);
 
-        String username = getIntent().getExtras().getString("username");
-        TextView title = findViewById(R.id.textView10);
-        title.setText(username + " Chart");
 
-        back=findViewById(R.id.ppc_back);
+        back=findViewById(R.id.pbc_back);
         back.setOnClickListener(this);
         getSpinnerItem();
 
         //set token
         NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         token = NsharedPreferences.getString("TOKEN", "");
-
-
-        //get_pie
-        HPG = new Http_Get();
-        HPG.Get(pie_getUrl,token);
-        resultJSON = HPG.getTt();
-        pie_parseJSON(resultJSON);
-
+        //get_bar
+        HBG = new Http_Get();
+        HBG.Get(bar_getUrl,token);
+        resultJSON = HBG.getTt();
+        bar_parseJSON(resultJSON);
 
         ArrayList<Integer> colors = new ArrayList<Integer>();
         colors.add(getResources().getColor(R.color.group1));
@@ -103,21 +83,21 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
         colors.add(getResources().getColor(R.color.group4));
         colors.add(getResources().getColor(R.color.group5));
 
-        // Pie
-        PieChart pieChart = findViewById(R.id.chart_pie);
-        PieDataSet dataSet = new PieDataSet(pieData, "Group");
-        dataSet.setColors(colors);
-        PieData piedata = new PieData(dataSet);
-        piedata.setDrawValues(true);
-        pieChart.setHoleRadius(0);
-        pieChart.setTransparentCircleRadius(0);
-        pieChart.setData(piedata);
-        pieChart.invalidate();
-
+        // Bar
+        BarChart barChart = findViewById(R.id.chart_bar);
+        barChart.setDrawValueAboveBar(true);
+        BarDataSet barDataSet = new BarDataSet(barData, "Group");
+        barDataSet.setColors(colors);
+        BarData bardata = new BarData(barDataSet);
+        barChart.getXAxis().setDrawGridLines(false);
+        barChart.getAxisLeft().setDrawGridLines(false);
+        barChart.getAxisRight().setDrawGridLines(false);
+        barChart.setDrawGridBackground(false);
+        barChart.setData(bardata);
+        barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(barstr));
+        barChart.invalidate();
 
     }
-
-
     public void getSpinnerItem(){
 
         //選擇"週"的下拉式選單
@@ -130,10 +110,10 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
         //設定項目被選取之後的動作
         week.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
             public void onItemSelected(AdapterView adapterView, View view, int position, long id){
-                Toast.makeText(PersonalPieChart.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(PersonalBarChart.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
             }
             public void onNothingSelected(AdapterView arg0) {
-                Toast.makeText(PersonalPieChart.this, "您沒有選擇任何項目", Toast.LENGTH_LONG).show();
+                Toast.makeText(PersonalBarChart.this, "您沒有選擇任何項目", Toast.LENGTH_LONG).show();
             }
         });
         //選擇"月"的下拉式選單
@@ -146,10 +126,10 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
         //設定項目被選取之後的動作
         month.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
             public void onItemSelected(AdapterView adapterView, View view, int position, long id){
-                Toast.makeText(PersonalPieChart.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(PersonalBarChart.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
             }
             public void onNothingSelected(AdapterView arg0) {
-                Toast.makeText(PersonalPieChart.this, "您沒有選擇任何項目", Toast.LENGTH_LONG).show();
+                Toast.makeText(PersonalBarChart.this, "您沒有選擇任何項目", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -163,42 +143,41 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
         //設定項目被選取之後的動作
         year.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
             public void onItemSelected(AdapterView adapterView, View view, int position, long id){
-                Toast.makeText(PersonalPieChart.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(PersonalBarChart.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
             }
             public void onNothingSelected(AdapterView arg0) {
-                Toast.makeText(PersonalPieChart.this, "您沒有選擇任何項目", Toast.LENGTH_LONG).show();
+                Toast.makeText(PersonalBarChart.this, "您沒有選擇任何項目", Toast.LENGTH_LONG).show();
             }
         });
 
 
     }
 
-    public void pie_parseJSON(String result) {
+    public void bar_parseJSON(String result) {
         try {
             JSONArray array = new JSONArray(result);
-            for (int i=0; i<array.length(); i++){
+            for (int i=0; i<array.length() || i<5; i++){
                 JSONObject obj = array.getJSONObject(i);
 
-                String Pgroupname=obj.getString("Groupname");
-                Double Pcnt = obj.getDouble("Cnt");
+                String Bgroupname=obj.getString("Groupname");
+                Integer Bcnt = obj.getInt("Cnt");
 
-                pieData.add(new PieEntry(Pcnt.floatValue(), Pgroupname));
+                barData.add(new BarEntry(i, Bcnt));
+                barstr.add(Bgroupname);
 
-                Log.d("JSON:",Pgroupname+"/"+Pcnt);
+                Log.d("JSON:",Bgroupname + "/" + Bcnt);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.ppc_back:
+            case R.id.pbc_back:
                 finish();
                 break;
-
         }
     }
 }
