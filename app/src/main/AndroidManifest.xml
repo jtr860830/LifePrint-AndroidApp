@@ -68,7 +68,8 @@
         <activity android:name=".PersonalMap" />
         <activity android:name=".GroupMap" />
         <activity android:name=".AboutUs" />
-        <activity android:name=".PersonalBarChart"></activity>
+        <activity android:name=".PersonalBarChart" />
+        <activity android:name=".GroupLineChart"></activity>
     </application>
 
 </manifest>
