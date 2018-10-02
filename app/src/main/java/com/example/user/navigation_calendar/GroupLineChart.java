@@ -74,6 +74,8 @@ public class GroupLineChart extends AppCompatActivity implements View.OnClickLis
         token = NsharedPreferences.getString("TOKEN", "");
 
         // get_line
+        groupname = getIntent().getExtras().getString("groupname");
+        HGLG = new Http_Get();
         HGLG.Get(groupline_getUrl, token, groupname);
         resultJSON = HGLG.getTt();
         line_parseJSON(resultJSON);

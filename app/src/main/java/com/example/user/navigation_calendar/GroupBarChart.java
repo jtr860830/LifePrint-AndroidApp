@@ -197,8 +197,6 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
                 Toast.makeText(GroupBarChart.this, "您沒有選擇任何項目", Toast.LENGTH_LONG).show();
             }
         });
-
-
     }
 
 
@@ -209,11 +207,10 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.button_linechart:
-                Intent itlinechart=new Intent(GroupBarChart.this,GroupLineChart.class);
+                Intent itlinechart = new Intent(GroupBarChart.this,GroupLineChart.class);
+                itlinechart.putExtra("groupname", groupname);
                 startActivity(itlinechart);
         }
     }
 
 }
-
-
