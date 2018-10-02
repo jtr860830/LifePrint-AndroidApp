@@ -3,15 +3,22 @@ package com.example.user.navigation_calendar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.constraint.Guideline;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -71,10 +78,29 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
     List<PieEntry> pieData = new ArrayList<>();
     ArrayList barstr = new ArrayList();
 
+    //viewpager
+    private ViewPager viewPager;
+    private PagerAdapter adapter;
+    private List<View> viewPages= new ArrayList<>();
+    //包覆下面點點的linearLayout
+    private ViewGroup group;
+    private ImageView imageView;
+    //存放生成的小點
+    private ImageView[] imageViews;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_pie_chart);
+
+        //viewPager
+        initView();
+        initPageAdapter();
+        initPointer();
+        initEvent();
+        initButton();
+
 
         String username = getIntent().getExtras().getString("username");
         TextView title = findViewById(R.id.textView10);
@@ -115,6 +141,63 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
         pieChart.invalidate();
 
 
+    }
+
+    private void  initView(){
+        viewPager= (ViewPager)findViewById(R.id.viewPager);
+        group= (ViewGroup)findViewById(R.id.viewGroup);
+
+    }
+    private void initPageAdapter(){
+        LayoutInflater inflater= LayoutInflater.from(this);
+        View page_barchart= inflater.inflate(R.layout.activity_personal_bar_chart,null);
+
+        viewPages.add(page_barchart);
+
+        adapter= new PagerAdapter() {
+            @Override
+            public int getCount() {
+                return viewPages.size();
+            }
+
+            @Override
+            public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
+                return view == object;
+            }
+
+            @Override
+            public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+                container.removeView(viewPages.get(position));
+            }
+
+            @NonNull
+            @Override
+            public Object instantiateItem(@NonNull ViewGroup container, int position) {
+                View view= viewPages.get(position);
+                container.addView(view);
+                return view;
+            }
+
+        };
+    }
+
+
+    private void initPointer(){
+        //看有幾個頁面
+        imageViews = new ImageView[viewPages.size()];
+        for (int i=0;i<imageViews.length;i++){
+            imageView = new ImageView(this);
+            //設置控件的高寬
+            imageView.setLayoutParams(new ViewGroup.LayoutParams(25,25));
+        }
+
+    }
+    private void initEvent(){
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new GuidePageChangeListener());
+    }
+    private void initButton(){
+        
     }
 
 
