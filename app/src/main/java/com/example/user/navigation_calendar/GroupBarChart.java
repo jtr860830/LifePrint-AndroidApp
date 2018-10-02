@@ -1,5 +1,6 @@
 package com.example.user.navigation_calendar;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -83,6 +85,10 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
         back=findViewById(R.id.bc_back);
         back.setOnClickListener(this);
         getSpinnerItem();
+
+        Button btn=findViewById(R.id.button_linechart);
+        btn.setOnClickListener(this);
+
 
         //set token
         NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -202,6 +208,9 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
             case R.id.bc_back:
                 finish();
                 break;
+            case R.id.button_linechart:
+                Intent itlinechart=new Intent(GroupBarChart.this,GroupLineChart.class);
+                startActivity(itlinechart);
         }
     }
 
