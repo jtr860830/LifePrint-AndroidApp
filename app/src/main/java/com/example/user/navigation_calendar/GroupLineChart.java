@@ -117,7 +117,7 @@ public class GroupLineChart extends AppCompatActivity implements View.OnClickLis
     public void getSpinnerItem(){
 
         //選擇"週"的下拉式選單
-        barweek=findViewById(R.id.groupbar_spinner1);
+        barweek=findViewById(R.id.groupline_spinner1);
         //建立一個ArrayAdapter物件，並放置下拉選單的內容
         barweek_listAdapter = new ArrayAdapter<String>(this, R.layout.myspinner, lineweek_list);
         //設定下拉選單的樣式
@@ -133,7 +133,7 @@ public class GroupLineChart extends AppCompatActivity implements View.OnClickLis
             }
         });
         //選擇"月"的下拉式選單
-        barmonth=findViewById(R.id.groupbar_spinner2);
+        barmonth=findViewById(R.id.groupline_spinner2);
         //建立一個ArrayAdapter物件，並放置下拉選單的內容
         barmonth_listAdapter = new ArrayAdapter<String>(this, R.layout.myspinner, linemonth_list);
         //設定下拉選單的樣式
@@ -150,7 +150,7 @@ public class GroupLineChart extends AppCompatActivity implements View.OnClickLis
         });
 
         //選擇"年"的下拉式選單
-        baryear=findViewById(R.id.groupbar_spinner3);
+        baryear=findViewById(R.id.groupline_spinner3);
         //建立一個ArrayAdapter物件，並放置下拉選單的內容
         baryear_listAdapter = new ArrayAdapter<String>(this, R.layout.myspinner, lineyear_list);
         //設定下拉選單的樣式
