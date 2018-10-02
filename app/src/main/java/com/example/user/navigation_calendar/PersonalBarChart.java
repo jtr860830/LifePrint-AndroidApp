@@ -101,7 +101,7 @@ public class PersonalBarChart extends AppCompatActivity implements View.OnClickL
     public void getSpinnerItem(){
 
         //選擇"週"的下拉式選單
-        week=findViewById(R.id.spinner2);
+        week=findViewById(R.id.spinner22);
         //建立一個ArrayAdapter物件，並放置下拉選單的內容
         week_listAdapter = new ArrayAdapter<String>(this, R.layout.myspinner, week_list);
         //設定下拉選單的樣式
@@ -117,7 +117,7 @@ public class PersonalBarChart extends AppCompatActivity implements View.OnClickL
             }
         });
         //選擇"月"的下拉式選單
-        month=findViewById(R.id.spinner3);
+        month=findViewById(R.id.spinner33);
         //建立一個ArrayAdapter物件，並放置下拉選單的內容
         month_listAdapter = new ArrayAdapter<String>(this, R.layout.myspinner, month_list);
         //設定下拉選單的樣式
@@ -134,7 +134,7 @@ public class PersonalBarChart extends AppCompatActivity implements View.OnClickL
         });
 
         //選擇"年"的下拉式選單
-        year=findViewById(R.id.spinner4);
+        year=findViewById(R.id.spinner44);
         //建立一個ArrayAdapter物件，並放置下拉選單的內容
         year_listAdapter = new ArrayAdapter<String>(this, R.layout.myspinner, year_list);
         //設定下拉選單的樣式
