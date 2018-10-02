@@ -55,7 +55,7 @@ public class GroupLineChart extends AppCompatActivity implements View.OnClickLis
     private String resultJSON;
 
     private String groupline_getUrl = "https://sd.jezrien.one/user/group/analysis/2";
-    Http_Get HGBG;
+    Http_Get HGLG;
 
     ArrayList barstr = new ArrayList();
 
@@ -74,8 +74,8 @@ public class GroupLineChart extends AppCompatActivity implements View.OnClickLis
         token = NsharedPreferences.getString("TOKEN", "");
 
         // get_line
-        HGBG.Get(groupline_getUrl, token, groupname);
-        resultJSON = HGBG.getTt();
+        HGLG.Get(groupline_getUrl, token, groupname);
+        resultJSON = HGLG.getTt();
         line_parseJSON(resultJSON);
 
         ArrayList<Integer> colors = new ArrayList<Integer>();

@@ -62,14 +62,14 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
     private String groupname = null;
 
     List<BarEntry> GroupbarData = new ArrayList<>();
-    List<Entry> GrouplineData = new ArrayList<>();
+
 
     SharedPreferences NsharedPreferences;
     private String token;
     private String resultJSON;
 
     private String groupbar_getUrl = "https://sd.jezrien.one/user/group/analysis/1";
-    private String groupline_getUrl = "https://sd.jezrien.one/user/group/analysis/2";
+
     Http_Get HGBG;
 
     ArrayList barstr = new ArrayList();

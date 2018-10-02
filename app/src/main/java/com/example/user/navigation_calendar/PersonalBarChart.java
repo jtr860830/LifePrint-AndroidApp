@@ -48,7 +48,7 @@ public class PersonalBarChart extends AppCompatActivity implements View.OnClickL
 
     //存放要Get的訊息
     private String bar_getUrl = "https://sd.jezrien.one/user/analysis/1";
-    Http_Get HBG;
+    Http_Get HPBG;
 
     SharedPreferences NsharedPreferences;
     private String token;
@@ -71,9 +71,9 @@ public class PersonalBarChart extends AppCompatActivity implements View.OnClickL
         NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         token = NsharedPreferences.getString("TOKEN", "");
         //get_bar
-        HBG = new Http_Get();
-        HBG.Get(bar_getUrl,token);
-        resultJSON = HBG.getTt();
+        HPBG = new Http_Get();
+        HPBG.Get(bar_getUrl,token);
+        resultJSON = HPBG.getTt();
         bar_parseJSON(resultJSON);
 
         ArrayList<Integer> colors = new ArrayList<Integer>();
