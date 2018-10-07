@@ -12,7 +12,7 @@
         android:layout_height="64dp"
         android:background="@color/underBar"
         android:gravity="center"
-        android:text="Personal Analysis (2/1)"
+        android:text="Personal Analysis (1/2)"
         android:textColor="@color/darkRed"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
