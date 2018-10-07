@@ -41,22 +41,7 @@ import java.util.Set;
 public class GroupBarChart extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton back;
-
-    //宣告字串陣列
-    private String[] barweek_list = {"1 week","2 week","3 week"}; //宣告字串陣列
-    private ArrayAdapter<String> barweek_listAdapter; //喧告listAdapter物件
-    Spinner barweek;
-
-    //宣告字串陣列
-    private String[] barmonth_list = {"1 month","2 month","3 month","4 month","5 month","6 month",
-            "7 month","8 month","9 month","10 month","11 month","12 month"};
-    private ArrayAdapter<String> barmonth_listAdapter; //喧告listAdapter物件
-    Spinner barmonth;
-
-    //宣告字串陣列
-    private String[] baryear_list = {"1 year","2 year","3 year","4 year","5 year"};
-    private ArrayAdapter<String> baryear_listAdapter; //喧告listAdapter物件
-    Spinner baryear;
+    ImageButton gline;
 
     private StringBuffer stringBuffer;
     private String groupname = null;
@@ -81,13 +66,11 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
 
         groupname = getIntent().getExtras().getString("groupname");
         TextView title = findViewById(R.id.textView9);
-        title.setText(groupname + " Chart");
+        title.setText(groupname + " Analysis (1/2)");
         back=findViewById(R.id.bc_back);
         back.setOnClickListener(this);
-        getSpinnerItem();
-
-        Button btn=findViewById(R.id.button_linechart);
-        btn.setOnClickListener(this);
+        gline=findViewById(R.id.imgbtn_glinechart);
+        gline.setOnClickListener(this);
 
 
         //set token
@@ -144,72 +127,17 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
         }
     }
 
-
-
-    public void getSpinnerItem(){
-
-        //選擇"週"的下拉式選單
-        barweek=findViewById(R.id.groupbar_spinner1);
-        //建立一個ArrayAdapter物件，並放置下拉選單的內容
-        barweek_listAdapter = new ArrayAdapter<String>(this, R.layout.myspinner, barweek_list);
-        //設定下拉選單的樣式
-        barweek_listAdapter.setDropDownViewResource(R.layout.myspinner_list);//android.R.layout.simple_spinner_dropdown_item
-        barweek.setAdapter(barweek_listAdapter);
-        //設定項目被選取之後的動作
-        barweek.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
-            public void onItemSelected(AdapterView adapterView, View view, int position, long id){
-                Toast.makeText(GroupBarChart.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
-            }
-            public void onNothingSelected(AdapterView arg0) {
-                Toast.makeText(GroupBarChart.this, "您沒有選擇任何項目", Toast.LENGTH_LONG).show();
-            }
-        });
-        //選擇"月"的下拉式選單
-        barmonth=findViewById(R.id.groupbar_spinner2);
-        //建立一個ArrayAdapter物件，並放置下拉選單的內容
-        barmonth_listAdapter = new ArrayAdapter<String>(this, R.layout.myspinner, barmonth_list);
-        //設定下拉選單的樣式
-        barmonth_listAdapter.setDropDownViewResource(R.layout.myspinner_list);//android.R.layout.simple_spinner_dropdown_item
-        barmonth.setAdapter(barmonth_listAdapter);
-        //設定項目被選取之後的動作
-        barmonth.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
-            public void onItemSelected(AdapterView adapterView, View view, int position, long id){
-                Toast.makeText(GroupBarChart.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
-            }
-            public void onNothingSelected(AdapterView arg0) {
-                Toast.makeText(GroupBarChart.this, "您沒有選擇任何項目", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        //選擇"年"的下拉式選單
-        baryear=findViewById(R.id.groupbar_spinner3);
-        //建立一個ArrayAdapter物件，並放置下拉選單的內容
-        baryear_listAdapter = new ArrayAdapter<String>(this, R.layout.myspinner, baryear_list);
-        //設定下拉選單的樣式
-        baryear_listAdapter.setDropDownViewResource(R.layout.myspinner_list);//android.R.layout.simple_spinner_dropdown_item
-        baryear.setAdapter(baryear_listAdapter);
-        //設定項目被選取之後的動作
-        baryear.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
-            public void onItemSelected(AdapterView adapterView, View view, int position, long id){
-                Toast.makeText(GroupBarChart.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
-            }
-            public void onNothingSelected(AdapterView arg0) {
-                Toast.makeText(GroupBarChart.this, "您沒有選擇任何項目", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bc_back:
                 finish();
                 break;
-            case R.id.button_linechart:
+            case R.id.imgbtn_glinechart:
                 Intent itlinechart = new Intent(GroupBarChart.this,GroupLineChart.class);
                 itlinechart.putExtra("groupname", groupname);
                 startActivity(itlinechart);
+                break;
         }
     }
 
