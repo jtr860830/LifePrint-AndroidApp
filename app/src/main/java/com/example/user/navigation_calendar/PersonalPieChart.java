@@ -47,7 +47,8 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
     private String pie_getUrl = "https://sd.jezrien.one/user/analysis/2";
     Http_Get HPG;
 
-
+    TextView NO1;
+    TextView NO2;
 
     SharedPreferences NsharedPreferences;
     private String token;
@@ -64,12 +65,15 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
 
         username = getIntent().getExtras().getString("username");
         TextView title = findViewById(R.id.textView10);
-        title.setText(username + " Analysis (2/1)");
+        title.setText(username + " Analysis (1/2)");
 
         back=findViewById(R.id.ppc_back);
         back.setOnClickListener(this);
         pbar=findViewById(R.id.imgbtn_pbarchart);
         pbar.setOnClickListener(this);
+
+        NO1=findViewById(R.id.NO1);
+        NO2=findViewById(R.id.NO2);
 
         //set token
         NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -105,6 +109,7 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
     public void pie_parseJSON(String result) {
         try {
             JSONArray array = new JSONArray(result);
+            Double no1=0.0;
             for (int i=0; i<array.length(); i++){
                 JSONObject obj = array.getJSONObject(i);
 
@@ -114,6 +119,13 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
                 pieData.add(new PieEntry(Pcnt.floatValue(), Pgroupname));
 
                 Log.d("JSON:",Pgroupname+"/"+Pcnt);
+
+                if (Pcnt.floatValue()>no1){
+                    no1= Double.valueOf(Pcnt.floatValue());
+                    NO1.setText(Pgroupname);
+                }
+
+
             }
         } catch (JSONException e) {
             e.printStackTrace();

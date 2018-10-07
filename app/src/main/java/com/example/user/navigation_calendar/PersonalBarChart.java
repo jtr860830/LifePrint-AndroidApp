@@ -1,5 +1,6 @@
 package com.example.user.navigation_calendar;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -43,12 +44,16 @@ public class PersonalBarChart extends AppCompatActivity implements View.OnClickL
     List<BarEntry> barData = new ArrayList<>();
     ArrayList barstr = new ArrayList();
 
+    String username;
+    TextView NO1;
+    TextView last;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_bar_chart);
 
-        String username = getIntent().getExtras().getString("username");
+        username = getIntent().getExtras().getString("username");
         TextView title = findViewById(R.id.textView30);
         title.setText(username + " Analysis (2/2)");
 
@@ -57,9 +62,14 @@ public class PersonalBarChart extends AppCompatActivity implements View.OnClickL
         ppie=findViewById(R.id.imgbtn_ppiechart);
         ppie.setOnClickListener(this);
 
+        //
+        NO1=findViewById(R.id.bar_no1);
+        last=findViewById(R.id.bar_no);
+
         //set token
         NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         token = NsharedPreferences.getString("TOKEN", "");
+
         //get_bar
         HPBG = new Http_Get();
         HPBG.Get(bar_getUrl,token);
@@ -92,6 +102,8 @@ public class PersonalBarChart extends AppCompatActivity implements View.OnClickL
     public void bar_parseJSON(String result) {
         try {
             JSONArray array = new JSONArray(result);
+            Integer no1=0;
+            Integer no=0;
             for (int i=0; i<array.length() || i<5; i++){
                 JSONObject obj = array.getJSONObject(i);
 
@@ -102,6 +114,18 @@ public class PersonalBarChart extends AppCompatActivity implements View.OnClickL
                 barstr.add(Bgroupname);
 
                 Log.d("JSON:",Bgroupname + "/" + Bcnt);
+
+                if (Bcnt.intValue()>no1){
+                    no1= Integer.valueOf(Bcnt.intValue());
+                    NO1.setText(Bgroupname);
+                }
+                if(Bcnt.intValue() == no){
+                    last.setText(Bgroupname);
+                }else{
+                    last.setText("You are a warm person");
+                }
+
+
             }
         } catch (JSONException e) {
             e.printStackTrace();

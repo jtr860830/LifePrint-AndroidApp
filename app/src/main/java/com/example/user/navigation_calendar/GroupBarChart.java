@@ -59,6 +59,10 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
 
     ArrayList barstr = new ArrayList();
 
+    TextView leader;
+    TextView nextone;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +76,9 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
         gline=findViewById(R.id.imgbtn_glinechart);
         gline.setOnClickListener(this);
 
+        //
+        leader=findViewById(R.id.textView39);
+        nextone=findViewById(R.id.textView41);
 
         //set token
         NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -111,6 +118,8 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
     public void bar_parseJSON(String result) {
         try {
             JSONArray array = new JSONArray(result);
+            Integer no1=0;
+            Integer no=0;
             for (int i=0; i<array.length() || i<5; i++){
                 JSONObject obj = array.getJSONObject(i);
 
@@ -121,6 +130,18 @@ public class GroupBarChart extends AppCompatActivity implements View.OnClickList
                 barstr.add(groupname);
 
                 Log.d("JSON:",groupname+"/"+cnt);
+
+                if (cnt.intValue()>no1){
+                    no1=Integer.valueOf(cnt.intValue());
+                    leader.setText(groupname);
+                }
+                if(cnt.intValue() == no){
+                    nextone.setText(groupname);
+                }else{
+                    nextone.setText("大家都不是邊緣人");
+                }
+
+
             }
         } catch (JSONException e) {
             e.printStackTrace();

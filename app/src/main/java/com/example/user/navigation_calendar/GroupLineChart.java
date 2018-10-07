@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,9 @@ public class GroupLineChart extends AppCompatActivity implements View.OnClickLis
 
     ArrayList barstr = new ArrayList();
 
+    TextView high;
+    TextView middle;
+    TextView low;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,11 @@ public class GroupLineChart extends AppCompatActivity implements View.OnClickLis
         back.setOnClickListener(this);
         gbar=findViewById(R.id.imgbtn_gbarchart);
         gbar.setOnClickListener(this);
+
+        //
+        high=findViewById(R.id.textView45);
+        middle=findViewById(R.id.textView46);
+        low=findViewById(R.id.textView47);
 
         //set token
         NsharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -96,11 +105,16 @@ public class GroupLineChart extends AppCompatActivity implements View.OnClickLis
     public void line_parseJSON(String result) {
         try {
             JSONArray array = new JSONArray(result);
+
+
             for (int i=0; i<array.length(); i++){
                 JSONObject obj = array.getJSONObject(i);
                 Integer cnt = obj.getInt("Cnt");
                 GrouplineData.add(new Entry(i, cnt));
                 Log.d("JSON:",groupname+"/"+cnt);
+
+
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
