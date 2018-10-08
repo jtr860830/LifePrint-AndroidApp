@@ -50,6 +50,8 @@ public class GroupLineChart extends AppCompatActivity implements View.OnClickLis
     TextView middle;
     TextView low;
 
+    String[] heartBeat = new String[3];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +67,9 @@ public class GroupLineChart extends AppCompatActivity implements View.OnClickLis
         gbar.setOnClickListener(this);
 
         //
+        heartBeat[0] = "";
+        heartBeat[1] = "";
+        heartBeat[2] = "";
         high=findViewById(R.id.textView45);
         middle=findViewById(R.id.textView46);
         low=findViewById(R.id.textView47);
@@ -79,6 +84,10 @@ public class GroupLineChart extends AppCompatActivity implements View.OnClickLis
         HGLG.Get(groupline_getUrl, token, groupname);
         resultJSON = HGLG.getTt();
         line_parseJSON(resultJSON);
+
+        high.setText(heartBeat[0]);
+        middle.setText(heartBeat[1]);
+        low.setText(heartBeat[2]);
 
         ArrayList<Integer> colors = new ArrayList<Integer>();
         colors.add(getResources().getColor(R.color.group1));
@@ -109,10 +118,16 @@ public class GroupLineChart extends AppCompatActivity implements View.OnClickLis
 
             for (int i=0; i<array.length(); i++){
                 JSONObject obj = array.getJSONObject(i);
-                Integer cnt = obj.getInt("Cnt");
+                int cnt = obj.getInt("Cnt");
                 GrouplineData.add(new Entry(i, cnt));
                 Log.d("JSON:",groupname+"/"+cnt);
-
+                if (cnt == 0) {
+                    heartBeat[2] += " " + (i+1) + "月";
+                } else if (cnt >= 5 && cnt < 10) {
+                    heartBeat[1] += " " + (i+1) + "月";
+                } else if (cnt >= 10) {
+                    heartBeat[0] += " " + (i+1) + "月";
+                }
 
 
             }
