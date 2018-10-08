@@ -141,7 +141,7 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.imgbtn_pbarchart:
                 Intent ittt = new Intent(this,PersonalBarChart.class);
-                ittt.putExtra(username, "username");
+                ittt.putExtra("username", username);
                 startActivity(ittt);
                 break;
         }
