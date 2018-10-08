@@ -109,20 +109,22 @@ public class PersonalPieChart extends AppCompatActivity implements View.OnClickL
     public void pie_parseJSON(String result) {
         try {
             JSONArray array = new JSONArray(result);
-            Double no1=0.0;
+            Double max=0.0;
+            Double sec=null;
             for (int i=0; i<array.length(); i++){
                 JSONObject obj = array.getJSONObject(i);
-
                 String Pgroupname=obj.getString("Groupname");
                 Double Pcnt = obj.getDouble("Cnt");
-
                 pieData.add(new PieEntry(Pcnt.floatValue(), Pgroupname));
-
                 Log.d("JSON:",Pgroupname+"/"+Pcnt);
 
-                if (Pcnt.floatValue()>no1){
-                    no1= Double.valueOf(Pcnt.floatValue());
+                if (Pcnt.floatValue()>max){
+                    sec=max;
+                    max=Double.valueOf(Pcnt.floatValue());
                     NO1.setText(Pgroupname);
+                }else if(Pcnt.floatValue()>sec && Pcnt.floatValue()<max){
+                    sec=Double.valueOf(Pcnt.floatValue());
+                    NO2.setText(Pgroupname);
                 }
 
 

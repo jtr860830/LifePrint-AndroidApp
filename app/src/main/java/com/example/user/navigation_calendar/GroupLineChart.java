@@ -114,7 +114,8 @@ public class GroupLineChart extends AppCompatActivity implements View.OnClickLis
     public void line_parseJSON(String result) {
         try {
             JSONArray array = new JSONArray(result);
-
+            Integer max=0;
+            Integer min=0;
 
             for (int i=0; i<array.length(); i++){
                 JSONObject obj = array.getJSONObject(i);
@@ -128,6 +129,9 @@ public class GroupLineChart extends AppCompatActivity implements View.OnClickLis
                 } else if (cnt >= 10) {
                     heartBeat[0] += " " + (i+1) + "月";
                 }
+
+
+
 
 
             }
